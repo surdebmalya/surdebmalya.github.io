@@ -244,6 +244,36 @@ h3 {
 	color: var(--main-fonts-color);
 }
 
+#cv p {
+	padding: 10px;
+	text-align: center;
+	font-size: 1.2rem;
+	font-family: var(--main-font-family);
+}
+
+.cv-button {
+	padding-top: 50px;
+	display: flex;
+	position: center;
+	align-items: space-around;
+	justify-content: center;
+}
+
+.cv-button a {
+	font-size: 2rem;
+	text-align: center;
+	display: inline-block;
+	color: var(--main-fonts-color);
+	cursor: pointer;
+	text-decoration: none;
+	font-family: 'Poppins', sans-serif;
+}
+
+.cv-button a:hover {
+	color: var(--main-decor-color);
+	text-shadow: 0 0 50px var(--main-decor-color);
+}
+
 /*──────────────────
       Contact
 ──────────────────*/
@@ -292,6 +322,37 @@ footer {
 
 .copyright a:hover {
 	color: var(--main-decor-color);
+}
+
+/*────────────────── 
+    Back to Top
+──────────────────*/
+
+.back-to-top {
+	position: fixed;
+	display: none;
+	width: 40px;
+	height: 40px;
+	border-radius: 50px;
+	right: 15px;
+	bottom: 15px;
+	background: #149ddd;
+	color: #fff;
+	transition: display 0.5s ease-in-out;
+	z-index: 1000;
+}
+
+.back-to-top i {
+	font-size: 24px;
+	position: absolute;
+	top: 7px;
+	left: 8px;
+}
+
+.back-to-top:hover {
+	color: #fff;
+	background: #2eafec;
+	transition: background 0.2s ease-in-out;
 }
 
 /*──── hr ─────*/
