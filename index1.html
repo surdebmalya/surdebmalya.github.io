@@ -11,6 +11,23 @@
 </head>
 
 <body>
+    <style>
+        ::-webkit-Scrollbar {
+            width: 5px;
+            background: rgba(5, 5, 5, 1);
+        }
+
+        ::-webkit-Scrollbar-thumb {
+            border-radius: 10px;
+            background: var(--main-decor-color);
+            box-shadow: inset 0 0 20px var(--main-decor-color);
+        }
+
+        ::-webkit-Scrollbar-track {
+            margin-top: 80px;
+            border-radius: 10px;
+        }
+    </style>
     <!-- Hero Section -->
     <section class="w-full px-3 antialiased bg-indigo-600 lg:px-6">
         <br>
@@ -29,6 +46,14 @@
                     class="max-w-lg mx-auto mt-6 text-sm text-center text-indigo-200  sm:text-base md:max-w-xl md:text-lg xl:text-xl">
                     Energetic and Life Long Learner.</div>
                 <br>
+                <div class="flex justify-center">
+                    <button
+                        class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
+                        GitHub Profile
+                    </button>
+
+                </div>
+                <br>
                 <br>
                 <br>
             </div>
@@ -44,8 +69,7 @@
                         class="w-full pb-6 space-y-6 sm:max-w-md lg:max-w-lg md:space-y-4 lg:space-y-8 xl:space-y-9 sm:pr-5 lg:pr-0 md:pb-0">
                         <h1
                             class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-4xl lg:text-5xl xl:text-6xl">
-                            <span class="block xl:inline">About</span>
-                            <span class="block text-indigo-600 xl:inline">Me!</span>
+                            <span class="block text-indigo-600 xl:inline">About Me!</span>
                         </h1>
                         <p class="mx-auto text-base text-gray-500 sm:max-w-md lg:text-xl md:max-w-3xl">
                             Currently I'm pursuing my B.Tech degree from Government College of Engineering and Ceramic
@@ -78,8 +102,12 @@
                             <a href="https://surdebmalya.hashnode.dev/" class="text-gray-400 hover:text-gray-500">
                                 <span class="sr-only">Hashnode</span>
                                 <svg class="w-9 h-9" fill="currentColor" viewBox="0 0 256 278" aria-hidden="true">
-                                    <path d="M32.9272,44.703 L95.0732,8.823 C115.4482,-2.941 140.5522,-2.941 160.9272,8.823 L223.0732,44.703 C243.4482,56.467 256.0002,78.207 256.0002,101.735 L256.0002,175.595 C256.0002,199.123 243.4482,220.863 223.0732,232.627 L160.9272,268.507 C140.5522,280.271 115.4482,280.271 95.0732,268.507 L32.9272,230.526 C12.5522,218.762 0.0002,197.022 0.0002,173.494 L0.0002,101.735 C0.0002,78.207 12.5522,56.467 32.9272,44.703"></path>
-		                            <path d="M181.2346,177.976 L139.7676,104.8 C133.6036,93.862 121.9066,94.293 117.7046,109.79 C114.0266,124.368 115.0286,138.206 113.9576,154.812 C113.9406,155.074 113.5856,155.137 113.4686,154.903 L76.4956,80.957 C79.4276,78.7 81.3246,75.165 81.3246,71.178 C81.3246,64.36 75.7976,58.833 68.9796,58.833 C62.1616,58.833 56.6346,64.36 56.6346,71.178 C56.6346,77.997 62.1616,83.524 68.9796,83.524 C69.4876,83.524 69.9846,83.484 70.4766,83.424 C86.0486,123.521 103.3946,170.252 109.5616,180.972 C113.6756,191.304 128.1796,188.036 128.4726,176.919 L130.0146,118.451 C130.0226,118.148 130.4386,118.069 130.5566,118.349 L160.3546,189.092 C158.6566,192.177 157.6876,195.72 157.6876,199.49 C157.6876,211.426 167.3636,221.102 179.2986,221.102 C191.2346,221.102 200.9106,211.426 200.9106,199.49 C200.9106,188.208 192.2616,178.956 181.2346,177.976" fill="#FFFFFF"></path>
+                                    <path
+                                        d="M32.9272,44.703 L95.0732,8.823 C115.4482,-2.941 140.5522,-2.941 160.9272,8.823 L223.0732,44.703 C243.4482,56.467 256.0002,78.207 256.0002,101.735 L256.0002,175.595 C256.0002,199.123 243.4482,220.863 223.0732,232.627 L160.9272,268.507 C140.5522,280.271 115.4482,280.271 95.0732,268.507 L32.9272,230.526 C12.5522,218.762 0.0002,197.022 0.0002,173.494 L0.0002,101.735 C0.0002,78.207 12.5522,56.467 32.9272,44.703">
+                                    </path>
+                                    <path
+                                        d="M181.2346,177.976 L139.7676,104.8 C133.6036,93.862 121.9066,94.293 117.7046,109.79 C114.0266,124.368 115.0286,138.206 113.9576,154.812 C113.9406,155.074 113.5856,155.137 113.4686,154.903 L76.4956,80.957 C79.4276,78.7 81.3246,75.165 81.3246,71.178 C81.3246,64.36 75.7976,58.833 68.9796,58.833 C62.1616,58.833 56.6346,64.36 56.6346,71.178 C56.6346,77.997 62.1616,83.524 68.9796,83.524 C69.4876,83.524 69.9846,83.484 70.4766,83.424 C86.0486,123.521 103.3946,170.252 109.5616,180.972 C113.6756,191.304 128.1796,188.036 128.4726,176.919 L130.0146,118.451 C130.0226,118.148 130.4386,118.069 130.5566,118.349 L160.3546,189.092 C158.6566,192.177 157.6876,195.72 157.6876,199.49 C157.6876,211.426 167.3636,221.102 179.2986,221.102 C191.2346,221.102 200.9106,211.426 200.9106,199.49 C200.9106,188.208 192.2616,178.956 181.2346,177.976"
+                                        fill="#FFFFFF"></path>
                                 </svg>
                             </a>
 
@@ -104,18 +132,37 @@
     </section>
 
     <!-- CV Section -->
+    <!-- <section class="text-gray-600 body-font" id="cv">
+        <div class="container px-5 py-24 mx-auto">
+            <div class="lg:w-2/3 flex flex-col sm:flex-row sm:items-center items-start mx-auto">
+                <h1 class="flex-grow sm:pr-16 text-2xl font-medium title-font text-gray-900">
+                    I love to work on large scale system and web application development.
+                </h1>
+                <button onClick="openTab(this)" name="Resume.pdf" target="_blank"
+                    class="flex-shrink-0 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg mt-10 sm:mt-0">
+                    My CV
+                </button>
+                <script>
+                    // Open PDF
+                    function openTab(th) {
+                        window.open(th.name, '_blank');
+                    }
+                </script>
+            </div>
+        </div>
+    </section> -->
     <section class="py-20 bg-white" id="cv">
         <div class="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl md:text-5xl xl:text-6xl">
-                My Curriculum Vitae
-            </h2>
+            <h1
+                class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-4xl lg:text-5xl xl:text-6xl">
+                <span class="block text-indigo-600 xl:inline">My Curriculum Vitae</span>
+            </h1>
             <p class="max-w-md mx-auto mt-3 text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-                You can see my curriculum vitae by clicking the button below.
+                I love to work on large scale system and web application development.
             </p>
             <div class="flex justify-center mt-8 space-x-3">
-                <a onClick="openTab(this)" name="Resume.pdf" target="_blank" style="cursor: pointer;"
-                    class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow hover:bg-indigo-700">
-                    Veiw Here
+                <a onClick="openTab(this)" name="Resume.pdf" target="_blank" style="font-size: 23px; cursor: pointer;">
+                    <u style="text-decoration-line: underline; text-decoration-color: rgb(214, 179, 62);">My CV</u>
                 </a>
                 <script>
                     // Open PDF
@@ -130,9 +177,11 @@
     <!-- Project Section -->
     <section class="py-20 bg-white" id="project">
         <div class="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl md:text-5xl xl:text-6xl">
-                My Projects
-            </h2>
+            <h1
+                class="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-4xl lg:text-5xl xl:text-6xl">
+                <span class="block text-indigo-600 xl:inline">My Projects</span>
+            </h1>
+
             <p class="max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
                 Here are few of my projects.
             </p>
@@ -143,9 +192,8 @@
         <div
             class="box-border flex flex-col items-center content-center px-8 mx-auto leading-6 text-black border-0 border-gray-300 border-solid md:flex-row max-w-7xl lg:px-16">
             <div
-                class="box-border relative w-full max-w-md px-4 mt-5 mb-4 -ml-5 text-center bg-no-repeat bg-contain border-solid md:ml-0 md:mt-0 md:max-w-none lg:mb-0 md:w-1/2 xl:pl-10">
-                <img src="https://i.ibb.co/nnZqn4n/Baud-News.png"
-                    class="p-2 pl-6 pr-5 xl:pl-16 xl:pr-20 ">
+                class=" box-border relative w-full max-w-md px-4 mt-5 mb-4 -ml-5 text-center bg-no-repeat bg-contain border-solid md:ml-0 md:mt-0 md:max-w-none lg:mb-0 md:w-1/2 xl:pl-10">
+                <img src="https://i.ibb.co/87Ncjrw/Baud-news-banner.png" class="p-2 pl-6 pr-5 xl:pl-16 xl:pr-20 ">
             </div>
             <div class="box-border order-first w-full text-black border-solid md:w-1/2 md:pl-10 md:order-none">
                 <h2 class="m-0 text-xl font-semibold leading-tight border-0 border-gray-300 lg:text-3xl md:text-2xl">
@@ -155,7 +203,8 @@
                     A web application that provides personalized News articles on various fields in Free of cost.
                     <br>
                     <a href="https://thebaudnews.surdebmalya11.repl.co/" target="_blank">
-                    <b>Web View</b>
+                        <u style="text-decoration-line: underline; text-decoration-color: rgb(214, 179, 62);"><b>Web
+                                View</b></u>
                     </a>
                 </p>
                 <ul class="p-0 m-0 leading-6 border-0 border-gray-300">
@@ -167,7 +216,8 @@
                     <li class="box-border relative py-1 pl-0 text-left text-gray-500 border-solid">
                         <span
                             class="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-yellow-300 rounded-full"><span
-                                class="text-sm font-bold">✓</span></span> Used Flask in backend, with Login & session feature
+                                class="text-sm font-bold">✓</span></span> Used Flask in backend, with Login & session
+                        feature
                     </li>
                     <li class="box-border relative py-1 pl-0 text-left text-gray-500 border-solid">
                         <span
@@ -189,9 +239,11 @@
                     A web game application to measure the strength of friendship between two person.
                     <br>
                     <a href="https://friendship-calculator.surdebmalya11.repl.co/" target="_blank">
-                    <b>Web View</b>
+                        <u style="text-decoration-line: underline; text-decoration-color: rgb(214, 179, 62);"><b>Web
+                                View</b></u>
                     </a> | <a href="https://github.com/surdebmalya/Friendship-Meter" target="_blank">
-                        <b>GitHub</b>
+                        <u
+                            style="text-decoration-line: underline; text-decoration-color: rgb(214, 179, 62);"><b>GitHub</b></u>
                     </a>
                 </p>
                 <ul class="p-0 m-0 leading-6 border-0 border-gray-300">
@@ -214,8 +266,7 @@
             </div>
             <div
                 class="box-border relative w-full max-w-md px-4 mt-10 mb-4 text-center bg-no-repeat bg-contain border-solid md:mt-0 md:max-w-none lg:mb-0 md:w-1/2">
-                <img src="https://i.ibb.co/q5SmGw3/fm.png"
-                    class="pl-4 sm:pr-10 xl:pl-10 lg:pr-32">
+                <img src="https://i.ibb.co/m5K81fZ/freindship-meter-banner.png" class="pl-4 sm:pr-10 xl:pl-10 lg:pr-32">
             </div>
         </div>
         <br><br>
@@ -224,7 +275,7 @@
             class="box-border flex flex-col items-center content-center px-8 mx-auto leading-6 text-black border-0 border-gray-300 border-solid md:flex-row max-w-7xl lg:px-16">
             <div
                 class="box-border relative w-full max-w-md px-4 mt-5 mb-4 -ml-5 text-center bg-no-repeat bg-contain border-solid md:ml-0 md:mt-0 md:max-w-none lg:mb-0 md:w-1/2 xl:pl-10">
-                <img src="https://i.ibb.co/PQVn9yg/bcp.png"
+                <img src="https://i.ibb.co/XYf6mNY/breast-cancer-prediction.png"
                     class="p-2 pl-6 pr-5 xl:pl-16 xl:pr-20 ">
             </div>
             <div class="box-border order-first w-full text-black border-solid md:w-1/2 md:pl-10 md:order-none">
@@ -232,12 +283,15 @@
                     Breast Cancer Detection
                 </h2>
                 <p class="pt-4 pb-8 m-0 leading-7 text-gray-700 border-0 border-gray-300 sm:pr-12 xl:pr-32 lg:text-lg">
-                    It's a Machine Learning Classification Project to predict the type of Breast Cancer the person has. There's a web view made by streamlit framework.
+                    It's a Machine Learning Classification Project to predict the type of Breast Cancer the person has.
+                    There's a web view made by streamlit framework.
                     <br>
                     <a href="https://breast-cancer-analysis.herokuapp.com/" target="_blank">
-                    <b>Web View</b>
+                        <u style="text-decoration-line: underline; text-decoration-color: rgb(214, 179, 62);"><b>Web
+                                View</b></u>
                     </a> | <a href="https://github.com/surdebmalya/Breast-Cancer-Analysis" target="_blank">
-                        <b>GitHub</b>
+                        <u
+                            style="text-decoration-line: underline; text-decoration-color: rgb(214, 179, 62);"><b>GitHub</b></u>
                     </a>
                 </p>
                 <ul class="p-0 m-0 leading-6 border-0 border-gray-300">
@@ -260,15 +314,19 @@
             class="box-border flex flex-col items-center content-center px-8 mx-auto mt-2 leading-6 text-black border-0 border-gray-300 border-solid md:mt-20 xl:mt-0 md:flex-row max-w-7xl lg:px-16">
             <div class="box-border w-full text-black border-solid md:w-1/2 md:pl-6 xl:pl-32">
                 <h2 class="m-0 text-xl font-semibold leading-tight border-0 border-gray-300 lg:text-3xl md:text-2xl">
-                    Students' Registration System 
+                    Students' Registration System
                 </h2>
                 <p class="pt-4 pb-8 m-0 leading-7 text-gray-700 border-0 border-gray-300 sm:pr-10 lg:text-lg">
-                    A Desktop Application where a student can register themselves and generate Registration Card with the help of this application.
+                    A Desktop Application where a student can register themselves and generate Registration Card with
+                    the help of this application.
                     <br>
-                    <a href="https://github.com/surdebmalya/Students-Registration-System-With-Python-Programming-Language" target="_blank">
-                        <b>GitHub</b>
+                    <a href="https://github.com/surdebmalya/Students-Registration-System-With-Python-Programming-Language"
+                        target="_blank">
+                        <u
+                            style="text-decoration-line: underline; text-decoration-color: rgb(214, 179, 62);"><b>GitHub</b></u>
                     </a> | <a href="https://youtu.be/tpgpMzhdufA" target="_blank">
-                        <b>YouTube</b>
+                        <u
+                            style="text-decoration-line: underline; text-decoration-color: rgb(214, 179, 62);"><b>YouTube</b></u>
                     </a>
                 </p>
                 <ul class="p-0 m-0 leading-6 border-0 border-gray-300">
@@ -280,7 +338,7 @@
                     <li class="box-border relative py-1 pl-0 text-left text-gray-500 border-solid">
                         <span
                             class="inline-flex items-center justify-center w-6 h-6 mr-2 text-white bg-yellow-300 rounded-full"><span
-                                class="text-sm font-bold">✓</span></span> SQLite is used to control local database 
+                                class="text-sm font-bold">✓</span></span> SQLite is used to control local database
                     </li>
                     <li class="box-border relative py-1 pl-0 text-left text-gray-500 border-solid">
                         <span
@@ -291,8 +349,7 @@
             </div>
             <div
                 class="box-border relative w-full max-w-md px-4 mt-10 mb-4 text-center bg-no-repeat bg-contain border-solid md:mt-0 md:max-w-none lg:mb-0 md:w-1/2">
-                <img src="https://i.ibb.co/HHG9FCw/srs.png"
-                    class="pl-4 sm:pr-10 xl:pl-10 lg:pr-32">
+                <img src="https://i.ibb.co/7ztGNHs/student-reg-system.png" class="pl-4 sm:pr-10 xl:pl-10 lg:pr-32">
             </div>
         </div>
         <br><br>
@@ -301,22 +358,26 @@
             class="box-border flex flex-col items-center content-center px-8 mx-auto leading-6 text-black border-0 border-gray-300 border-solid md:flex-row max-w-7xl lg:px-16">
             <div
                 class="box-border relative w-full max-w-md px-4 mt-5 mb-4 -ml-5 text-center bg-no-repeat bg-contain border-solid md:ml-0 md:mt-0 md:max-w-none lg:mb-0 md:w-1/2 xl:pl-10">
-                <img src="https://i.ibb.co/0JVJFWF/codr.png"
-                    class="p-2 pl-6 pr-5 xl:pl-16 xl:pr-20 ">
+                <img src="https://i.ibb.co/80rGxcc/cat-or-dog-recognizer.png" class="p-2 pl-6 pr-5 xl:pl-16 xl:pr-20 ">
             </div>
             <div class="box-border order-first w-full text-black border-solid md:w-1/2 md:pl-10 md:order-none">
                 <h2 class="m-0 text-xl font-semibold leading-tight border-0 border-gray-300 lg:text-3xl md:text-2xl">
                     Cat or Dog Recognizer
                 </h2>
                 <p class="pt-4 pb-8 m-0 leading-7 text-gray-700 border-0 border-gray-300 sm:pr-12 xl:pr-32 lg:text-lg">
-                    It is a Deep Learning Classification project where the model will predict the given image is a image of a Cat or a Dog. There is a web view of this project where user can give image to predict it.
+                    It is a Deep Learning Classification project where the model will predict the given image is a image
+                    of a Cat or a Dog. There is a web view of this project where user can give image to predict it.
                     <br>
                     <a href="https://cat-and-dog-recognizer.herokuapp.com/" target="_blank">
-                        <b>Web View</b>
-                    </a> | <a href="https://github.com/surdebmalya/Cat-Or-Dog-Recognizer-Web-App-DL-streamlit" target="_blank">
-                        <b>GitHub</b>
+                        <u style="text-decoration-line: underline; text-decoration-color: rgb(214, 179, 62);"><b>Web
+                                View</b></u>
+                    </a> | <a href="https://github.com/surdebmalya/Cat-Or-Dog-Recognizer-Web-App-DL-streamlit"
+                        target="_blank">
+                        <u
+                            style="text-decoration-line: underline; text-decoration-color: rgb(214, 179, 62);"><b>GitHub</b></u>
                     </a> | <a href="https://www.youtube.com/watch?v=Hhi_jGyDk80" target="_blank">
-                        <b>YouTube</b>
+                        <u
+                            style="text-decoration-line: underline; text-decoration-color: rgb(214, 179, 62);"><b>YouTube</b></u>
                     </a>
                 </p>
                 <ul class="p-0 m-0 leading-6 border-0 border-gray-300">
@@ -342,7 +403,17 @@
                     COVID-19 Desktop Application
                 </h2>
                 <p class="pt-4 pb-8 m-0 leading-7 text-gray-700 border-0 border-gray-300 sm:pr-10 lg:text-lg">
-                    In this Desktop Application one can track the statistics of COVID-19 cases. This app was made to spread awareness.
+                    In this Desktop Application one can track the statistics of COVID-19 cases. This app was made to
+                    spread awareness.
+                    <br>
+                    <a href="https://github.com/surdebmalya/Fight-Against-COVID-19-Desktop-application-Python-Project"
+                        target="_blank">
+                        <u
+                            style="text-decoration-line: underline; text-decoration-color: rgb(214, 179, 62);"><b>GitHub</b></u>
+                    </a> | <a href="https://www.youtube.com/watch?v=ZPAEU0tlUxk" target="_blank">
+                        <u
+                            style="text-decoration-line: underline; text-decoration-color: rgb(214, 179, 62);"><b>YouTube</b></u>
+                    </a>
                 </p>
                 <ul class="p-0 m-0 leading-6 border-0 border-gray-300">
                     <li class="box-border relative py-1 pl-0 text-left text-gray-500 border-solid">
@@ -359,7 +430,7 @@
             </div>
             <div
                 class="box-border relative w-full max-w-md px-4 mt-10 mb-4 text-center bg-no-repeat bg-contain border-solid md:mt-0 md:max-w-none lg:mb-0 md:w-1/2">
-                <img src="https://i.ibb.co/F7PhttB/c19da.png"
+                <img src="https://i.ibb.co/mN1HB36/covid-19-desktop-application.png"
                     class="pl-4 sm:pr-10 xl:pl-10 lg:pr-32">
             </div>
         </div>
@@ -367,12 +438,17 @@
 
         <!-- More project button -->
         <div class="flex justify-center mt-8 space-x-3">
-            <a href="https://github.com/surdebmalya/" target="_blank" 
-                class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-indigo-700 bg-indigo-100 border border-transparent rounded-md hover:bg-indigo-200">
-                See All of My Projects
+            <a href="https://github.com/surdebmalya/" target="_blank"
+                class="text-indigo-500 inline-flex items-center">See All Projects
+                <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="M12 5l7 7-7 7"></path>
+                </svg>
             </a>
         </div>
     </section>
+    <br>
     <br>
     <br>
 
