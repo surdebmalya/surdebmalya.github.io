@@ -1,433 +1,345 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <!-- meta -->
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Debmalya Sur</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon.png">
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Montserrat", sans-serif
+        }
 
-  <title>Debmalya Sur</title>
-  <meta content="" name="keywords">
-  <meta content="" name="description">
+        .w3-row-padding img {
+            margin-bottom: 12px
+        }
 
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,700i|Playfair+Display:400,400i,700,700i,900,900i"
-    rel="stylesheet">
+        /* Set the width of the sidebar to 120px */
+        .w3-sidebar {
+            width: 120px;
+            background: #222;
+        }
 
-  <!-- Bootstrap CSS File -->
-  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+        #main {
+            margin-left: 120px
+        }
 
-  <!-- Libraries CSS Files -->
-  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-  <link href="lib/hover/hover.min.css" rel="stylesheet">
+        /* Remove margins from "page content" on small screens */
+        @media only screen and (max-width: 600px) {
+            #main {
+                margin-left: 0
+            }
+        }
 
-  <!-- Main Stylesheet File -->
-  <link href="css/style.css" rel="stylesheet">
-
-  <!-- Responsive css -->
-  <link href="css/responsive.css" rel="stylesheet">
-
-  <!-- Favicon -->
-  <link rel="shortcut icon" href="images/favicon.png">
-
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 </head>
 
-<body>
+<body class="w3-black">
 
-  <!-- start section navbar -->
-  <nav id="main-nav">
-    <div class="row">
-      <div class="container">
+    <!-- Icon Bar (Sidebar - hidden on small screens) -->
+    <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+        <!-- Avatar image in top left corner -->
+        <!-- <img src="images/profile.png" style="width:100%"> -->
+        <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+            <i class="fa fa-user w3-xxlarge"></i>
+            <p>ABOUT</p>
+        </a>
+        <a href="#skills" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+            <i class="fa fa-bookmark-o w3-xxlarge"></i>
+            <p>SKILLS</p>
+        </a>
+        <a href="#projects" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+            <i class="fa fa-code w3-xxlarge"></i>
+            <p>PROJECTS</p>
+        </a>
+        <a href="#blogs" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+            <i class="fa fa-pencil w3-xxlarge"></i>
+            <p>BLOGS</p>
+        </a>
+        <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+            <i class="fa fa-envelope w3-xxlarge"></i>
+            <p>CONTACT</p>
+        </a>
+    </nav>
 
-        <div class="logo">
-          <a href="index.html"><img src="images/logo.png" alt="logo"></a>
+    <!-- Navbar on small screens (Hidden on medium and large screens) -->
+    <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+        <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+            <a href="#" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
+            <a href="#skills" class="w3-bar-item w3-button" style="width:25% !important">SKILLS</a>
+            <a href="#projects" class="w3-bar-item w3-button" style="width:25% !important">PROJECTS</a>
+            <a href="#blogs" class="w3-bar-item w3-button" style="width:25% !important">BLOGS</a>
+            <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
+        </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="w3-padding-large" id="main">
+        <!-- Header/Home -->
+        <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
+            <h1 class="w3-jumbo"><span class="w3-hide-small">I'm</span> Debmalya Sur.</h1>
+            <p>Software Developer, Machine Learning Enthusiast and Theoretical Computer Science Specialist.</p>
+        </header>
+
+        <div style="font-size:1.25em;">
+            <!-- About Section -->
+            <div class="w3-content w3-justify w3-text-grey w3-padding-64">
+                <h2 class="w3-text-light-grey">About Me.</h2>
+                <hr style="width:200px" class="w3-opacity">
+                <p>
+                    I am a software developer who loves clean & simple design.
+                    I also enjoy machine learning stuffs and learning the theoretical concepts of computers.
+                </p>
+                <p>
+                    Currently I'm pursuing my B.Tech degree from Government College of Engineering
+                    and Ceramic Technology, Kolkata. Expected passout year is 2022. 
+                    Current CGPA with 9.86
+                </p>
+                <p>
+                    I got All India Rank 2492 in GATE 2021 on my 3<sup>rd</sup> Year.
+                </p>
+                <p>
+                    Secure 127<sup>th</sup> rank in
+                    <a href="https://seamo-official.org/" target="_blank">SEAMO</a>, 2017 from South East Asia region.
+                </p>
+                <div class="w3-section">
+                    <a href="https://github.com/surdebmalya/" style="text-decoration:none;">
+                        <i class="fa fa-github fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/debmalya-sur/" style="text-decoration:none;">
+                        <i class="fa fa-linkedin fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
+                    </a>
+                    <a href="mailto:surdebmalya2001@gmail.com" style="text-decoration:none;">
+                        <i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
+                    </a>
+                    <a href="https://twitter.com/DebmalyaSur" style="text-decoration:none;">
+                        <i class="fa fa-twitter fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- My Skills Section -->
+            <div class="w3-content w3-justify w3-text-grey w3-padding-40">
+                <h2 class="w3-padding-16 w3-text-light-grey" id="skills">My Skills.</h2>
+                <hr style="width:200px" class="w3-opacity">
+                <p class="w3-wide">Theoretical Computer Science</p>
+                <div class="w3-white">
+                    <div class="w3-dark-grey" style="height:28px;width:97%"></div>
+                </div>
+                <p class="w3-wide">Web Application Development</p>
+                <div class="w3-white">
+                    <div class="w3-dark-grey" style="height:28px;width:93%"></div>
+                </div>
+                <p class="w3-wide">Python</p>
+                <div class="w3-white">
+                    <div class="w3-dark-grey" style="height:28px;width:85%"></div>
+                </div>
+                <p class="w3-wide">Machine Learning</p>
+                <div class="w3-white">
+                    <div class="w3-dark-grey" style="height:28px;width:83%"></div>
+                </div>
+                <p class="w3-wide">Database Management</p>
+                <div class="w3-white">
+                    <div class="w3-dark-grey" style="height:28px;width:80%"></div>
+                </div>
+                <br>
+
+                <a href="./documents/Resume.pdf" target="_blank" style="text-decoration:none;">
+                    <button class="w3-button w3-light-grey w3-padding-large w3-section">
+                        <i class="fa fa-file" style="padding-right: 5px;"></i> See My Resume
+                    </button>
+                </a>
+            </div>
+
+            <!-- My Projects Section -->
+            <div class="w3-padding-64 w3-content w3-text-grey">
+                <h2 class="w3-text-light-grey" id="projects">My Projects.</h2>
+                <hr style="width:200px" class="w3-opacity">
+
+                <!-- Grid for projects -->
+                <style>
+                    .container {
+                        position: relative;
+                        max-width: 800px;
+                        margin: 0 auto;
+                    }
+
+                    .container img {
+                        vertical-align: middle;
+                    }
+
+                    .container .content {
+                        position: absolute;
+                        bottom: 0;
+                        background: rgb(0, 0, 0);
+                        /* Fallback color */
+                        background: rgba(0, 0, 0, 0.5);
+                        /* Black background with 0.5 opacity */
+                        color: #f1f1f1;
+                        width: 100%;
+                        padding: 20px;
+                    }
+                </style>
+                <div class="w3-row-padding" style="margin:0 -16px">
+                    <div class="w3-half">
+                        <div class="container">
+                            <img src="./images/baudnews.jpg" alt="Notebook" style="width:100%;">
+                            <div class="content">
+                                <h3>Baud News</h3>
+                                <p>
+                                    <a href="https://thebaudnews.surdebmalya11.repl.co/">
+                                        Know More >>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <img src="./images/breastcancerML.jpg" alt="Notebook" style="width:100%;">
+                            <div class="content">
+                                <h3>Breast Cancer Analysis ML Project</h3>
+                                <p>
+                                    <a href="https://github.com/surdebmalya/Breast-Cancer-Analysis">
+                                        Know More >>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w3-half">
+                        <div class="container">
+                            <img src="./images/regsystem.jpg" alt="Notebook" style="width:100%;">
+                            <div class="content">
+                                <h3>Students' Registration System</h3>
+                                <p>
+                                    <a
+                                        href="https://github.com/surdebmalya/Students-Registration-System-With-Python-Programming-Language">
+                                        Know More >>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <img src="./images/catordogDL.jpg" alt="Notebook" style="width:100%;">
+                            <div class="content">
+                                <h3>Cat or Dog Recognizer DL Project</h3>
+                                <p>
+                                    <a href="https://github.com/surdebmalya/Cat-Or-Dog-Recognizer-Web-App-DL-streamlit">
+                                        Know More >>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <img src="./images/memgame.jpg" alt="Notebook" style="width:100%;">
+                            <div class="content">
+                                <h3>Memorizing Game</h3>
+                                <p>
+                                    <a href="https://github.com/surdebmalya/Memorizing-Power-Game-by-Python">
+                                        Know More >>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- SEE MY ALL PROJECTS Section -->
+                <p style="text-align:center;">
+                    <a href="https://github.com/surdebmalya/" target="_blank" style="text-decoration:none;">
+                        <button class="w3-button w3-light-grey w3-padding-large">
+                            <i class="fa fa-code" style="padding-right: 5px;"></i> SEE ALL MY PROJECTS
+                        </button>
+                    </a>
+                </p>
+            </div>
+
+            <div class="w3-content w3-justify w3-text-grey w3-padding-40">
+                <!-- My Blogs -->
+                <h2 class="w3-text-light-grey" id="blogs">My Blogs.</h2>
+                <hr style="width:200px" class="w3-opacity">
+                <div class="w3-row-padding" style="margin:0 -16px">
+                    <div class="w3-half">
+                        <img src="./images/avatar-blog1.jpg" alt="Avatar" class="w3-left w3-circle w3-margin-right"
+                            style="width:80px">
+                        <p>Railway Announcement System Building</p>
+                        <p>
+                            <a href="https://surdebmalya.hashnode.dev/railway-announcement-system-building"
+                                target="_blank">
+                                Read Full Blog
+                            </a>
+                        </p><br>
+
+                        <img src="./images/avatar-blog2.jpg" alt="Avatar" class="w3-left w3-circle w3-margin-right"
+                            style="width:80px">
+                        <p>Memorizing Power Game</p>
+                        <p>
+                            <a href="https://surdebmalya.hashnode.dev/memorizing-power-game"
+                                target="_blank">
+                                Read Full Blog
+                            </a>
+                        </p><br>
+                    </div>
+                    <div class="w3-half">
+                        <p style="text-align:center;">
+                            <a href="https://surdebmalya.hashnode.dev/" target="_blank" style="text-decoration:none;">
+                                <button class="w3-button w3-light-grey w3-padding-large">
+                                    <i class="fa fa-pencil" style="padding-right: 5px;"></i> ALL MY BLOGS
+                                </button>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Me Section -->
+            <div class="w3-padding-64 w3-content w3-text-grey">
+                <h2 class="w3-text-light-grey" id="contact">Contact Me.</h2>
+                <hr style="width:200px" class="w3-opacity">
+
+                <div class="w3-section">
+                    <a href="https://github.com/surdebmalya/" style="text-decoration:none;">
+                        <i class="fa fa-github fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/debmalya-sur/" style="text-decoration:none;">
+                        <i class="fa fa-linkedin fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
+                    </a>
+                    <a href="mailto:surdebmalya2001@gmail.com" style="text-decoration:none;">
+                        <i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
+                    </a>
+                    <a href="https://twitter.com/DebmalyaSur" style="text-decoration:none;">
+                        <i class="fa fa-twitter fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
+                    </a>
+                </div>
+            </div>
         </div>
 
-        <div class="responsive"><i data-icon="m" class="ion-navicon-round"></i></div>
-
-        <ul class="nav-menu list-unstyled">
-          <li><a href="#header" class="smoothScroll">Home</a></li>
-          <li><a href="#about" class="smoothScroll">About</a></li>
-          <li><a href="#portfolio" class="smoothScroll">Portfolio</a></li>
-          <li><a href="#journal" class="smoothScroll">Blog</a></li>
-        </ul>
-
-      </div>
-    </div>
-  </nav>
-  <!-- End section navbar -->
-
-
-  <!-- start section header -->
-  <div id="header" class="home">
-
-    <div class="container">
-      <div class="header-content">
-        <h1>I'm <span class="typed"></span></h1>
-        <p>software developer, machine learning enthusiast, mathematician.</p>
-
-        <ul class="list-unstyled list-social">
-          <li><a href="https://github.com/surdebmalya/"><i class="ion-social-github"></i></a></li>
-          <li><a href="https://www.linkedin.com/in/debmalya-sur/"><i class="ion-social-linkedin"></i></a></li>
-          <li><a href="https://twitter.com/DebmalyaSur"><i class="ion-social-twitter"></i></a></li>
-          <li><a href="mailto:surdebmalya2001@gmail.com"><i class="ion-social-googleplus"></i></a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <!-- End section header -->
-
-
-  <!-- start section about us -->
-  <div id="about" class="paddsection">
-    <div class="container">
-      <div class="row justify-content-between">
-
-        <div class="col-lg-4 ">
-          <div class="div-img-bg">
-            <div class="about-img">
-              <img src="images/me.jpg" class="img-responsive" alt="me">
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-7">
-          <div class="about-descr">
-
-            <p class="p-heading">im a software developer who loves clean & simple design. i also enjoy playing with
-              number theory & machine learning stuffs. </p>
-            <p class="separator">
-              Currently I'm pursuing my B.Tech degree from Government College of Engineering and Ceramic Technology,
-              Kolkata. Expected passout year is 2022.
-              <br>
-              <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
-            <ul style="list-style: none; padding: 0;">
-              <li><i class="icofont-rounded-right"></i> I got All India Rank 2492 in GATE 2021 on my 3rd Year.</li>
-              <li><i class="icofont-rounded-right"></i> Secure 127<sup>th</sup> rank in <a
-                  href="https://seamo-official.org/">SEAMO</a>, 2017 from South East Asia region.</li>
-            </ul>
-            <div class="about-content">
-              <ul class="list-unstyled list-social">
-                <li><a href="https://github.com/surdebmalya/"><i class="ion-social-github-outline"></i></a></li>
-                <li><a href="https://www.linkedin.com/in/debmalya-sur/"><i class="ion-social-linkedin-outline"></i></a>
-                </li>
-                <li><a href="https://twitter.com/DebmalyaSur"><i class="ion-social-twitter-outline"></i></a></li>
-                <li><a href="mailto:surdebmalya2001@gmail.com"><i class="ion-social-googleplus-outline"></i></a></li>
-              </ul>
-            </div>
+        <!-- Footer -->
+        <hr class="w3-opacity">
+        <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
+            <p style="text-align:right; font-size:15px;">
+                <a href="./donation.html">DONATE ME</a> | © This website was made by Debmalya Sur with ❤️
             </p>
-          </div>
-        </div>
-      </div>
+            <!-- End footer -->
+        </footer>
+
+        <!-- END PAGE CONTENT -->
     </div>
-  </div>
-  <!-- end section about us -->
-
-
-  <!-- start section services -->
-  <div id="services">
-    <div class="container">
-
-      <div class="services-carousel owl-theme">
-        <div class="services-block">
-
-          <i class="ion-ios-lightbulb-outline"></i>
-          <span>BRAND IDENTITY</span>
-          <p class="separator">Built full scale news web service (Baud News) with user login features</p>
-
-        </div>
-
-        <div class="services-block">
-
-          <i class="ion-ios-color-wand-outline"></i>
-          <span>WEB DEVELOPMENT</span>
-          <p class="separator">Worked on specifically website building & development using flask </p>
-
-        </div>
-
-        <div class="services-block">
-
-          <i class="ion-ios-pie-outline"></i>
-          <span>Data Science</span>
-          <p class="separator">Spent time to do Machine Learning and Deep Learning projects </p>
-
-        </div>
-
-        <div class="services-block">
-
-          <i class="ion-ios-analytics-outline"></i>
-          <span>Data Analytics</span>
-          <p class="separator">Due to Machine Learning projects, worked on data mining and analysis </p>
-
-        </div>
-
-        <div class="services-block">
-
-          <i class="ion-ios-cloud-outline"></i>
-          <span>Database Management</span>
-          <p class="separator">Done projects using firebase, sql, mysql, sqlite3 as database </p>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-  <!-- end section services -->
-
-
-  <!-- start section portfolio -->
-  <div id="portfolio" class="text-left paddsection">
-
-    <div class="container">
-      <div class="section-title text-center">
-        <h2>My Portfolio</h2>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="journal-block">
-        <div class="row">
-
-          <div class="col-lg-4 col-md-6">
-            <div class="journal-info">
-
-              <a href="https://thebaudnews.surdebmalya11.repl.co/" target="_blank"><img src="images/portfolio/1.jpg"
-                  class="img-responsive" alt="img"></a>
-
-              <div class="journal-txt">
-
-                <h4><a href="https://thebaudnews.surdebmalya11.repl.co/" target="_blank">BAUD NEWS</a></h4>
-                <p class="separator">
-                  This is a full scale web service project made with flask, firebase & seld made REST APIs
-                </p>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6">
-            <div class="journal-info">
-
-              <a href="https://github.com/surdebmalya/Students-Registration-System-With-Python-Programming-Language" target="_blank"><img
-                  src="images/portfolio/2.jpg" class="img-responsive" alt="img"></a>
-
-              <div class="journal-txt">
-
-                <h4><a href="https://github.com/surdebmalya/Students-Registration-System-With-Python-Programming-Language" target="_blank">STUDENTS'
-                    REGISTRATION SYSTEM</a></h4>
-                <p class="separator">
-                  In this desktop application, I have used sqlite3 and tkinter with CRUD funtionalities
-                </p>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6">
-            <div class="journal-info">
-
-              <a href="https://github.com/surdebmalya/Cat-Or-Dog-Recognizer-Web-App-DL-streamlit" target="_blank"><img
-                  src="images/portfolio/3.jpg" class="img-responsive" alt="img"></a>
-
-              <div class="journal-txt">
-
-                <h4><a href="https://github.com/surdebmalya/Cat-Or-Dog-Recognizer-Web-App-DL-streamlit" target="_blank">
-                    CAT OR DOG RECOGNIZER - DL</a></h4>
-                <p class="separator">
-                  This classification deep learning project is based on convolutional neural network
-                </p>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6">
-            <div class="journal-info">
-
-              <a href="https://github.com/surdebmalya/Breast-Cancer-Analysis" target="_blank"><img
-                  src="images/portfolio/4.jpg" class="img-responsive" alt="img"></a>
-
-              <div class="journal-txt">
-
-                <h4><a href="https://github.com/surdebmalya/Breast-Cancer-Analysis" target="_blank">
-                    BREAST CANCER ANALYSIS - ML</a></h4>
-                <p class="separator">
-                  96.49% of accuracy achieved in this ML project that is trained on kaggle dataset
-                </p>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6">
-            <div class="journal-info">
-
-              <a href="https://github.com/surdebmalya/Memorizing-Power-Game-by-Python" target="_blank"><img
-                  src="images/portfolio/5.jpg" class="img-responsive" alt="img"></a>
-
-              <div class="journal-txt">
-
-                <h4><a href="https://github.com/surdebmalya/Memorizing-Power-Game-by-Python" target="_blank">
-                    MEMORIZING GAME</a></h4>
-                <p class="separator">
-                  I have used python to create this project & maintain local database for highest score
-                </p>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6">
-            <div class="journal-info">
-
-              <a href="https://github.com/surdebmalya/MRI-and-Alzheimers-Cross-Secton-Analysis" target="_blank"><img
-                  src="images/portfolio/6.jpg" class="img-responsive" alt="img"></a>
-
-              <div class="journal-txt">
-
-                <h4><a href="https://github.com/surdebmalya/MRI-and-Alzheimers-Cross-Secton-Analysis" target="_blank">    
-                    MRI & ALZHEIMERS ANALYSIS - ML</a></h4>
-                <p class="separator">
-                  0.145833 error achieved after applying XGBoost Regressor model for this regressor problem
-                </p>
-              </div>
-
-            </div>
-          </div>
-
-
-        </div>
-      </div>
-
-    </div>
-
-    <br><br>
-    <div class="container">
-      <div class="section-title text-center">
-        <input onclick="window.location.href='https://github.com/surdebmalya'" type="button"
-          class="btn btn-defeault btn-send" value="See All Projects">
-        <input onclick="window.location.href='https://surdebmalya.github.io/Resume.pdf'" type="button"
-          class="btn btn-defeault btn-send" value="See My CV">
-      </div>
-    </div>
-
-  </div>
-  <!-- End section portfolio -->
-
-
-  <!-- start section journal -->
-  <div id="journal" class="text-left paddsection">
-
-    <div class="container">
-      <div class="section-title text-center">
-        <h2>journal</h2>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="journal-block">
-        <div class="row">
-
-          <div class="col-lg-4 col-md-6">
-            <div class="journal-info">
-
-              <a href="https://surdebmalya.hashnode.dev/railway-announcement-system-building" target="_blank"><img
-                  src="images/blog-post-1.jpg" class="img-responsive" alt="img"></a>
-
-              <div class="journal-txt">
-
-                <h4><a href="https://surdebmalya.hashnode.dev/railway-announcement-system-building">RAILWAY ANNOUNCEMENT SYSTEM BUILDING</a></h4>
-
-              </div>
-
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6">
-            <div class="journal-info">
-
-              <a href="https://surdebmalya.hashnode.dev/memorizing-power-game" target="_blank"><img
-                  src="images/blog-post-2.jpg" class="img-responsive" alt="img"></a>
-
-              <div class="journal-txt">
-
-                <h4><a href="https://surdebmalya.hashnode.dev/memorizing-power-game">MEMORIZING POWER GAME</a></h4>
-
-              </div>
-
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6">
-            <div class="journal-info">
-
-              <a href="https://surdebmalya.hashnode.dev/making-a-basic-space-ship-game" target="_blank"><img
-                  src="images/blog-post-3.jpg" class="img-responsive" alt="img"></a>
-
-              <div class="journal-txt">
-
-                <h4><a href="https://surdebmalya.hashnode.dev/making-a-basic-space-ship-game">MAKING A SPACE-SHIP GAME</a></h4>
-
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="container">
-      <div class="section-title text-center">
-        <input onclick="window.location.href='https://surdebmalya.hashnode.dev/'" type="button"
-          class="btn btn-defeault btn-send" value="See My Blog">
-      </div>
-    </div>
-
-  </div>
-  <!-- End section journal -->
-
-  <!-- start section footer -->
-  <div id="footer" class="text-center">
-    <div class="container">
-      <div class="socials-media text-center">
-
-        <ul class="list-unstyled">
-          <li><a href="https://github.com/surdebmalya/" target="_blank"><i class="ion-social-github"></i></a></li>
-          <li><a href="https://www.linkedin.com/in/debmalya-sur/" target="_blank"><i
-                class="ion-social-linkedin"></i></a></li>
-          <li><a href="https://twitter.com/DebmalyaSur" target="_blank"><i class="ion-social-twitter"></i></a></li>
-          <li><a href="mailto:surdebmalya2001@gmail.com" target="_blank"><i class="ion-social-googleplus"></i></a></li>
-        </ul>
-
-      </div>
-
-      <p>&copy; Copyrights © 2021 Debmalya Sur | <a href="https://surdebmalya.github.io/donation.html">Donate Me</a>.
-        All rights reserved.</p>
-
-    </div>
-  </div>
-  <!-- End section footer -->
-
-  <!-- JavaScript Libraries -->
-  <script src="lib/jquery/jquery.min.js"></script>
-  <script src="lib/jquery/jquery-migrate.min.js"></script>
-  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="lib/typed/typed.js"></script>
-  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="lib/magnific-popup/magnific-popup.min.js"></script>
-  <script src="lib/isotope/isotope.pkgd.min.js"></script>
-
-  <!-- Contact Form JavaScript File -->
-  <script src="contactform/contactform.js"></script>
-
-  <!-- Template Main Javascript File -->
-  <script src="js/main.js"></script>
 
 </body>
 
