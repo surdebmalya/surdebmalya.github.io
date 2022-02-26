@@ -108,7 +108,7 @@
                 </p>
                 <p>
                     Currently I'm pursuing my B.Tech degree from Government College of Engineering
-                    and Ceramic Technology, Kolkata. Expected passout year is 2022. 
+                    and Ceramic Technology, Kolkata. Expected passout year is 2022.
                     Current CGPA with 9.86
                 </p>
                 <p>
@@ -135,36 +135,111 @@
             </div>
 
             <!-- My Skills Section -->
-            <div class="w3-content w3-text-grey w3-padding-40">
-                <h2 class="w3-padding-16 w3-text-light-grey" id="skills">My Skills.</h2>
+            <div class="w3-padding-64 w3-content w3-text-grey">
+                <h2 class="w3-text-light-grey" id="skills">My Skills.</h2>
                 <hr style="width:200px" class="w3-opacity">
-                <p class="w3-wide">Theoretical Computer Science</p>
-                <div class="w3-white">
-                    <div class="w3-dark-grey" style="height:28px;width:97%"></div>
-                </div>
-                <p class="w3-wide">Web Application Development</p>
-                <div class="w3-white">
-                    <div class="w3-dark-grey" style="height:28px;width:93%"></div>
-                </div>
-                <p class="w3-wide">Python</p>
-                <div class="w3-white">
-                    <div class="w3-dark-grey" style="height:28px;width:85%"></div>
-                </div>
-                <p class="w3-wide">Machine Learning</p>
-                <div class="w3-white">
-                    <div class="w3-dark-grey" style="height:28px;width:83%"></div>
-                </div>
-                <p class="w3-wide">Database Management</p>
-                <div class="w3-white">
-                    <div class="w3-dark-grey" style="height:28px;width:80%"></div>
+                <div class="w3-row-padding" style="margin:0 -16px">
+                    <style>
+                        * {
+                            box-sizing: border-box;
+                        }
+
+                        .row {
+                            margin-left: -5px;
+                            margin-right: -5px;
+                        }
+
+                        .column {
+                            float: left;
+                            width: 50%;
+                            padding: 5px;
+                        }
+
+                        /* Clearfix (clear floats) */
+                        .row::after {
+                            content: "";
+                            clear: both;
+                            display: table;
+                        }
+
+                        table {
+                            border-collapse: collapse;
+                            border-spacing: 0;
+                            width: 100%;
+                            border: 1px solid #ddd;
+                        }
+
+                        th,
+                        td {
+                            text-align: left;
+                            padding: 16px;
+                        }
+
+                        /* tr:nth-child(even) {
+                            background-color: #f2f2f2;
+                        } */
+
+                        @media screen and (max-width: 600px) {
+                            .column {
+                                width: 100%;
+                            }
+                        }
+                    </style>
+                    <div class="row">
+                        <div class="column">
+                            <table class="w3-wide w3-text-light-grey">
+                                <h2 class="w3-padding-16" style="text-align:center;">
+                                    Technical Skills
+                                </h2>
+                                <tr>
+                                    <td>1. Web Application Development</td>
+                                </tr>
+                                <tr>
+                                    <td>2. Python Language</td>
+                                </tr>
+                                <tr>
+                                    <td>3. Machine Learning</td>
+                                </tr>
+                                <tr>
+                                    <td>4. Deep Learning</td>
+                                </tr>
+                                <tr>
+                                    <td>5. Database (Firebase, SQL)</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="column">
+                            <table class="w3-wide w3-text-light-grey">
+                                <h2 class="w3-padding-16" style="text-align:center;">
+                                    Theoretical Skills
+                                </h2>
+                                <tr>
+                                    <td>1. Computer Organization</td>
+                                </tr>
+                                <tr>
+                                    <td>2. Operating System</td>
+                                </tr>
+                                <tr>
+                                    <td>3. Database Management</td>
+                                </tr>
+                                <tr>
+                                    <td>4. Data Structures & Algorithms</td>
+                                </tr>
+                                <tr>
+                                    <td>5. Automata & Compiler Design</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <br>
-
-                <a href="./documents/Resume.pdf" target="_blank" style="text-decoration:none;">
-                    <button class="w3-button w3-light-grey w3-padding-large w3-section">
-                        <i class="fa fa-file" style="padding-right: 5px;"></i> See My Resume
-                    </button>
-                </a>
+                <p style="text-align:center;">
+                    <a href="./documents/Resume.pdf" target="_blank" style="text-decoration:none;">
+                        <button class="w3-button w3-light-grey w3-padding-large w3-section">
+                            <i class="fa fa-file" style="padding-right: 5px;"></i> See My Resume
+                        </button>
+                    </a>
+                </p>
             </div>
 
             <!-- My Projects Section -->
@@ -269,9 +344,9 @@
                 </p>
             </div>
 
-            <div class="w3-content w3-text-grey w3-padding-40">
-                <!-- My Blogs -->
-                <h2 class="w3-text-light-grey" id="blogs">My Blogs.</h2>
+            <!-- My Blogs -->
+            <div class="w3-padding-64 w3-content w3-text-sgrey">
+                <h2 class="w3-text-light-grey" id="blog">My Blogs.</h2>
                 <hr style="width:200px" class="w3-opacity">
                 <div class="w3-row-padding" style="margin:0 -16px">
                     <div class="w3-half">
@@ -287,8 +362,7 @@
                         <img src="./images/avatar-blog2.jpg" alt="Avatar" class="w3-left w3-circle w3-margin-right"
                             style="width:80px">
                         <p>
-                            <a href="https://surdebmalya.hashnode.dev/memorizing-power-game"
-                                target="_blank">
+                            <a href="https://surdebmalya.hashnode.dev/memorizing-power-game" target="_blank">
                                 Memorizing Power Game
                             </a>
                         </p><br>
