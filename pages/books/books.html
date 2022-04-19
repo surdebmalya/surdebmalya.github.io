@@ -43,7 +43,7 @@
                 Specialist.</p>
         </div>
         <div class="w3-panel w3-large" style="text-align:center;">
-            <a href="./index.html" style="text-decoration:none;">
+            <a href="../../index.html" style="text-decoration:none;">
                 <i class="fa fa-globe w3-xlarge w3-hover-opacity" style="padding-right:5px;"></i>
             </a>
             <a href="https://github.com/surdebmalya/" style="text-decoration:none;">
@@ -173,28 +173,56 @@
             </div>
         </div>
 
+        <style>
+            select {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                margin-top: 6px;
+                resize: vertical;
+            }
+        </style>
         <div class="w3-container w3-padding-large w3-padding-32">
             <h2>Send Feedback</h2>
             <hr style="border: 0; border-top: 1px solid black; width:200px;" class="w3-opacity">
             <p>
                 If you love my work, wanna appriciate my work, please send your feedback to me ❤️
             </p>
-            <div style="text-align:center;">
+            <div>
                 <form action="https://api.web3forms.com/submit" method="POST">
                     <input type="hidden" name="access_key" value="d9fdd611-815b-4272-955d-86f5e5bcd877">
-                    <input type="hidden" name="subject"
-                        value="📌 Msg From 'Books By Debmalya' Feedback Form" />
-                    <input type="hidden" name="redirect" value="{{main_page_link}}/thanks">
-                    <p><input class="w3-input w3-border" type="text" placeholder="Name" required name="name"></p>
-                    <p><input class="w3-input w3-border" type="email" placeholder="Email" required name="email"></p>
-                    <p><input class="w3-input w3-border" type="subject" placeholder="Subject" required name="Subject"></p>
-                    <p><input class="w3-input w3-border" type="message" placeholder="Message" required name="message"></p>
-    
+                    <input type="hidden" name="subject" value="📌 Msg From 'Books By Debmalya' Feedback Form" />
+                    <input type="hidden" name="redirect" value="https://surdebmalya.github.io/coming-soon.html">
                     <p>
-                        <button class="w3-button w3-black" type="submit">
-                            <i class="fa fa-paper-plane" style="padding-right:10px;"></i> SEND YOUR FEEDBACK
-                        </button>
+                        <label for="name">Name</label>
+                        <input class="w3-input w3-border" type="text" placeholder="Enter your name" required
+                            name="name">
                     </p>
+                    <p>
+                        <label for="email">Email</label>
+                        <input class="w3-input w3-border" type="email" placeholder="Enter your email" required
+                            name="email">
+                    </p>
+                    <label for="subject">Subject</label>
+                    <select name="Subject" required>
+                        <option value="C-Part1">C Programming Handbook - Part 1</option>
+                        <option value="C-Part1">C Programming Handbook - Part 2</option>
+                        <option value="C-Part1">C Programming Handbook - Part 3</option>
+                    </select>
+                    <p>
+                        <label for="msg">Your Message</label>
+                        <input class="w3-input w3-border" type="message" placeholder="Write your message" required
+                            name="message">
+                    </p>
+                    <div style="text-align:center;">
+                        <p>
+                            <button class="w3-button w3-black w3-margin" type="submit">
+                                <i class="fa fa-paper-plane" style="padding-right:10px;"></i> SEND YOUR FEEDBACK
+                            </button>
+                        </p>
+                    </div>
                 </form>
             </div>
         </div>
