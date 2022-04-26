@@ -133,7 +133,7 @@
                     </div>
 
                     <div style="font-size:1.25em; padding-left: 2.5em; padding-top: 1.5em;">
-                        <a href="./../../coming-soon.html" style="text-decoration:none;">
+                        <a id="menu-share" style="text-decoration:none;">
                             <button style="border: solid 1px black;" class="w3-button w3-light-grey w3-padding-large">
                                 <i class="fa fa-share" style="padding-right: 5px;"></i> SHARE WITH FRIENDS
                             </button>
@@ -246,6 +246,28 @@
             document.getElementById("mySidebar").style.display = "none";
             document.getElementById("myOverlay").style.display = "none";
         }
+
+        // web sharing option
+        var shareButton = document.getElementById('menu-share');
+        shareButton.addEventListener('click', function () {
+            if (navigator.share) {
+                console.log("Congrats! Your browser supports Web Share API")
+                navigator.share({
+                    title: "C Programming Quick Start || DEBMALYA SUR",
+                    text: "Learn important points regarding the C programming language in a practical and interactive manner and recap in a detailed way.",
+                    url: "https://surdebmalya.github.io/pages/books/c-programming-quick-start.html"
+                })
+                    .then(function () {
+                        console.log("Shareing successfull")
+                    })
+                    .catch(function () {
+                        console.log("Sharing failed")
+                    })
+            } else {
+                console.log("Sorry! Your browser does not support Web Share API")
+                alert("Sorry! Your browser does not support Web Share API 😟... Please share the website by selecting this page link manually 😄");
+            }
+        })
     </script>
 
 </body>
