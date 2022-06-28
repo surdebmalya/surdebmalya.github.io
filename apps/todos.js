@@ -39,7 +39,7 @@ function update() {
     if (item.length == 0) {
         str += `
         <tr>
-            <td colspan="4" style="text-align: center;">
+            <td colspan="3" style="text-align: center;">
                 <i>No task is there</i>
             </td>
         </tr>
@@ -49,7 +49,6 @@ function update() {
         item.forEach((ele, i) => {
             str += `
             <tr>
-                <td>${i + 1}</td>
                 <td>${ele[0]}</td>
                 <td>${ele[1]}</td>
                 <td>
