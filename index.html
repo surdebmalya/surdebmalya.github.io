@@ -11,8 +11,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://surdebmalya.github.io/">
     <meta property="og:title" content="Hi 👋, I'm Debmalya Sur">
-    <meta property="og:description"
-        content="Software Dev, System Engg & Theoretical Computer Science Specialist.">
+    <meta property="og:description" content="Software Dev, System Engg & Theoretical Computer Science Specialist.">
     <meta property="og:image" content="https://surdebmalya.github.io/images/main-profile.jpg">
 
 
@@ -20,8 +19,7 @@
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://surdebmalya.github.io/">
     <meta property="twitter:title" content="Hi 👋, I'm Debmalya Sur">
-    <meta property="twitter:description"
-        content="Software Dev, System Engg & Theoretical Computer Science Specialist.">
+    <meta property="twitter:description" content="Software Dev, System Engg & Theoretical Computer Science Specialist.">
     <meta property="twitter:image" content="https://surdebmalya.github.io/images/main-profile.jpg">
 
     <!-- Linking css -->
@@ -112,6 +110,54 @@
         </div>
     </div>
 
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .row {
+            margin-left: -5px;
+            margin-right: -5px;
+        }
+
+        .column {
+            float: left;
+            width: 50%;
+            padding: 5px;
+        }
+
+        /* Clearfix (clear floats) */
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px 0 white, 0 3px 6px 0 white;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 16px;
+        }
+
+        /* tr:nth-child(even) {
+            background-color: #f2f2f2;
+        } */
+
+        @media screen and (max-width: 600px) {
+            .column {
+                width: 100%;
+            }
+        }
+    </style>
+
     <!-- Page Content -->
     <div class="w3-padding-large" id="main">
         <!-- Header/Home -->
@@ -155,6 +201,41 @@
                         <i class="fa fa-twitter fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
                     </a> -->
                 </div>
+                <div
+                    style="box-shadow: 0 4px 8px 0 white, 0 3px 6px 0 white; margin-top: 50px; border: 1px solid white; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;">
+                    <p class="w3-text-light-grey">
+                        See the books written by me and the courses provided by me by clicking the buttons below.
+                    </p>
+                    <div class="w3-row-padding" style="margin:0 -16px">
+                        <div class="w3-third">
+                            <p style="text-align:center;">
+                                <a href="./guidance.html" style="text-decoration:none;">
+                                    <button class="w3-button w3-light-grey w3-padding-large">
+                                        <i class="fa fa-bookmark" style="padding-right: 5px;"></i> GUIDANCE PAGE
+                                    </button>
+                                </a>
+                            </p>
+                        </div>
+                        <div class="w3-third">
+                            <p style="text-align:center;">
+                                <a href="./pages/books/books.html" style="text-decoration:none;">
+                                    <button class="w3-button w3-light-grey w3-padding-large">
+                                        <i class="fa fa-book" style="padding-right: 5px;"></i> MY BOOKS
+                                    </button>
+                                </a>
+                            </p>
+                        </div>
+                        <div class="w3-third">
+                            <p style="text-align:center;">
+                                <a href="./pages/courses/courses.html" style="text-decoration:none;">
+                                    <button class="w3-button w3-light-grey w3-padding-large">
+                                        <i class="fa fa-graduation-cap" style="padding-right: 5px;"></i> MY COURSES
+                                    </button>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- My Skills Section -->
@@ -162,52 +243,6 @@
                 <h2 class="w3-text-light-grey" id="skills">My Skills.</h2>
                 <hr style="width:200px" class="w3-opacity">
                 <div class="w3-row-padding" style="margin:0 -16px">
-                    <style>
-                        * {
-                            box-sizing: border-box;
-                        }
-
-                        .row {
-                            margin-left: -5px;
-                            margin-right: -5px;
-                        }
-
-                        .column {
-                            float: left;
-                            width: 50%;
-                            padding: 5px;
-                        }
-
-                        /* Clearfix (clear floats) */
-                        .row::after {
-                            content: "";
-                            clear: both;
-                            display: table;
-                        }
-
-                        table {
-                            border-collapse: collapse;
-                            border-spacing: 0;
-                            width: 100%;
-                            border: 1px solid #ddd;
-                        }
-
-                        th,
-                        td {
-                            text-align: left;
-                            padding: 16px;
-                        }
-
-                        /* tr:nth-child(even) {
-                            background-color: #f2f2f2;
-                        } */
-
-                        @media screen and (max-width: 600px) {
-                            .column {
-                                width: 100%;
-                            }
-                        }
-                    </style>
                     <div class="row">
                         <div class="column">
                             <table class="w3-wide w3-text-light-grey">
