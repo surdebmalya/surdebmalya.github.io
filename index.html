@@ -40,8 +40,20 @@
             font-family: "Montserrat", sans-serif
         }
 
-        .w3-row-padding img {
-            margin-bottom: 12px
+        body.example::-webkit-scrollbar {
+            display: none;
+        }
+
+        body {
+            -ms-overflow-style: none;
+            /* Internet Explorer 10+ */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+            /* Safari and Chrome */
         }
 
         /* Set the width of the sidebar to 120px */
@@ -72,9 +84,9 @@
 <body class="w3-black">
 
     <!-- Icon Bar (Sidebar - hidden on small screens) -->
-    <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+    <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center" style="border-right: 1px solid white;">
         <!-- Avatar image in top left corner -->
-        <img src="images/main-profile.jpg" style="width:100%">
+        <img src="images/main-profile.jpg" style="width:100%; border-bottom: 1px solid white;">
         <div style="padding-top: 1.5em;">
         </div>
         <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
