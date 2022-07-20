@@ -94,12 +94,12 @@ function renderResult(result, playerIndex, computerIndex) {
         `
     }
     ground.innerHTML = `
-    <div class="w3-row-padding" style="margin:0 -16px">
-        <div class="w3-half w3-margin-bottom">
+    <div>
+        <div class="w3-half">
             <h1>
                 Your Choice
             </h1>
-            <div class="w3-row-padding" style="margin: 64px">
+            <div>
                 <div style="text-align: center;">
                     <img src=`+ playerImage + ` width="100px" height="140px">
                 </div>
@@ -109,7 +109,7 @@ function renderResult(result, playerIndex, computerIndex) {
             <h1>
                 Computer Choice
             </h1>
-            <div class="w3-row-padding" style="margin: 64px">
+            <div>
                 <div style="text-align: center;">
                     <img src=`+ computerImage + ` width="100px" height="140px">
                 </div>
