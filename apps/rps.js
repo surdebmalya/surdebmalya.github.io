@@ -1,37 +1,37 @@
 function display(scoreOfPlayer, scoreOfComputer) {
     let ground = document.getElementById("ground")
     ground.innerHTML = `
-    <div class="w3-row-padding" style="margin:0 -16px">
-        <div class="w3-half w3-margin-bottom">
+    <div>
+        <div class="w3-half">
             <h1>
                 Your Score: ` + scoreOfPlayer + `
             </h1>
-            <p style="font-size: 1.5em;">
+            <p>
                 Choose one option
             </p>
-            <div class="w3-row-padding">
-                <div class="w3-third w3-margin-bottom">
+            <div>
+                <div class="w3-third">
                     <button style="text-decoration: none;" onclick="playerInput(0);">
                         <img src="./images/rock.png" width="50px" height="80px">
                     </button>
                 </div>
-                <div class="w3-third w3-margin-bottom">
+                <div class="w3-third">
                     <button style="text-decoration: none;" onclick="playerInput(1);">
                         <img src="./images/paper.png" width="50px" height="80px">
                     </button>
                 </div>
-                <div class="w3-third w3-margin-bottom">
+                <div class="w3-third">
                     <button style="text-decoration: none;" onclick="playerInput(2);">
                         <img src="./images/scissor.png" width="50px" height="80px">
                     </button>
                 </div>
             </div>
         </div>
-        <div class="w3-half w3-margin-bottom">
+        <div class="w3-half">
             <h1>
                 Computer Score: ` + scoreOfComputer + `
             </h1>
-            <p style="font-size: 1.5em;">
+            <p>
                 Computer will select randomly from these 3 options.
             </p>
         </div>
