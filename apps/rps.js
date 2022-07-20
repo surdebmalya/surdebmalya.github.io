@@ -9,20 +9,20 @@ function display(scoreOfPlayer, scoreOfComputer) {
             <p style="font-size: 1.5em;">
                 Choose one option
             </p>
-            <div class="w3-row-padding" style="margin: 64px">
+            <div class="w3-row-padding">
                 <div class="w3-third w3-margin-bottom">
                     <button style="text-decoration: none;" onclick="playerInput(0);">
-                        <img src="./images/rock.png" width="100px" height="140px">
+                        <img src="./images/rock.png" width="50px" height="80px">
                     </button>
                 </div>
                 <div class="w3-third w3-margin-bottom">
                     <button style="text-decoration: none;" onclick="playerInput(1);">
-                        <img src="./images/paper.png" width="100px" height="140px">
+                        <img src="./images/paper.png" width="50px" height="80px">
                     </button>
                 </div>
                 <div class="w3-third w3-margin-bottom">
                     <button style="text-decoration: none;" onclick="playerInput(2);">
-                        <img src="./images/scissor.png" width="100px" height="140px">
+                        <img src="./images/scissor.png" width="50px" height="80px">
                     </button>
                 </div>
             </div>
