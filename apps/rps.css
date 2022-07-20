@@ -1,0 +1,35 @@
+body,
+h1 {
+    font-family: "Raleway", sans-serif
+}
+
+body,
+html {
+    height: 100%
+}
+
+.bgimg {
+    background-image: url('./images/rps-bg-image.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+button {
+    margin: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    color: white;
+    background-color: black;
+    border-radius: 10px;
+    font-size: 1.5em;
+}
+
+button:hover {
+    cursor: pointer;
+    color: black;
+    border: 0 solid black;
+    background-color: rgba(100, 100, 100, 0.5);
+}
