@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Debmalya Sur</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Software Dev, System Engg & Theoretical Computer Science Specialist.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://surdebmalya.github.io/">
+    <meta property="og:title" content="Hi 👋, I'm Debmalya Sur">
+    <meta property="og:description" content="Software Dev, System Engg & Theoretical Computer Science Specialist.">
+    <meta property="og:image" content="https://surdebmalya.github.io/images/main-profile.jpg">
+
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://surdebmalya.github.io/">
+    <meta property="twitter:title" content="Hi 👋, I'm Debmalya Sur">
+    <meta property="twitter:description" content="Software Dev, System Engg & Theoretical Computer Science Specialist.">
+    <meta property="twitter:image" content="https://surdebmalya.github.io/images/main-profile.jpg">
+
+    <!-- Linking css -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon.png">
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Montserrat", sans-serif
+        }
+
+        body.example::-webkit-scrollbar {
+            display: none;
+        }
+
+        body {
+            -ms-overflow-style: none;
+            /* Internet Explorer 10+ */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        body::-webkit-scrollbar {
+            display: none;
+            /* Safari and Chrome */
+        }
+
+        /* Set the width of the sidebar to 120px */
+        .w3-sidebar {
+            width: 120px;
+            background: #222;
+        }
+
+        /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+        #main {
+            margin-left: 120px
+        }
+
+        /* Remove margins from "page content" on small screens */
+        @media only screen and (max-width: 600px) {
+            #main {
+                margin-left: 0
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body class="w3-black">
+
+    <!-- Icon Bar (Sidebar - hidden on small screens) -->
+    <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
+        <!-- Avatar image in top left corner -->
+        <img src="images/main-profile.jpg" style="width:100%;">
+        <div style="padding-top: 1.5em;">
+        </div>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+            <i class="fa fa-user w3-xlarge"></i>
+            <p>ABOUT</p>
+        </a>
+        <a href="#skills" class="w3-bar-item w3-button w3-padding-large w3-hover-black">
+            <i class="fa fa-bookmark-o w3-xlarge"></i>
+            <p>WHY ME</p>
+        </a>
+        <a href="#contact" class="w3-bar-item w3-button w3-hover-black">
+            <i class="fa fa-envelope w3-xlarge"></i>
+            <p>CONTACT</p>
+        </a>
+    </nav>
+
+    <!-- Navbar on small screens (Hidden on medium and large screens) -->
+    <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+        <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+            <a href="#" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
+            <a href="#skills" class="w3-bar-item w3-button" style="width:25% !important">WHY ME</a>
+            <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
+        </div>
+    </div>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .row {
+            margin-left: -5px;
+            margin-right: -5px;
+        }
+
+        .column {
+            float: left;
+            width: 50%;
+            padding: 5px;
+        }
+
+        /* Clearfix (clear floats) */
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px 0 white, 0 3px 6px 0 white;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 16px;
+        }
+
+        /* tr:nth-child(even) {
+            background-color: #f2f2f2;
+        } */
+
+        @media screen and (max-width: 600px) {
+            .column {
+                width: 100%;
+            }
+        }
+    </style>
+
+    <!-- Page Content -->
+    <div class="w3-padding-large" id="main">
+        <div class="w3-row-padding" style="margin:0 -16px; text-align:center;">
+                <table class="w3-wide w3-text-light-grey">
+                    <tr>
+                        <td>
+                            <p style="text-align:center;">
+                                READ MY NEWLY PUBLISHED BOOKS
+                                <a href="./pages/books/books.html" style="text-decoration:none;">
+                                    <span style="padding-left: 10px;"></span>
+                                    <button class="w3-button w3-light-grey w3-padding-large">
+                                        <i class="fa fa-book" style="padding-right: 5px;"></i> MY BOOKS
+                                    </button>
+                                </a>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </p>
+        </div>
+        <!-- Header/Home -->
+        <header class="w3-container w3-padding-32 w3-center w3-black" id="home">
+            <h1 style="font-size:3.5em;"><span class="w3-hide-small">I'm</span> Debmalya Sur.</h1>
+            <p>Software Developer, System Engineer and Theoretical Computer Science Specialist.</p>
+        </header>
+
+        <div style="font-size:1.25em;">
+            <!-- About Section -->
+            <div class="w3-content w3-text-grey w3-padding-64">
+                <h2 class="w3-text-light-grey">About Me.</h2>
+                <hr style="width:200px" class="w3-opacity">
+                <p class="w3-text-light-grey">
+                    I am a software developer who loves clean & simple design.
+                    I also enjoy machine learning stuffs and learning the theoretical concepts of computers.
+                </p>
+                <p class="w3-text-light-grey">
+                    Currently I'm pursuing my M.Tech degree from <u>IIT Dhanbad</u> in Computer Science and
+                    Engineering. Expected passout year is 2024.
+                </p>
+                <p class="w3-text-light-grey">
+                    I got All India Rank 405 in GATE CS 2022 on my 4<sup>th</sup> Year.
+                </p>
+                <p class="w3-text-light-grey">
+                    Secure 127<sup>th</sup> rank in
+                    <a href="https://seamo-official.org/" target="_blank">SEAMO</a>, 2017 from South East Asia region.
+                </p>
+                <div class="w3-section">
+                    <a href="https://github.com/surdebmalya/" style="text-decoration:none;">
+                        <i class="fa fa-github fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/debmalya-sur/" style="text-decoration:none;">
+                        <i class="fa fa-linkedin fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
+                    </a>
+                    <a href="mailto:official.surdebmalya@gmail.com" style="text-decoration:none;">
+                        <i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
+                    </a>
+                    <!-- <a href="https://twitter.com/DebmalyaSur" style="text-decoration:none;">
+                        <i class="fa fa-twitter fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
+                    </a> -->
+                </div>
+                <div
+                    style="box-shadow: 0 4px 8px 0 white, 0 3px 6px 0 white; margin-top: 50px; border: 1px solid white; padding-right: 20px; padding-left: 20px; padding-top: 10px; padding-bottom: 10px;">
+                    <p class="w3-text-light-grey">
+                        See the books written by me and the courses provided by me by clicking the buttons below.
+                    </p>
+                    <div class="w3-row-padding" style="margin:0 -16px">
+                        <div class="w3-quarter">
+                            <p style="text-align:center;">
+                                <a href="https://code-helper.surdebmalya11.repl.co/" target="_blank"
+                                    style="text-decoration:none;">
+                                    <button class="w3-button w3-light-grey w3-padding-large">
+                                        <i class="fa fa-code" style="padding-right: 5px;"></i> CODE HELPER
+                                    </button>
+                                </a>
+                            </p>
+                        </div>
+                        <div class="w3-quarter">
+                            <p style="text-align:center;">
+                                <a href="./guidance.html" style="text-decoration:none;">
+                                    <button class="w3-button w3-light-grey w3-padding-large">
+                                        <i class="fa fa-bookmark" style="padding-right: 5px;"></i> GUIDANCE PAGE
+                                    </button>
+                                </a>
+                            </p>
+                        </div>
+                        <div class="w3-quarter">
+                            <p style="text-align:center;">
+                                <a href="./pages/books/books.html" style="text-decoration:none;">
+                                    <button class="w3-button w3-light-grey w3-padding-large">
+                                        <i class="fa fa-book" style="padding-right: 5px;"></i> MY BOOKS
+                                    </button>
+                                </a>
+                            </p>
+                        </div>
+                        <div class="w3-quarter">
+                            <p style="text-align:center;">
+                                <a href="./pages/courses/courses.html" style="text-decoration:none;">
+                                    <button class="w3-button w3-light-grey w3-padding-large">
+                                        <i class="fa fa-graduation-cap" style="padding-right: 5px;"></i> MY COURSES
+                                    </button>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- My Skills Section -->
+            <div class="w3-padding-64 w3-content w3-text-grey">
+                <h2 class="w3-text-light-grey" id="skills">My Skills.</h2>
+                <hr style="width:200px" class="w3-opacity">
+                <div class="w3-row-padding" style="margin:0 -16px">
+                    <div class="row">
+                        <div class="column">
+                            <table class="w3-wide w3-text-light-grey">
+                                <h2 class="w3-padding-16 w3-text-light-grey" style="text-align:center;">
+                                    Technical Skills
+                                </h2>
+                                <tr>
+                                    <td>Web Application Development</td>
+                                </tr>
+                                <tr>
+                                    <td>Python Language</td>
+                                </tr>
+                                <tr>
+                                    <td>Machine Learning</td>
+                                </tr>
+                                <tr>
+                                    <td>Deep Learning</td>
+                                </tr>
+                                <tr>
+                                    <td>Database (Firebase, SQL)</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="column">
+                            <table class="w3-wide w3-text-light-grey">
+                                <h2 class="w3-padding-16 w3-text-light-grey" style="text-align:center;">
+                                    Theoretical Skills
+                                </h2>
+                                <tr>
+                                    <td>Computer Organization</td>
+                                </tr>
+                                <tr>
+                                    <td>Operating System</td>
+                                </tr>
+                                <tr>
+                                    <td>Database Management</td>
+                                </tr>
+                                <tr>
+                                    <td>Data Structures & Algorithms</td>
+                                </tr>
+                                <tr>
+                                    <td>Automata & Compiler Design</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <p style="text-align:center;">
+                    <a href="./documents/Resume.pdf" target="_blank" style="text-decoration:none;">
+                        <button class="w3-button w3-light-grey w3-padding-large w3-section">
+                            <i class="fa fa-file" style="padding-right: 5px;"></i> SEE MY RESUME
+                        </button>
+                    </a>
+                </p>
+            </div>
+
+            <!-- My Projects Section -->
+            <div class="w3-padding-64 w3-content w3-text-grey">
+                <h2 class="w3-text-light-grey" id="projects">My Projects.</h2>
+                <hr style="width:200px" class="w3-opacity">
+                <div class="w3-row-padding" style="margin:0 -16px">
+                    <!-- Grid for projects -->
+                    <style>
+                        .container {
+                            position: relative;
+                            max-width: 800px;
+                            margin: 13px auto;
+                            box-shadow: 0 4px 8px 0 white;
+                        }
+
+                        .container img {
+                            vertical-align: middle;
+                        }
+
+                        .content {
+                            position: absolute;
+                            bottom: 0;
+                            background: rgb(0, 0, 0);
+                            /* Fallback color */
+                            background: rgba(0, 0, 0, 0.5);
+                            /* Black background with 0.5 opacity */
+                            color: #f1f1f1;
+                            width: 100%;
+                            padding: 20px;
+                        }
+                    </style>
+                    <div class="w3-half">
+                        <div class="container">
+                            <img src="./images/chatapp.jpg" alt="Notebook" style="width:100%;">
+                            <div class="content">
+                                <h3>DS Chat - Real Time World Chat Server</h3>
+                                <p>
+                                    <a href="http://dschatapp.herokuapp.com/">
+                                        Know More >>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <img src="./images/reg-system.jpg" alt="Notebook" style="width:100%;">
+                            <div class="content">
+                                <h3>Students' Registration System</h3>
+                                <p>
+                                    <a
+                                        href="https://github.com/surdebmalya/Students-Registration-System-With-Python-Programming-Language">
+                                        Know More >>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <img src="./images/memgame.jpg" alt="Notebook" style="width:100%;">
+                            <div class="content">
+                                <h3>Memorizing Game</h3>
+                                <p>
+                                    <a href="https://github.com/surdebmalya/Memorizing-Power-Game-by-Python">
+                                        Know More >>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w3-half">
+                        <div class="container">
+                            <img src="./images/baud-news.jpg" alt="Notebook" style="width:100%;">
+                            <div class="content">
+                                <h3>Baud News</h3>
+                                <p>
+                                    <a href="https://thebaudnews.surdebmalya11.repl.co/">
+                                        Know More >>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <img src="./images/cat-or-dog.jpg" alt="Notebook" style="width:100%;">
+                            <div class="content">
+                                <h3>Cat or Dog Recognizer DL Project</h3>
+                                <p>
+                                    <a href="https://github.com/surdebmalya/Cat-Or-Dog-Recognizer-Web-App-DL-streamlit">
+                                        Know More >>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <img src="./images/breast-cancer.jpg" alt="Notebook" style="width:100%;">
+                            <div class="content">
+                                <h3>Breast Cancer Analysis ML Project</h3>
+                                <p>
+                                    <a href="https://github.com/surdebmalya/Breast-Cancer-Analysis">
+                                        Know More >>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- SEE MY ALL PROJECTS Section -->
+                <p style="text-align:center; padding-top: 40px;">
+                    <a href="https://github.com/surdebmalya/" target="_blank" style="text-decoration:none;">
+                        <button class="w3-button w3-light-grey w3-padding-large">
+                            <i class="fa fa-code" style="padding-right: 5px;"></i> SEE ALL MY PROJECTS
+                        </button>
+                    </a>
+                </p>
+            </div>
+
+            <!-- My Blogs -->
+            <div class="w3-padding-64 w3-content w3-text-sgrey">
+                <h2 class="w3-text-light-grey" id="blogs">My Blogs.</h2>
+                <hr style="width:200px" class="w3-opacity">
+                <div class="w3-row-padding" style="margin:0 -16px">
+                    <div class="w3-half">
+                        <img src="./images/avatar-blog1.jpg" alt="Avatar" class="w3-left w3-circle w3-margin-right"
+                            style="width:80px">
+                        <p>
+                            <a href="https://surdebmalya.hashnode.dev/railway-announcement-system-building"
+                                target="_blank">
+                                Railway Announcement System Building
+                            </a>
+                        </p><br>
+
+                        <img src="./images/avatar-blog2.jpg" alt="Avatar" class="w3-left w3-circle w3-margin-right"
+                            style="width:80px">
+                        <p>
+                            <a href="https://surdebmalya.hashnode.dev/memorizing-power-game" target="_blank">
+                                Memorizing Power Game
+                            </a>
+                        </p><br>
+                    </div>
+                    <div class="w3-half">
+                        <p style="text-align:center;">
+                            <a href="https://surdebmalya.hashnode.dev/" target="_blank" style="text-decoration:none;">
+                                <button class="w3-button w3-light-grey w3-padding-large">
+                                    <i class="fa fa-pencil" style="padding-right: 5px;"></i> ALL MY BLOGS
+                                </button>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Me Section -->
+            <div class="w3-padding-64 w3-content w3-text-grey">
+                <h2 class="w3-text-light-grey" id="contact">Contact Me.</h2>
+                <hr style="width:200px" class="w3-opacity">
+
+                <div class="w3-section">
+                    <a href="https://github.com/surdebmalya/" style="text-decoration:none;">
+                        <i class="fa fa-github fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/debmalya-sur/" style="text-decoration:none;">
+                        <i class="fa fa-linkedin fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
+                    </a>
+                    <a href="mailto:official.surdebmalya@gmail.com" style="text-decoration:none;">
+                        <i class="fa fa-envelope fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
+                    </a>
+                    <!-- <a href="https://twitter.com/DebmalyaSur" style="text-decoration:none;">
+                        <i class="fa fa-twitter fa-fw w3-text-white w3-xxlarge w3-margin-right"></i>
+                    </a> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <hr class="w3-opacity">
+        <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
+            <p style="text-align:right; font-size:15px;">
+                <!-- <a href="./book-a-slot.html">BOOK A SLOT</a> |  -->
+                <!-- <a href="./apps.html">SEE MY APPS</a> | -->
+                © This website was made by Debmalya Sur with ❤️
+            </p>
+            <!-- End footer -->
+        </footer>
+
+        <!-- END PAGE CONTENT -->
+    </div>
+</body>
+
+</html>
