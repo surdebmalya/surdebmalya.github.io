@@ -7,6 +7,8 @@
     <title>Debmalya Sur | Development Service</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
     <link rel="icon" href="./static/images/profile-pic.jpg" type="image/jpg">
 
     <meta name="description" content="Software Dev, System Engg & Theoretical Computer Science Specialist.">
@@ -106,273 +108,417 @@
             border-color: #128c7e transparent transparent transparent;
             transform: translateX(-50%);
         }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 10px rgba(255, 105, 180, 0.7), 0 0 20px rgba(255, 105, 180, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(255, 0, 150, 0.8), 0 0 40px rgba(255, 105, 180, 0.6);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .animate-fadeInLeft {
+            animation: fadeInLeft 1s ease forwards;
+        }
+
+        .glow-animation {
+            animation: glow 1.5s infinite alternate;
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
     </style>
 </head>
 
 <body class="bg-gray-100 text-gray-900 pt-14">
-
     <!-- Navbar -->
-    <nav class="bg-blue-600 text-white p-4 shadow-lg fixed w-full top-0 z-50">
+    <nav class="bg-blue-900 text-white p-4 shadow-lg fixed w-full top-0 z-50">
         <div class="container mx-auto flex justify-between items-center">
             <a href="#" class="text-2xl font-extrabold">Debmalya Sur</a>
             <div class="space-x-4">
-                <a href="#contact" class="hover:underline">Contact Me</a>
+                <a href="#contact">Contact Me</a>
             </div>
         </div>
     </nav>
 
-
-    <!-- Header -->
-    <header class="relative bg-blue-700 text-white py-20 bg-cover bg-center">
+    <!-- Header with fade-in and glowing button -->
+    <header class="relative bg-blue-700 text-white py-20 bg-cover bg-center animate-fadeInUp">
         <div class="absolute inset-0 bg-overlay"></div>
         <div class="container mx-auto text-center relative z-10">
             <img src="./static/images/profile-pic.jpg" alt="Debmalya Sur"
-                class="mx-auto mb-4 rounded-full h-32 w-32 object-cover">
-            <h1 class="text-5xl font-extrabold mb-4">Debmalya Sur</h1>
-            <p class="mb-4">Senior Engineer @ Samsung Research Institute Bangalore (SRIB)</p>
-            <p>5+ Years Experience in Software Development | 50+ Happy Clients | Timely Project Delivery</p>
-            <!-- Glowing "Contact Now" button -->
+                class="mx-auto mb-4 rounded-full h-32 w-32 object-cover animate-fadeInUp">
+            <h1 class="text-5xl font-extrabold mb-4 animate-fadeInUp">Debmalya Sur</h1>
+            <p class="animate-fadeInLeft">5+ Years Experience in Software Development & Social Media Marketing Expert
+            </p>
+
+            <!-- Stats Section -->
+            <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-8 justify-center text-center">
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-2xl font-bold text-blue-900 mb-3">55+ Happy Clients</h3>
+                    <p class="text-lg text-gray-600">Over 55 clients have trusted us to deliver exceptional results.
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-2xl font-bold text-blue-900 mb-3">4.5 Star Rating</h3>
+                    <p class="text-lg text-gray-600">Our clients consistently rate us highly for quality and service.
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-2xl font-bold text-blue-900 mb-3">Timely Project Delivery</h3>
+                    <p class="text-lg text-gray-600">We ensure every project is completed and delivered on time.</p>
+                </div>
+            </div>
+
+            <!-- Call to Action Button -->
             <a href="#contact"
-                class="bg-gradient-to-r from-pink-500 to-red-500 text-white font-bold py-3 px-8 rounded-full mt-8 inline-block hover:animate-pulse">Contact
+                class="bg-gradient-to-r from-pink-500 to-red-500 text-white font-bold py-3 px-8 rounded-full mt-8 inline-block glow-animation">Contact
                 Now</a>
         </div>
     </header>
-
-    <!-- About Me Section -->
-    <section id="about" class="container mx-auto p-8 my-8 bg-white rounded-lg shadow-lg">
-        <h2 class="text-3xl font-bold mb-4 text-center">About Me</h2>
-        <div class="flex flex-col md:flex-row items-center">
-            <p class="text-center text-justify">
-                As an accomplished software developer with over five years of experience, I specialize in delivering
-                robust software solutions for a diverse range of clients. Holding an MTech in Computer Science and
-                Engineering from <span style="padding-left: 2px; padding-right: 2px;"
-                    class="text-1xl font-extrabold text-blue-600">IIT Dhanbad</span>, I currently advance technology at
-                <span style="padding-left: 2px; padding-right: 2px;" class="text-1xl font-extrabold text-blue-600">
-                    Samsung Research Institute Bangalore
-                    (SRIB) </span> as an Advanced Software Developer.
-                <br><br>
-                My portfolio includes over <span style="padding-left: 2px; padding-right: 2px;"
-                    class="text-1xl font-extrabold text-blue-600">100</span> successful
-                projects and <span style="padding-left: 2px; padding-right: 2px;"
-                    class="text-1xl font-extrabold text-blue-600">50+</span> satisfied clients,
-                reflecting my expertise in crafting tailored software for both small businesses and large enterprises. I
-                excel in creating professional web pages and personal portfolios, always aiming to provide innovative
-                and effective solutions.
-            </p>
-        </div>
-    </section>
-
     <!-- Services Section -->
-    <section id="services" class="container mx-auto pt-6 my-8">
-        <h2 class="text-3xl font-bold mb-8 text-center">Services</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div class="p-6 bg-white rounded-lg shadow-lg text-center hover:bg-blue-100 transition">
-                <div class="mb-4">
-                    <i class="fas fa-briefcase fa-3x text-blue-500"></i>
+    <section id="services" class="container mx-auto pt-8 pb-8 my-8 animate-on-scroll">
+        <h2 class="text-3xl font-bold mb-12 text-center text-blue-700 animate-fadeInUp">Our Expert Services</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+            <!-- Website Development Card -->
+            <div
+                class="relative p-8 bg-white rounded-lg shadow-xl text-center hover:bg-blue-50 transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out animate-fadeInUp">
+
+                <!-- Small Banner -->
+                <div
+                    class="absolute top-4 left-0 bg-gradient-to-r from-red-400 to-red-600 text-white text-sm px-3 py-1 flex items-center space-x-2">
+                    <span><b>Best Choice</b></span>
                 </div>
-                <h3 class="text-xl font-semibold mb-2">Small Business Software Development</h3>
-                <p>I build tailored software solutions for small businesses to streamline their operations.</p>
+
+                <!-- Content -->
+                <div class="mb-6">
+                    <i
+                        class="fas fa-laptop-code fa-3x text-blue-500 transition-colors hover:text-blue-700 transform hover:scale-110 duration-200"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-3 text-blue-800">Professional Scalable Website Development</h3>
+                <p class="text-lg text-gray-600 text-left">We design and build websites that grow with your business,
+                    delivering
+                    professional, fast, and scalable solutions.</p>
+                <a href="#contact" class="text-blue-600 hover:text-blue-800 mt-4 inline-block text-lg font-semibold">Get
+                    Started</a>
             </div>
-            <div class="p-6 bg-white rounded-lg shadow-lg text-center hover:bg-blue-100 transition">
-                <div class="mb-4">
-                    <i class="fas fa-building fa-3x text-blue-500"></i>
+
+            <!-- Business Software Development Card -->
+            <div
+                class="relative p-8 bg-white rounded-lg shadow-xl text-center hover:bg-blue-50 transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out animate-fadeInUp">
+
+                <!-- Small Banner -->
+                <div
+                    class="absolute top-4 left-0 bg-gradient-to-r from-red-400 to-red-600 text-white text-sm px-3 py-1 flex items-center space-x-2">
+                    <span><b>Combo Available</b></span>
                 </div>
-                <h3 class="text-xl font-semibold mb-2">Large Business Software Development</h3>
-                <p>Experienced in developing scalable software for large enterprises.</p>
+
+                <!-- Content -->
+                <div class="mb-6">
+                    <i
+                        class="fas fa-cogs fa-3x text-blue-500 transition-colors hover:text-blue-700 transform hover:scale-110 duration-200"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-3 text-blue-800">Business Software Development</h3>
+                <p class="text-lg text-gray-600 text-left">Custom software solutions designed to optimize workflows,
+                    boost productivity, and drive business growth seamlessly.</p>
+                <a href="#contact"
+                    class="text-blue-600 hover:text-blue-800 mt-4 inline-block text-lg font-semibold">Build
+                    Your Solution</a>
             </div>
-            <div class="p-6 bg-white rounded-lg shadow-lg text-center hover:bg-blue-100 transition">
-                <div class="mb-4">
-                    <i class="fas fa-globe fa-3x text-blue-500"></i>
+        
+            <!-- Social Media Marketing Card -->
+            <div
+                class="relative p-8 bg-white rounded-lg shadow-xl text-center hover:bg-blue-50 transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out animate-fadeInUp">
+
+                <!-- Small Banner -->
+                <div
+                    class="absolute top-4 left-0 bg-gradient-to-r from-red-400 to-red-600 text-white text-sm px-3 py-1 flex items-center space-x-2">
+                    <span><b>Combo Available</b></span>
                 </div>
-                <h3 class="text-xl font-semibold mb-2">Professional Scalable Website Development</h3>
-                <p>Creating visually appealing and functional websites for businesses and individuals.</p>
-            </div>
-            <div class="p-6 bg-white rounded-lg shadow-lg text-center hover:bg-blue-100 transition">
-                <div class="mb-4">
-                    <i class="fas fa-user fa-3x text-blue-500"></i>
+
+                <!-- Content -->
+                <div class="mb-6">
+                    <i
+                        class="fas fa-share-alt fa-3x text-blue-500 transition-colors hover:text-blue-700 transform hover:scale-110 duration-200"></i>
                 </div>
-                <h3 class="text-xl font-semibold mb-2">Personal Portfolios Development</h3>
-                <p>Designing personal portfolios to showcase individual skills and achievements.</p>
+                <h3 class="text-2xl font-semibold mb-3 text-blue-800">Social Media Marketing</h3>
+                <p class="text-lg text-gray-600 text-left">Reach your target audience and boost engagement with powerful
+                    social
+                    media strategies tailored to your business.</p>
+                <a href="#contact"
+                    class="text-blue-600 hover:text-blue-800 mt-4 inline-block text-lg font-semibold">Grow Your
+                    Brand</a>
             </div>
         </div>
     </section>
+
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="container mx-auto p-6 my-8 bg-white rounded-lg shadow-lg">
-        <h2 class="text-3xl font-bold mb-8 text-center">Testimonials</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Testimonial Card 1 -->
-            <div class="bg-gray-100 rounded-lg overflow-hidden shadow-md">
-                <div class="p-4">
-                    <img src="./static/images/profile1.jpg" alt="Priya Sharma"
-                        class="mx-auto rounded-full h-20 w-20 object-cover mb-4">
-                    <h3 class="text-xl font-semibold text-center mb-2">Priya Sharma</h3>
-                    <p class="text-gray-600 mb-4">"Debmalya provided exceptional service and delivered high-quality
-                        software that exceeded our expectations."</p>
-                    <div class="flex justify-center">
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star-half-alt text-yellow-500"></i>
+    <section id="testimonials"
+        class="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:px-8 shadow-lg animate-on-scroll">
+        <div
+            class="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.100),white)] opacity-20">
+        </div>
+        <div class="mx-auto max-w-2xl lg:max-w-4xl">
+            <img class="mx-auto h-12" src="https://tailwindui.com/plus/img/logos/workcation-logo-indigo-600.svg" alt="">
+            <figure class="mt-10">
+                <blockquote class="text-center text-xl/8 text-gray-900 sm:text-2xl/9">
+                    <p>
+                        “Debmalya’s expertise in scalable website development, custom business software,
+                        and strategic social media marketing has transformed our business operations and
+                        online presence. The solutions he delivered are not only visually captivating but
+                        also highly functional, and his commitment to client success is unmatched. We
+                        highly recommend his services to any business aiming to elevate its digital footprint
+                        with professionalism and precision.”
+                    </p>
+                </blockquote>
+                <figcaption class="mt-10">
+                    <img class="mx-auto h-10 w-10 rounded-full"
+                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        alt="">
+                    <div class="mt-4 flex items-center justify-center space-x-3 text-base">
+                        <!-- <div class="flex justify-center">
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                            <i class="fas fa-star text-yellow-500"></i>
+                        </div>
+                        <svg viewBox="0 0 2 2" width="3" height="3" aria-hidden="true" class="fill-gray-900">
+                            <circle cx="1" cy="1" r="1" />
+                        </svg> -->
+                        <div class="font-semibold text-gray-900">Judith Black</div>
+                        <svg viewBox="0 0 2 2" width="3" height="3" aria-hidden="true" class="fill-gray-900">
+                            <circle cx="1" cy="1" r="1" />
+                        </svg>
+                        <div class="text-gray-600">CEO of Workcation</div>
                     </div>
-                </div>
-            </div>
-            <!-- Testimonial Card 2 -->
-            <div class="bg-gray-100 rounded-lg overflow-hidden shadow-md">
-                <div class="p-4">
-                    <img src="./static/images/profile2.jpg" alt="Rajesh Patel"
-                        class="mx-auto rounded-full h-20 w-20 object-cover mb-4">
-                    <h3 class="text-xl font-semibold text-center mb-2">Rajesh Patel</h3>
-                    <p class="text-gray-600 mb-4">"The website Debmalya developed for us is visually stunning and highly
-                        functional. Highly recommended!"</p>
-                    <div class="flex justify-center">
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                    </div>
-                </div>
-            </div>
-            <!-- Testimonial Card 3 -->
-            <div class="bg-gray-100 rounded-lg overflow-hidden shadow-md">
-                <div class="p-4">
-                    <img src="./static/images/profile3.jpg" alt="Anita Mehta"
-                        class="mx-auto rounded-full h-20 w-20 object-cover mb-4">
-                    <h3 class="text-xl font-semibold text-center mb-2">Anita Mehta</h3>
-                    <p class="text-gray-600 mb-4">"Excellent work! The software solution has greatly improved our
-                        business operations."</p>
-                    <div class="flex justify-center">
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                        <i class="fas fa-star text-yellow-500"></i>
-                    </div>
-                </div>
-            </div>
+                </figcaption>
+            </figure>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="container mx-auto pt-6 my-8">
-        <h2 class="text-3xl font-bold mb-8 text-center">Projects</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-            <div class="p-6 bg-white rounded-lg shadow-lg hover:bg-blue-100 transition">
-                <h3 class="text-xl font-semibold mb-4 text-center">The Blockchain Starter Landing Page</h3>
-                <p class="mb-4 text-justify">
-                    This is the official landing page for a newly published book, meticulously designed to drive more
-                    sales and engage potential readers. Leveraging the power of social media marketing, traffic is
-                    directed to this landing page with the primary objective of boosting the conversion rate.
-                    <br><br>
-                    Through a strategic blend of compelling visuals, persuasive copy, and clear calls-to-action, this
-                    landing page aims to captivate visitors and turn their interest into tangible sales. The content has
-                    been crafted to highlight the book's unique selling points, resonate with the target audience, and
-                    provide a seamless user experience.
-                </p>
-                <div class="flex justify-center">
-                    <i class="fas fa-star text-yellow-500"></i>
-                    <i class="fas fa-star text-yellow-500"></i>
-                    <i class="fas fa-star text-yellow-500"></i>
-                    <i class="fas fa-star text-yellow-500"></i>
-                    <i class="fas fa-star text-yellow-500"></i>
+    <!-- Image Gallery Section -->
+    <section id="gallery" class="container mx-auto pt-8 pb-8 my-8 animate-on-scroll">
+        <h2 class="text-3xl font-bold mb-12 text-center text-blue-700 animate-fadeInUp">Solutions to drive business</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Image Card 1 -->
+            <div class="relative group overflow-hidden rounded-lg shadow-lg">
+                <img src="./static/images/ads/salon/Hair Salon.png" alt="Project 1"
+                    class="w-full h-full object-cover transition-transform transform group-hover:scale-110 duration-300 ease-in-out">
+                <div
+                    class="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-300 ease-in-out">
+                </div>
+                <div
+                    class="absolute bottom-0 left-0 right-0 p-4 text-center text-white text-lg font-semibold bg-opacity-75 bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                    Stunning Design for a Thriving Business
                 </div>
             </div>
-            <div class="p-6 bg-white rounded-lg shadow-lg hover:bg-blue-100 transition">
-                <h3 class="text-xl font-semibold text-center mb-4">Astro Vastu Counselling Landing Page</h3>
-                <p class="mb-4 text-justify">
-                    Astro Vastu Counselling is a burgeoning startup that specializes in the domains of astrology, vastu,
-                    and numerology. Recognizing the need for a compelling online presence, I took on the challenge of
-                    designing and developing a professional and aesthetically pleasing landing page for their services.
-                    <br><br>
-                    The newly developed landing page effectively captures the essence of Astro Vastu Counselling's
-                    expertise and services, providing a seamless and engaging user experience. Key features include an
-                    intuitive layout, rich content presentation, and strategically placed call-to-action buttons, all
-                    designed to convert visitors into clients.
-                </p>
-                <div class="flex justify-center">
-                    <i class="fas fa-star text-yellow-500"></i>
-                    <i class="fas fa-star text-yellow-500"></i>
-                    <i class="fas fa-star text-yellow-500"></i>
-                    <i class="fas fa-star text-yellow-500"></i>
-                    <i class="fas fa-star text-yellow-500"></i>
+            <!-- Image Card 2 -->
+            <div class="relative group overflow-hidden rounded-lg shadow-lg">
+                <img src="./static/images/ads/salon/Grand Opening.png" alt="Project 2"
+                    class="w-full h-full object-cover transition-transform transform group-hover:scale-110 duration-300 ease-in-out">
+                <div
+                    class="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-300 ease-in-out">
+                </div>
+                <div
+                    class="absolute bottom-0 left-0 right-0 p-4 text-center text-white text-lg font-semibold bg-opacity-75 bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                    Innovative Solutions Tailored to You
                 </div>
             </div>
+            <!-- Image Card 3 -->
+            <div class="relative group overflow-hidden rounded-lg shadow-lg">
+                <img src="./static/images/ads/salon/Spa.png" alt="Project 3"
+                    class="w-full h-full object-cover transition-transform transform group-hover:scale-110 duration-300 ease-in-out">
+                <div
+                    class="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-300 ease-in-out">
+                </div>
+                <div
+                    class="absolute bottom-0 left-0 right-0 p-4 text-center text-white text-lg font-semibold bg-opacity-75 bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                    A Modern Look That Drives Results
+                </div>
+            </div>
+            <!-- Image Card 4 -->
+            <div class="relative group overflow-hidden rounded-lg shadow-lg">
+                <img src="./static/images/ads/salon/Nail Art.png" alt="Project 4"
+                    class="w-full h-full object-cover transition-transform transform group-hover:scale-110 duration-300 ease-in-out">
+                <div
+                    class="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-300 ease-in-out">
+                </div>
+                <div
+                    class="absolute bottom-0 left-0 right-0 p-4 text-center text-white text-lg font-semibold bg-opacity-75 bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                    Elegant and User-Friendly Designs
+                </div>
+            </div>
+            <!-- Add more Image Cards as needed -->
         </div>
     </section>
 
-    <!-- Contact Form Section -->
-    <section id="get_in_touch" class="container mx-auto p-8 my-8 bg-white rounded-lg shadow-lg">
-        <h2 class="text-3xl font-bold mb-8 text-center">Get in Touch</h2>
-        <form action="https://api.web3forms.com/submit" method="POST" class="max-w-lg mx-auto">
-            <input type="hidden" name="access_key" value="d9fdd611-815b-4272-955d-86f5e5bcd877">
-            <div class="mb-4">
-                <label for="name" class="block text-lg font-medium text-gray-700 mb-2">Name</label>
-                <input type="text" id="name" name="name"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-red-200"
-                    required>
+    <!-- Contact Section -->
+    <section id="contact"></section>
+    <section class="container mx-auto py-12 px-8 bg-white rounded-lg shadow-lg my-12 animate-on-scroll">
+        <div class="flex flex-col lg:flex-row lg:space-x-12">
+            <!-- Contact Form -->
+            <div class="w-full lg:w-2/3 mb-8 lg:mb-0">
+                <h2 class="text-3xl font-bold mb-12 text-left text-blue-700 animate-fadeInUp">Get in Touch</h2>
+                <form action="https://api.web3forms.com/submit" method="POST"
+                    class="bg-gray-50 p-6 rounded-lg shadow-md">
+                    <input type="hidden" name="access_key" value="d9fdd611-815b-4272-955d-86f5e5bcd877">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="name" class="block text-lg font-medium text-gray-700 mb-2">Name</label>
+                            <input type="text" id="name" name="name"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+                                required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-lg font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" id="email" name="email"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+                                required>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="subject" class="block text-lg font-medium text-gray-700 mb-2">Subject</label>
+                        <input type="text" id="subject" name="subject"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+                            required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="message" class="block text-lg font-medium text-gray-700 mb-2">Message</label>
+                        <textarea id="message" name="message" rows="4"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+                            required></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit"
+                            class="bg-gradient-to-r from-pink-500 to-red-500 text-white font-bold py-3 px-8 rounded-full mt-8 inline-block glow-animation">Send
+                            Message</button>
+                    </div>
+                </form>
             </div>
-            <div class="mb-4">
-                <label for="email" class="block text-lg font-medium text-gray-700 mb-2">Email</label>
-                <input type="email" id="email" name="email"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-red-200"
-                    required>
-            </div>
-            <div class="mb-4">
-                <label for="subject" class="block text-lg font-medium text-gray-700 mb-2">Subject</label>
-                <input type="text" id="subject" name="subject"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-red-200"
-                    required>
-            </div>
-            <div class="mb-4">
-                <label for="message" class="block text-lg font-medium text-gray-700 mb-2">Message</label>
-                <textarea id="message" name="message" rows="4"
-                    class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-red-200"
-                    required></textarea>
-            </div>
-            <div class="text-center">
-                <button type="submit"
-                    class="bg-gradient-to-r from-pink-500 to-red-500 text-white font-bold py-3 px-8 rounded-full mt-4 inline-block hover:animate-pulse">Send
-                    Message</button>
-            </div>
-        </form>
-    </section>
 
-    <!-- Contact Me Section -->
-    <section id="contact" class="bg-blue-600 text-white py-12">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-bold mb-8">Contact Me</h2>
-            <div class="flex justify-center items-center space-x-8 mb-4">
-                <a href="https://linkedin.com/in/debmalya-sur" target="_blank" class="text-blue-300 hover:text-white">
-                    <i class="fab fa-linkedin-in fa-2x"></i>
-                </a>
-                <a href="https://github.com/surdebmalya" target="_blank" class="text-blue-300 hover:text-white">
-                    <i class="fab fa-github fa-2x"></i>
-                </a>
-                <a href="mailto:official.surdebmalya@gmail.com" target="_blank" class="text-blue-300 hover:text-white">
-                    <i class="fas fa-envelope-open-text fa-2x"></i>
-                </a>
-                <a href="https://wa.me/9330427919" target="_blank" class="text-blue-300 hover:text-white">
-                    <i class="fab fa-whatsapp fa-2x"></i>
-                </a>
-                <a href="tel:+9330427919" target="_blank" class="text-blue-300 hover:text-white">
-                    <i class="fas fa-phone-alt fa-2x"></i>
-                </a>
+            <!-- Contact Links -->
+            <div class="w-full lg:w-1/3 flex flex-col items-center lg:items-start">
+                <h2 class="text-3xl font-bold mb-12 text-center text-blue-700 animate-fadeInUp">Contact Me</h2>
+                <p class="text-lg text-gray-600 mb-8 text-center lg:text-left">Reach out through any of the following
+                    channels:</p>
+                <div class="flex justify-center lg:justify-start items-center space-x-8 mb-8">
+                    <a href="tel:+9330427919" target="_blank" class="text-blue-500 hover:text-blue-700">
+                        <i class="fas fa-phone-alt fa-2x"></i>
+                    </a>
+                    <a href="https://wa.me/9330427919" target="_blank" class="text-blue-500 hover:text-blue-700">
+                        <i class="fab fa-whatsapp fa-2x"></i>
+                    </a>
+                    <a href="mailto:official.surdebmalya@gmail.com" target="_blank"
+                        class="text-blue-500 hover:text-blue-700">
+                        <i class="fas fa-envelope-open-text fa-2x"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/debmalya-sur" target="_blank"
+                        class="text-blue-500 hover:text-blue-700">
+                        <i class="fab fa-linkedin-in fa-2x"></i>
+                    </a>
+                </div>
+                <!-- Trustworthy Tagline -->
+                <p class="text-center lg:text-left text-lg font-semibold text-gray-700 border-t border-gray-300 pt-4">
+                    <i class="fas fa-thumbs-up text-red-500"></i> Unlock exclusive offers and top-quality service.
+                </p>
             </div>
         </div>
     </section>
 
     <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/9330427919" class="whatsapp-float" target="_blank" title="Chat with me on WhatsApp">
+    <a href="https://wa.me/9330427919?text=I%20want%20to%20know%20more%20about%20your%20deals%20and%20combos"
+        class="whatsapp-float" target="_blank" title="Chat with me on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
     <!-- Tooltip -->
     <div class="tooltip">Chat with me on WhatsApp</div>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white text-center p-4">
-        <p>&copy; 2024 Debmalya Sur. All rights reserved.</p>
+    <footer class="bg-blue-900 text-white py-10">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row justify-between items-center lg:items-start space-y-6 lg:space-y-0">
+                <!-- Logo & Description -->
+                <div class="lg:w-1/3 text-center lg:text-left">
+                    <h2 class="text-2xl font-bold">Debmalya Sur</h2>
+                    <p class="mt-2 text-sm text-gray-300">
+                        Empowering businesses with scalable websites, custom software, and strategic social media
+                        solutions.
+                    </p>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="lg:w-1/3 flex flex-col text-center space-y-2">
+                    <h3 class="text-xl font-semibold">Quick Links</h3>
+                    <ul class="text-gray-400">
+                        <li><a href="#services" class="hover:text-white transition-colors">Services</a></li>
+                        <li><a href="#testimonials" class="hover:text-white transition-colors">Testimonials</a></li>
+                        <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Links -->
+                <div class="lg:w-1/3 flex flex-col items-center lg:items-end space-y-2">
+                    <h3 class="text-xl font-semibold">Connect With Me</h3>
+                    <div class="flex space-x-4 mt-2">
+                        <a href="tel:+9330427919" class="text-gray-400 hover:text-white">
+                            <i class="fas fa-phone fa-1x"></i>
+                        </a>
+                        <a href="https://wa.me/9330427919" target="_blank" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-whatsapp fa-1x"></i>
+                        </a>
+                        <a href="mailto:official.surdebmalya@gmail.com" target="_blank"
+                            class="text-gray-400 hover:text-white">
+                            <i class="fas fa-envelope fa-1x"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/debmalya-sur" target="_blank"
+                            class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin fa-1x"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Note -->
+            <div class="mt-8 border-t border-gray-600 pt-4 text-center text-sm text-gray-400">
+                <p>&copy; 2024 Debmalya Sur. All rights reserved.</p>
+                <p class="mt-2 text-xs">Creating digital solutions with precision and passion.</p>
+            </div>
+        </div>
     </footer>
 
     <script>
@@ -384,6 +530,25 @@
             items.forEach(item => item.style.transform = `translateX(-${index * 100}%)`);
             index = (index + 1) % totalItems;
         }, 5000);
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Add the animation classes when the section comes into view
+                        entry.target.classList.add("animate-fadeInUp");
+                        entry.target.style.opacity = "1"; // Make visible
+                        observer.unobserve(entry.target); // Unobserve to prevent re-triggering
+                    }
+                });
+            }, { threshold: 0.2 }); // Adjust the threshold as needed
+
+            // Select all sections with the animate-on-scroll class
+            const sections = document.querySelectorAll('.animate-on-scroll');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
     </script>
 
 </body>
