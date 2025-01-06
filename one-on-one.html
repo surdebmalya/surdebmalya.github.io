@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debmalya Sur | One-to-one Service</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <link rel="icon" href="./static/images/profile-pic.jpg" type="image/jpg">
+
+    <meta name="description" content="5+ Years Experience in Software Development & Career Transformation Coach.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://surdebmalya.co.in/">
+    <meta property="og:title" content="Hi 👋, I'm Debmalya Sur">
+    <meta property="og:description" content="5+ Years Experience in Software Development & Career Transformation Coach.">
+    <meta property="og:image" content="https://surdebmalya.co.in/static/images/profile-service.jpg">
+
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://surdebmalya.co.in/">
+    <meta property="twitter:title" content="Hi 👋, I'm Debmalya Sur">
+    <meta property="twitter:description"
+        content="5+ Years Experience in Software Development & Career Transformation Coach.">
+    <meta property="twitter:image" content="https://surdebmalya.co.in/static/images/profile-service.jpg">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .bg-overlay {
+            background: rgba(0, 0, 0, 0.75);
+        }
+
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            width: 47px;
+            height: 47px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #fff;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #128c7e;
+            color: #fff;
+        }
+
+        /* Tooltip Styles */
+        .tooltip {
+            position: absolute;
+            bottom: 70px;
+            right: 10px;
+            background-color: #128c7e;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 200;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .whatsapp-float:hover .tooltip {
+            opacity: 1;
+        }
+
+        .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            border-width: 6px;
+            border-style: solid;
+            border-color: #128c7e transparent transparent transparent;
+            transform: translateX(-50%);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 10px rgba(255, 105, 180, 0.7), 0 0 20px rgba(255, 105, 180, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(255, 0, 150, 0.8), 0 0 40px rgba(255, 105, 180, 0.6);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .animate-fadeInLeft {
+            animation: fadeInLeft 1s ease forwards;
+        }
+
+        .glow-animation {
+            animation: glow 1.5s infinite alternate;
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 text-gray-900 pt-14">
+    <nav class="bg-blue-900 text-white p-4 shadow-lg fixed w-full top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-2xl font-extrabold">One-on-One Guidance</a>
+            <div class="space-x-4">
+                <a href="#feedback">Feedback</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative bg-blue-700 text-white py-20 bg-cover bg-center animate-fadeInUp">
+        <div class="absolute inset-0 bg-overlay"></div>
+        <div class="container mx-auto text-center relative z-10">
+            <img src="./static/images/profile-pic.jpg" alt="Debmalya Sur"
+                class="mx-auto mb-4 rounded-full h-32 w-32 object-cover animate-fadeInUp">
+            <h1 class="text-5xl font-extrabold mb-4 animate-fadeInUp">Debmalya Sur</h1>
+            <p class="animate-fadeInLeft">5+ Years Experience in Software Development & Career Transformation Coach
+            </p>
+            <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-8 justify-center text-center">
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-2xl font-bold text-blue-900 mb-3">35+ Happy Learners</h3>
+                    <p class="text-lg text-gray-600">Over 35 learners have trusted me to deliver exceptional results.
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-2xl font-bold text-blue-900 mb-3">4.7 Star Rating</h3>
+                    <p class="text-lg text-gray-600">My learners consistently rate me highly for quality and service.
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-2xl font-bold text-blue-900 mb-3">Best one-to-one Career Guide</h3>
+                    <p class="text-lg text-gray-600">I ensure you take right decision for your career in the right time.
+                    </p>
+                </div>
+            </div>
+            <a href="#feedback"
+                class="bg-gradient-to-r from-pink-500 to-red-500 text-white font-bold py-3 px-8 rounded-full mt-8 inline-block glow-animation">Feedback</a>
+        </div>
+    </header>
+    <section class="container mx-auto pt-8 pb-8 my-8 animate-on-scroll">
+        <h2 class="text-3xl font-bold mb-12 text-center text-blue-700 animate-fadeInUp">My Expert Guidance</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-12">
+            <div
+                class="relative p-8 bg-white rounded-lg shadow-xl text-center hover:bg-blue-50 transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out animate-fadeInUp">
+                <div
+                    class="absolute top-4 left-0 bg-gradient-to-r from-red-400 to-red-600 text-white text-sm px-3 py-1 flex items-center space-x-2">
+                    <span><b>Best Choice</b></span>
+                </div>
+                <div class="mb-6">
+                    <i
+                        class="fas fa-laptop-code fa-3x text-blue-500 transition-colors hover:text-blue-700 transform hover:scale-110 duration-200"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-3 text-blue-800">Career Help for College Students</h3>
+                <p class="text-lg text-gray-600 text-left">Get expert guidance on how to kickstart your career while
+                    still in college! This session covers resume tips, interview strategies, and how to build essential
+                    skills that top employers are looking for. Gain the confidence and tools to secure your dream job
+                    early!</p>
+                <div class="mt-4 flex justify-center items-center space-x-4">
+                    <a href="#how-to-proceed" class="text-blue-600 hover:text-blue-800 text-lg font-semibold">Price:
+                        ₹1000</a>
+                    <a href="#how-to-proceed"
+                        class="bg-blue-600 text-white px-6 py-2 rounded-full text-lg font-semibold hover:bg-blue-700 transition-all duration-300">Book
+                        Now</a>
+                </div>
+            </div>
+            <div
+                class="relative p-8 bg-white rounded-lg shadow-xl text-center hover:bg-blue-50 transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 ease-in-out animate-fadeInUp">
+                <div class="mb-6">
+                    <i
+                        class="fas fa-cogs fa-3x text-blue-500 transition-colors hover:text-blue-700 transform hover:scale-110 duration-200"></i>
+                </div>
+                <h3 class="text-2xl font-semibold mb-3 text-blue-800">Get Exact Plan to Land an MNC Job</h3>
+                <p class="text-lg text-gray-600 text-left">Join this exclusive webinar for a step-by-step guide on
+                    landing your dream job in top MNCs! I'll share proven strategies for building a standout resume,
+                    mastering interviews, and boosting your skills to secure the job you want. Don’t miss out on insider
+                    tips and actionable advice to fast-track your career success!</p>
+                <div class="mt-4 flex justify-center items-center space-x-4">
+                    <a href="#how-to-proceed" class="text-blue-600 hover:text-blue-800 text-lg font-semibold">Price:
+                        ₹1500</a>
+                    <a href="#how-to-proceed"
+                        class="bg-blue-600 text-white px-6 py-2 rounded-full text-lg font-semibold hover:bg-blue-700 transition-all duration-300">Book
+                        Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section
+        class="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:px-8 shadow-lg animate-on-scroll">
+        <div
+            class="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.100),white)] opacity-20">
+        </div>
+        <div class="mx-auto max-w-2xl lg:max-w-4xl">
+            <figure class="mt-10">
+                <blockquote class="text-center text-xl/8 text-gray-900 sm:text-2xl/9">
+                    <p>
+                        “The guidance was truly transformative. I feel more confident about my career path now! The
+                        session not only provided valuable insights but also gave me practical tools to improve my
+                        resume and interview skills. I now have a clear roadmap to follow and am excited about the
+                        opportunities ahead. I highly recommend this to anyone looking to kickstart their career with
+                        expert guidance and support!”
+                    </p>
+                </blockquote>
+                <figcaption class="mt-4">
+                    <img class="mx-auto h-12 w-12 rounded-full"
+                        src="./static/ecommerce/profile-pic.jpeg"
+                        alt="">
+                    <div class="mt-4 flex items-center justify-center space-x-3 text-base">
+                        <div class="font-semibold text-gray-900">Arindam Chatterjee</div>
+                        <svg viewBox="0 0 2 2" width="3" height="3" aria-hidden="true" class="fill-gray-900">
+                            <circle cx="1" cy="1" r="1" />
+                        </svg>
+                        <div class="text-gray-600">2nd year student of Jadavpur University</div>
+                    </div>
+                </figcaption>
+            </figure>
+        </div>
+    </section>
+    <section id="how-to-proceed">
+    </section>
+
+    <section class="container mx-auto pt-8 pb-8 my-8 animate-on-scroll">
+        <h2 class="text-3xl font-bold mb-12 text-center text-blue-700 animate-fadeInUp">How to Proceed</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div class="font-awesome">
+                <h3 class="text-xl font-bold mb-4">Payment Instructions:</h3>
+                <ol class="list-decimal ml-6 text-gray-700 mb-4">
+                    <li>Send the exact amount to <span class="font-bold">surdebmalya2001@oksbi</span>.</li>
+                    <li>Alternatively, scan the QR code provided to make a direct payment.</li>
+                    <li>Send the payment screenshot to <span class="font-bold">+91 9330427919</span> via
+                        WhatsApp or click on the floating icon at buttom-right of this screen.</li>
+                    <li>You will receive a confirmation within 12 hours.</li>
+                </ol>
+                <a href="#feedback"
+                    class="bg-gradient-to-r from-pink-500 to-red-500 text-white font-bold py-3 px-8 rounded-full mt-8 inline-block glow-animation">Feedback</a>
+            </div>
+            <div class="text-center">
+                <h3 class="text-lg font-bold primary-text mb-4">Scan QR Code</h3>
+                <img src="./static/ecommerce/QRCode.png" alt="Payment QR Code" class="w-48 h-48 mx-auto mb-4">
+                <p class="text-gray-700">VPA: <span class="font-bold">surdebmalya2001@oksbi</span></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="feedback"></section>
+    <section class="container mx-auto py-12 px-8 bg-white rounded-lg shadow-lg my-12 animate-on-scroll">
+        <div class="flex flex-col lg:flex-row lg:space-x-12">
+            <div class="w-full lg:w-2/3 mb-8 lg:mb-0">
+                <h2 class="text-3xl font-bold mb-12 text-left text-blue-700 animate-fadeInUp">We Value Your Feedback</h2>
+                <form action="https://api.web3forms.com/submit" method="POST"
+                    class="bg-gray-50 p-6 rounded-lg shadow-md">
+                    <input type="hidden" name="access_key" value="d9fdd611-815b-4272-955d-86f5e5bcd877">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="name" class="block text-lg font-medium text-gray-700 mb-2">Name</label>
+                            <input type="text" id="name" name="name"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+                                required>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-lg font-medium text-gray-700 mb-2">Email</label>
+                            <input type="email" id="email" name="email"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+                                required>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="subject" class="block text-lg font-medium text-gray-700 mb-2">Subject</label>
+                        <input type="text" id="subject" name="subject"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+                            required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="message" class="block text-lg font-medium text-gray-700 mb-2">Message</label>
+                        <textarea id="message" name="message" rows="4"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+                            required></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit"
+                            class="bg-gradient-to-r from-pink-500 to-red-500 text-white font-bold py-3 px-8 rounded-full mt-8 inline-block glow-animation">Send
+                            Message</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="w-full lg:w-1/3 flex flex-col items-center lg:items-start">
+                <h2 class="text-3xl font-bold mb-12 text-center text-blue-700 animate-fadeInUp">Contribute Any Amount</h2>
+                <p class="text-lg text-gray-600 mb-8 text-center lg:text-left">If you found my guidance helpful, please leave your feedback or contribute any amount you feel appropriate.</p>
+                <img src="./static/ecommerce/QRCode.png" alt="Contribution QR Code" class="w-48 h-48 mx-auto mb-4">
+                    <p class="text-gray-700 mb-4">VPA: <span class="font-bold">surdebmalya2001@oksbi</span></p>
+                <p class="text-center lg:text-left text-lg font-semibold text-gray-700 border-t border-gray-300 pt-4">
+                    <i class="fas fa-thumbs-up text-red-500"></i> Unlock exclusive offers and top-quality service.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/9330427919?text=I%20want%20to%20avail%20your%20guidance"
+        class="whatsapp-float" target="_blank" title="Chat with me on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <!-- Tooltip -->
+    <div class="tooltip">Chat with me on WhatsApp</div>
+
+    <!-- Footer -->
+    <footer class="bg-blue-900 text-white py-10">
+        <div class="container mx-auto">
+            <!-- Bottom Note -->
+            <div class="text-center text-sm text-gray-400">
+                <p>&copy; 2025 Debmalya Sur. All rights reserved.</p>
+                <p class="mt-2 text-xs">Creating digital solutions with precision and passion.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let index = 0;
+        const items = document.querySelectorAll('.carousel-item');
+        const totalItems = items.length;
+
+        setInterval(() => {
+            items.forEach(item => item.style.transform = `translateX(-${index * 100}%)`);
+            index = (index + 1) % totalItems;
+        }, 5000);
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Add the animation classes when the section comes into view
+                        entry.target.classList.add("animate-fadeInUp");
+                        entry.target.style.opacity = "1"; // Make visible
+                        observer.unobserve(entry.target); // Unobserve to prevent re-triggering
+                    }
+                });
+            }, { threshold: 0.2 }); // Adjust the threshold as needed
+
+            // Select all sections with the animate-on-scroll class
+            const sections = document.querySelectorAll('.animate-on-scroll');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+
+</body>
+
+</html>
