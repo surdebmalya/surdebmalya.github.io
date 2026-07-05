@@ -204,6 +204,44 @@
             color: var(--ink);
         }
 
+        .hero-summary {
+            display: grid;
+            gap: 10px;
+            max-width: 780px;
+            margin: 24px auto 0;
+            color: var(--muted);
+            text-align: left;
+        }
+
+        .hero-summary p {
+            margin: 0;
+        }
+
+        .hero-summary strong {
+            color: var(--ink);
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .tag {
+            display: inline-flex;
+            min-height: 34px;
+            align-items: center;
+            padding: 7px 12px;
+            border: 1px solid rgba(15, 118, 110, 0.18);
+            border-radius: 999px;
+            background: rgba(217, 242, 238, 0.72);
+            color: var(--accent-dark);
+            font-size: 0.82rem;
+            font-weight: 900;
+        }
+
         .hero-actions {
             display: flex;
             flex-wrap: wrap;
@@ -546,9 +584,34 @@
             <p class="eyebrow"><i class="fas fa-code"></i> Software Developer & Researcher</p>
             <h1>Debmalya Sur</h1>
             <p class="hero-copy">
-                Senior Engineer at Samsung Research Institute Bangalore, focused on reliable software systems,
-                applied computer science, and practical developer education.
+                Senior Engineer at Samsung Research Institute Bangalore, focused on on-device AI, computer vision,
+                applied machine learning, and production-grade software systems.
             </p>
+            <div class="hero-summary">
+                <p>
+                    I owned the end-to-end on-device machine learning pipeline for Samsung Galaxy S24 Dress Room's
+                    commercially launched SuggestStyle feature, covering model development, optimization, deployment,
+                    and production integration.
+                </p>
+                <p>
+                    My work includes lightweight NanoDet-based object detection, aesthetics assessment, personalized
+                    prompt generation from Samsung Account preference signals, and ONNX/model-compression optimization
+                    that reduced a production model from <strong>8MB to 2MB</strong> while reaching <strong>20ms</strong>
+                    end-to-end on-device inference.
+                </p>
+                <p>
+                    I am also developing a CLIP-based vision-language classification system with Samsung Ads for SFW/NSFW
+                    ad categorization, targeting <strong>95% accuracy</strong>, low false rates, and major reduction in
+                    manual review. My research includes federated learning for heart failure prediction, IoMT security
+                    in Elsevier's Blockchain: Research and Applications, and <strong>AIR 501</strong> in GATE CS 2022.
+                </p>
+            </div>
+            <div class="tag-list" aria-label="Expertise tags">
+                <span class="tag">Computer Vision</span>
+                <span class="tag">AI Agents</span>
+                <span class="tag">Algo Trader</span>
+                <span class="tag">Option Seller</span>
+            </div>
             <div class="hero-actions">
                 <a class="button" href="./documents/Resume-SDE.pdf" target="_blank" rel="noopener">
                     <i class="fas fa-file-lines"></i>
