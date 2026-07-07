@@ -152,6 +152,18 @@
             color: #fff;
         }
 
+        .nav-toggle {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .nav-toggle-button {
+            display: none;
+        }
+
         .hero,
         .section,
         .footer {
@@ -488,19 +500,18 @@
                 position: sticky;
                 top: 10px;
                 width: calc(100% - 24px);
-                flex-direction: column;
-                align-items: stretch;
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) auto;
+                align-items: center;
                 gap: 10px;
                 padding: 10px;
                 border-radius: 24px;
+                overflow: visible;
             }
 
             .brand {
-                width: 100%;
-                justify-content: center;
-                padding: 2px 8px 8px;
-                border-bottom: 1px solid rgba(217, 226, 236, 0.82);
-                text-align: left;
+                justify-content: flex-start;
+                padding: 0;
             }
 
             .brand img {
@@ -508,19 +519,51 @@
                 height: 40px;
             }
 
+            .nav-toggle-button {
+                display: inline-flex;
+                width: 40px;
+                height: 40px;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid var(--line);
+                border-radius: 50%;
+                background: #fff;
+                color: var(--ink);
+                cursor: pointer;
+            }
+
+            .nav-toggle:checked + .nav-toggle-button {
+                background: var(--ink);
+                color: #fff;
+            }
+
             .nav-links {
-                display: grid;
+                display: none;
+                position: absolute;
+                top: calc(100% + 8px);
+                left: 0;
+                right: 0;
                 width: 100%;
-                grid-template-columns: repeat(5, minmax(0, 1fr));
-                gap: 4px;
+                grid-template-columns: 1fr;
+                gap: 6px;
+                padding: 10px;
+                border: 1px solid rgba(217, 226, 236, 0.9);
+                border-radius: 18px;
+                background: rgba(255, 255, 255, 0.96);
+                box-shadow: var(--shadow-soft);
+                backdrop-filter: blur(18px);
+            }
+
+            .nav-toggle:checked ~ .nav-links {
+                display: grid;
             }
 
             .nav-links a {
-                min-width: 0;
-                min-height: 38px;
-                padding: 8px 4px;
-                font-size: 0.72rem;
-                white-space: nowrap;
+                width: 100%;
+                min-height: 42px;
+                padding: 10px 12px;
+                font-size: 0.9rem;
+                border-radius: 14px;
             }
         }
 
@@ -571,11 +614,16 @@
                 <small>Senior Engineer @Samsung</small>
             </span>
         </a>
+        <input class="nav-toggle" type="checkbox" id="nav-toggle" aria-label="Toggle navigation">
+        <label class="nav-toggle-button" for="nav-toggle" aria-hidden="true">
+            <i class="fas fa-bars"></i>
+        </label>
         <div class="nav-links">
             <a href="#work">Work</a>
             <a href="./static/books/books.html">Books</a>
             <a href="./blog.html">Blog</a>
             <a href="https://github.com/surdebmalya/" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a class="nav-cta" href="https://www.linkedin.com/in/debmalya-sur/">Contact</a>
         </div>
     </nav>
 
@@ -700,6 +748,25 @@
     <footer class="footer">
         &copy; This website was made by Debmalya Sur with &hearts;
     </footer>
+    <script>
+        document.addEventListener("click", function (event) {
+            document.querySelectorAll(".site-nav").forEach(function (nav) {
+                var toggle = nav.querySelector(".nav-toggle");
+                if (toggle && toggle.checked && !nav.contains(event.target)) {
+                    toggle.checked = false;
+                }
+            });
+        });
+
+        document.querySelectorAll(".site-nav .nav-links a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                var toggle = link.closest(".site-nav").querySelector(".nav-toggle");
+                if (toggle) {
+                    toggle.checked = false;
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -36,11 +36,16 @@
                 <small>Books & Guides</small>
             </span>
         </a>
+        <input class="nav-toggle" type="checkbox" id="nav-toggle" aria-label="Toggle navigation">
+        <label class="nav-toggle-button" for="nav-toggle" aria-hidden="true">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+        </label>
         <div class="nav-links">
             <a href="./books.html">Books</a>
             <a href="../../index.html">Portfolio</a>
             <a href="../../blog.html">Blog</a>
             <a href="https://github.com/surdebmalya/" aria-label="GitHub"><i class="fa fa-github" aria-hidden="true"></i></a>
+            <a class="nav-cta" href="https://www.linkedin.com/in/debmalya-sur/">Contact</a>
         </div>
     </nav>
 
@@ -151,6 +156,24 @@
     </footer>
 
     <script>
+        document.addEventListener("click", function (event) {
+            document.querySelectorAll(".site-nav").forEach(function (nav) {
+                var toggle = nav.querySelector(".nav-toggle");
+                if (toggle && toggle.checked && !nav.contains(event.target)) {
+                    toggle.checked = false;
+                }
+            });
+        });
+
+        document.querySelectorAll(".site-nav .nav-links a").forEach(function (link) {
+            link.addEventListener("click", function () {
+                var toggle = link.closest(".site-nav").querySelector(".nav-toggle");
+                if (toggle) {
+                    toggle.checked = false;
+                }
+            });
+        });
+
         var shareButton = document.getElementById("menu-share");
         shareButton.addEventListener("click", function () {
             if (navigator.share) {
