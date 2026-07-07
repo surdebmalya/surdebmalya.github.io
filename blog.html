@@ -360,14 +360,14 @@
                 left: 0;
                 right: 0;
                 width: 100%;
-                grid-template-columns: 1fr;
-                gap: 6px;
-                padding: 10px;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 8px;
+                padding: 12px;
                 border: 1px solid rgba(217, 226, 236, 0.9);
-                border-radius: 18px;
-                background: rgba(255, 255, 255, 0.96);
-                box-shadow: var(--shadow-soft);
-                backdrop-filter: blur(18px);
+                border-radius: 22px;
+                background: rgba(255, 255, 255, 0.98);
+                box-shadow: 0 18px 50px rgba(16, 24, 40, 0.16);
+                backdrop-filter: blur(22px);
             }
 
             .nav-toggle:checked ~ .nav-links {
@@ -376,10 +376,24 @@
 
             .nav-links a {
                 width: 100%;
-                min-height: 42px;
-                padding: 10px 12px;
+                min-height: 46px;
+                justify-content: center;
+                gap: 8px;
+                padding: 11px 12px;
+                border: 1px solid rgba(217, 226, 236, 0.78);
+                border-radius: 16px;
+                background: rgba(245, 247, 251, 0.82);
                 font-size: 0.9rem;
-                border-radius: 14px;
+            }
+
+            .nav-links a[aria-label]::after {
+                content: attr(aria-label);
+            }
+
+            .nav-links .nav-cta {
+                grid-column: 1 / -1;
+                background: var(--ink);
+                color: #fff;
             }
 
             .blog-grid {
@@ -419,11 +433,11 @@
             <i class="fas fa-bars"></i>
         </label>
         <div class="nav-links">
-            <a href="./index.html">Home</a>
-            <a href="./static/books/books.html">Books</a>
-            <a href="https://notes.surdebmalya.co.in/" target="_blank" rel="noopener">Notes</a>
+            <a href="./index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="./static/books/books.html"><i class="fas fa-book-open"></i> Books</a>
+            <a href="https://notes.surdebmalya.co.in/" target="_blank" rel="noopener"><i class="fas fa-graduation-cap"></i> Notes</a>
             <a href="https://github.com/surdebmalya/" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            <a class="nav-cta" href="https://www.linkedin.com/in/debmalya-sur/">Contact</a>
+            <a class="nav-cta" href="https://www.linkedin.com/in/debmalya-sur/"><i class="fab fa-linkedin"></i> Contact</a>
         </div>
     </nav>
 
