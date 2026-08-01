@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog | Debmalya Sur</title>
-    <meta name="description" content="Blog by Debmalya Sur. Coming soon.">
+    <meta name="description" content="Engineering, AI, research, and trading notes by Debmalya Sur.">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://surdebmalya.co.in/blog.html">
     <meta property="og:title" content="Blog | Debmalya Sur">
-    <meta property="og:description" content="Engineering, AI, research, and trading notes by Debmalya Sur. Coming soon.">
+    <meta property="og:description" content="Engineering, AI, research, and trading notes by Debmalya Sur.">
     <meta property="og:image" content="https://surdebmalya.co.in/static/images/profile-pic.jpg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -203,30 +203,26 @@
             padding: 32px 0 52px;
         }
 
-        .blog-stage {
-            position: relative;
-            min-height: 520px;
-            display: grid;
-            place-items: center;
+        .section-heading {
+            max-width: 760px;
+            margin: 0 auto 26px;
+            text-align: center;
         }
 
-        .blog-grid {
-            width: 100%;
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 16px;
-            filter: blur(5px);
-            opacity: 0.54;
-            transform: scale(0.985);
-            pointer-events: none;
-            user-select: none;
+        .section-heading h2 {
+            margin-bottom: 12px;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            line-height: 1;
         }
 
-        .blog-card {
-            min-height: 260px;
+        .section-heading p {
+            color: var(--muted);
+        }
+
+        .featured-post {
             display: grid;
-            align-content: space-between;
-            padding: 24px;
+            gap: clamp(22px, 4vw, 34px);
+            padding: clamp(18px, 4vw, 42px);
             border: 1px solid rgba(217, 226, 236, 0.86);
             border-radius: 8px;
             background: var(--surface);
@@ -234,72 +230,105 @@
             backdrop-filter: blur(18px);
         }
 
-        .blog-card i {
-            display: inline-flex;
-            width: 46px;
-            height: 46px;
-            align-items: center;
+        .post-media {
+            aspect-ratio: 21 / 8;
+            min-height: 0;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            padding: 0;
+            border: 0;
+            border-radius: 0;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .post-media img {
+            width: 100%;
+            height: auto;
+            max-height: 100%;
+            object-fit: cover;
+            border-radius: 0;
+            opacity: 1;
+            filter: none;
+        }
+
+        .post-content {
+            max-width: 880px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .post-meta {
+            display: flex;
+            flex-wrap: wrap;
             justify-content: center;
-            border-radius: 50%;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .post-meta span {
+            display: inline-flex;
+            min-height: 32px;
+            align-items: center;
+            gap: 7px;
+            padding: 6px 11px;
+            border-radius: 999px;
             background: var(--accent-soft);
             color: var(--accent-dark);
-            font-size: 1.08rem;
-        }
-
-        .blog-card h2 {
-            margin: 20px 0 10px;
-            font-size: 1.32rem;
-            line-height: 1.12;
-        }
-
-        .blog-card p {
-            margin-bottom: 0;
-            color: var(--muted);
-        }
-
-        .blog-card span {
-            color: var(--gold);
-            font-size: 0.82rem;
+            font-size: 0.78rem;
             font-weight: 900;
-            letter-spacing: 0.08em;
             text-transform: uppercase;
         }
 
-        .coming-soon {
-            position: absolute;
-            inset: 50% auto auto 50%;
-            width: min(92%, 560px);
-            transform: translate(-50%, -50%);
-            padding: clamp(30px, 5vw, 48px);
-            border: 1px solid rgba(255, 255, 255, 0.64);
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.72);
-            box-shadow: var(--shadow);
-            text-align: center;
-            backdrop-filter: blur(22px);
-        }
-
-        .coming-soon i {
-            display: inline-flex;
-            width: 54px;
-            height: 54px;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 18px;
-            border-radius: 50%;
-            background: var(--ink);
-            color: #fff;
-        }
-
-        .coming-soon h2 {
-            margin-bottom: 12px;
-            font-size: clamp(2rem, 5vw, 4rem);
+        .post-content h2 {
+            margin: 0 0 16px;
+            font-size: clamp(2rem, 4vw, 3.8rem);
             line-height: 1;
         }
 
-        .coming-soon p {
-            margin: 0 auto;
+        .post-content p {
+            margin-bottom: 0;
             color: var(--muted);
+            font-size: 1.04rem;
+        }
+
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin: 24px 0;
+        }
+
+        .post-tags span {
+            padding: 7px 11px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.72);
+            color: var(--muted);
+            font-size: 0.84rem;
+            font-weight: 800;
+        }
+
+        .post-link {
+            display: inline-flex;
+            min-height: 50px;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 13px 18px;
+            border-radius: 999px;
+            background: var(--ink);
+            color: #fff;
+            font-weight: 850;
+            text-decoration: none;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .post-link:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
         }
 
         .footer {
@@ -397,9 +426,14 @@
                 color: #fff;
             }
 
-            .blog-grid {
+            .featured-post {
                 grid-template-columns: 1fr;
             }
+
+            .post-media {
+                min-height: 260px;
+            }
+
         }
 
         @media (max-width: 620px) {
@@ -413,8 +447,16 @@
                 padding-top: 46px;
             }
 
-            .blog-stage {
-                min-height: 620px;
+            .featured-post {
+                padding: 14px;
+            }
+
+            .post-media {
+                min-height: 220px;
+            }
+
+            .post-link {
+                width: 100%;
             }
         }
     </style>
@@ -445,75 +487,40 @@
     <main>
         <header class="hero">
             <p class="eyebrow"><i class="fas fa-pen-nib"></i> Blog</p>
-            <h1>Engineering notes are taking shape.</h1>
+            <h1>Engineering notes and product-grade system writeups.</h1>
             <p>
                 A home for thoughtful writing on on-device AI, computer vision, research, trading systems, and the
                 engineering decisions behind production software.
             </p>
         </header>
 
-        <section class="section" aria-label="Upcoming blog posts">
-            <div class="blog-stage">
-                <div class="blog-grid" aria-hidden="true">
-                    <article class="blog-card">
-                        <div>
-                            <i class="fas fa-mobile-screen"></i>
-                            <h2>Optimizing On-device ML for Real-time Experiences</h2>
-                            <p>Notes on latency, model size, deployment constraints, and practical trade-offs.</p>
-                        </div>
-                        <span>Computer Vision</span>
-                    </article>
-                    <article class="blog-card">
-                        <div>
-                            <i class="fas fa-robot"></i>
-                            <h2>AI Agents, Prompts, and Personalization Pipelines</h2>
-                            <p>How preference signals can shape context-aware AI product experiences.</p>
-                        </div>
-                        <span>AI Agents</span>
-                    </article>
-                    <article class="blog-card">
-                        <div>
-                            <i class="fas fa-chart-line"></i>
-                            <h2>Lessons from Algo Trading and Options Systems</h2>
-                            <p>Thinking about risk, automation, probability, and disciplined execution.</p>
-                        </div>
-                        <span>Trading</span>
-                    </article>
-                    <article class="blog-card">
-                        <div>
-                            <i class="fas fa-shield-halved"></i>
-                            <h2>Security Patterns for IoMT and Distributed Systems</h2>
-                            <p>Research-backed notes on authentication, privacy, and reliable communication.</p>
-                        </div>
-                        <span>Research</span>
-                    </article>
-                    <article class="blog-card">
-                        <div>
-                            <i class="fas fa-brain"></i>
-                            <h2>Federated Learning for Sensitive Healthcare Data</h2>
-                            <p>Privacy-preserving ML ideas for distributed prediction problems.</p>
-                        </div>
-                        <span>Machine Learning</span>
-                    </article>
-                    <article class="blog-card">
-                        <div>
-                            <i class="fas fa-code"></i>
-                            <h2>Building Software That Survives Production</h2>
-                            <p>Engineering reflections on integration, observability, and maintainability.</p>
-                        </div>
-                        <span>Engineering</span>
-                    </article>
-                </div>
-
-                <div class="coming-soon" role="status" aria-live="polite">
-                    <i class="fas fa-clock"></i>
-                    <h2>Coming Soon...</h2>
+        <section class="section" aria-label="Latest blog post">
+            <article class="featured-post">
+                <a class="post-media" href="./static/blogs/Building-a-Fully-Fledged-Personal-Algo-Trading-Bot-from-Scratch.html" aria-label="Read Building a Personal Algo Trading Bot from Scratch">
+                    <img src="./static/blogs/assets/algo-trading-engine-cover.png" alt="Illustration of an event-driven algorithmic trading system">
+                </a>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <span><i class="fas fa-chart-line"></i> Algo Trading</span>
+                        <span><i class="fas fa-code"></i> Engineering Case Study</span>
+                    </div>
+                    <h2>Building an Algo Trading Bot from Scratch. Algorithm, Hosting and Scaling Mechanism.</h2>
                     <p>
-                        The blog is being prepared. The first posts will arrive here soon with polished notes,
-                        engineering breakdowns, and practical ideas.
+                        A technical deep dive and the psychology behind a Python-based live trading system built around Fyers APIs, dual websockets, deterministic candle scheduling, producer-consumer queues, shared-state locks, CSV persistence, and Telegram-based operational visibility.
                     </p>
+                    <div class="post-tags" aria-label="Post topics">
+                        <span>Python</span>
+                        <span>WebSockets</span>
+                        <span>Threaded Runtime</span>
+                        <span>Option Selling</span>
+                        <span>Dynamic Risk Management</span>
+                    </div>
+                    <a class="post-link" href="./static/blogs/Building-a-Fully-Fledged-Personal-Algo-Trading-Bot-from-Scratch.html">
+                        Read Article
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-            </div>
+            </article>
         </section>
     </main>
 

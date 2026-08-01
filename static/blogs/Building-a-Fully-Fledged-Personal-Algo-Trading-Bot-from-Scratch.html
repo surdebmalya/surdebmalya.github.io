@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Building a Fully-Fledged Personal Algo Trading Bot from Scratch</title>
+  <meta name="description" content="A technical case study on building a personal algo trading bot with Python, Fyers APIs, websockets, queues, locks, and live PnL monitoring." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="shortcut icon" href="../images/favicon.png" />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --paper: rgba(255, 255, 255, 0.84);
+      --paper-solid: #ffffff;
+      --ink: #101828;
+      --muted: #667085;
+      --line: #d9e2ec;
+      --accent: #0f766e;
+      --accent-dark: #134e4a;
+      --accent-soft: #d9f2ee;
+      --accent-2: #b45309;
+      --code-bg: #132025;
+      --code-fg: #e8f2f3;
+      --soft: #e9f3f1;
+      --warn: #fff4df;
+      --shadow: 0 26px 80px rgba(16, 24, 40, 0.14);
+      --shadow-soft: 0 14px 36px rgba(16, 24, 40, 0.09);
+      --max: 1160px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 14% 8%, rgba(15, 118, 110, 0.18), transparent 30rem),
+        radial-gradient(circle at 86% 4%, rgba(183, 121, 31, 0.13), transparent 24rem),
+        linear-gradient(135deg, #fbfcfe 0%, var(--bg) 52%, #eef5f4 100%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    .site-nav {
+      position: sticky;
+      top: 16px;
+      z-index: 10;
+      display: flex;
+      width: min(calc(100% - 32px), var(--max));
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin: 16px auto -86px;
+      padding: 12px;
+      border: 1px solid rgba(217, 226, 236, 0.84);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: inline-flex;
+      min-width: 0;
+      align-items: center;
+      gap: 12px;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .brand img {
+      width: 46px;
+      height: 46px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 8px 18px rgba(16, 24, 40, 0.12);
+    }
+
+    .brand span {
+      display: grid;
+      line-height: 1.1;
+    }
+
+    .brand strong {
+      font-size: 0.98rem;
+    }
+
+    .brand small {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--ink);
+      font-size: 0.92rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    .nav-links a:hover {
+      transform: translateY(-1px);
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+    }
+
+    .nav-links .nav-cta {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .nav-toggle {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .nav-toggle-button {
+      display: none;
+    }
+
+    .hero {
+      min-height: 86vh;
+      display: grid;
+      align-items: end;
+      background:
+        linear-gradient(180deg, rgba(10, 20, 24, 0.58), rgba(10, 20, 24, 0.82)),
+        url("assets/algo-trading-engine-cover.png") center 34% / cover no-repeat;
+      color: white;
+      padding: 142px 22px 64px;
+    }
+
+    .hero-inner,
+    main {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+    }
+
+    .kicker {
+      margin: 0 0 18px;
+      color: #8ee1d6;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 940px;
+      margin: 0;
+      font-size: clamp(2.45rem, 5.4vw, 5.2rem);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 24px 0 0;
+      color: #d6e4e7;
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .meta span {
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      padding: 8px 12px;
+      color: #ecf6f7;
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 0.9rem;
+      backdrop-filter: blur(12px);
+    }
+
+    main {
+      padding: 48px 22px 80px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 42px;
+      align-items: start;
+    }
+
+    aside {
+      position: sticky;
+      top: 110px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      padding: 18px;
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(18px);
+    }
+
+    aside h2 {
+      margin: 0 0 12px;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    aside a {
+      display: block;
+      padding: 8px 0;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    aside a:hover {
+      color: var(--accent);
+    }
+
+    article {
+      min-width: 0;
+    }
+
+    section {
+      margin-bottom: 54px;
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: clamp(1.65rem, 3vw, 2.45rem);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 32px 0 10px;
+      font-size: 1.22rem;
+      line-height: 1.25;
+    }
+
+    p {
+      margin: 0 0 16px;
+      color: #29383e;
+    }
+
+    strong {
+      color: var(--ink);
+    }
+
+    code {
+      border-radius: 5px;
+      padding: 0.12rem 0.35rem;
+      background: #e8eef1;
+      color: #0e3035;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.92em;
+    }
+
+    pre {
+      overflow-x: auto;
+      border-radius: 8px;
+      margin: 18px 0;
+      padding: 18px;
+      background: var(--code-bg);
+      color: var(--code-fg);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    pre code {
+      padding: 0;
+      background: transparent;
+      color: inherit;
+    }
+
+    .lead {
+      border-left: 5px solid var(--accent);
+      padding-left: 18px;
+      color: #24363b;
+      font-size: 1.12rem;
+    }
+
+    .callout {
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--accent);
+      border-radius: 8px;
+      margin: 22px 0;
+      padding: 18px;
+      background: var(--soft);
+    }
+
+    .callout.warning {
+      border-left-color: var(--accent-2);
+      background: var(--warn);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin: 22px 0;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      background: var(--paper);
+      box-shadow: 0 8px 26px rgba(16, 24, 40, 0.06);
+    }
+
+    .card h3 {
+      margin-top: 0;
+    }
+
+    .flow {
+      display: grid;
+      gap: 10px;
+      margin: 22px 0;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: var(--paper);
+      box-shadow: 0 8px 26px rgba(16, 24, 40, 0.06);
+    }
+
+    .step b {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .step p {
+      margin: 0;
+    }
+
+    figure {
+      margin: 28px 0;
+    }
+
+    figure img {
+      display: block;
+      width: 100%;
+      max-height: 560px;
+      object-fit: contain;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      box-shadow: var(--shadow-soft);
+    }
+
+    figcaption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--line);
+      padding: 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eef3f4;
+      color: #223238;
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    ul {
+      padding-left: 1.2rem;
+    }
+
+    li {
+      margin: 8px 0;
+    }
+
+    .footer-note {
+      border-top: 1px solid var(--line);
+      margin-top: 50px;
+      padding-top: 24px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 860px) {
+      .site-nav {
+        position: sticky;
+        top: 10px;
+        width: calc(100% - 24px);
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 10px;
+        margin: 12px auto -78px;
+        padding: 10px;
+        border-radius: 24px;
+        overflow: visible;
+      }
+
+      .brand {
+        justify-content: flex-start;
+        padding: 0;
+      }
+
+      .brand img {
+        width: 40px;
+        height: 40px;
+      }
+
+      .brand small {
+        display: none;
+      }
+
+      .nav-toggle-button {
+        display: inline-flex;
+        width: 40px;
+        height: 40px;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: #fff;
+        color: var(--ink);
+        cursor: pointer;
+      }
+
+      .nav-toggle:checked + .nav-toggle-button {
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        padding: 12px;
+        border: 1px solid rgba(217, 226, 236, 0.9);
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 18px 50px rgba(16, 24, 40, 0.16);
+        backdrop-filter: blur(22px);
+      }
+
+      .nav-toggle:checked ~ .nav-links {
+        display: grid;
+      }
+
+      .nav-links a {
+        width: 100%;
+        min-height: 46px;
+        justify-content: center;
+        gap: 8px;
+        padding: 11px 12px;
+        border: 1px solid rgba(217, 226, 236, 0.78);
+        border-radius: 16px;
+        background: rgba(245, 247, 251, 0.82);
+        font-size: 0.9rem;
+      }
+
+      .nav-links a[aria-label]::after {
+        content: attr(aria-label);
+      }
+
+      .nav-links .nav-cta {
+        grid-column: 1 / -1;
+        background: var(--ink);
+        color: #fff;
+      }
+
+      .hero {
+        min-height: 78vh;
+        padding-top: 124px;
+      }
+
+      .layout {
+        display: block;
+      }
+
+      aside {
+        position: static;
+        margin-bottom: 28px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .hero {
+        min-height: 70vh;
+      }
+
+      .hero h1 {
+        font-size: 2.45rem;
+      }
+
+      main {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      th,
+      td {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Primary navigation">
+    <a class="brand" href="../../index.html">
+      <img src="../images/profile-pic.jpg" alt="Debmalya Sur" />
+      <span>
+        <strong>Debmalya Sur</strong>
+        <small>Engineering Blog</small>
+      </span>
+    </a>
+    <input class="nav-toggle" type="checkbox" id="nav-toggle" aria-label="Toggle navigation" />
+    <label class="nav-toggle-button" for="nav-toggle" aria-hidden="true">
+      <i class="fas fa-bars"></i>
+    </label>
+    <div class="nav-links">
+      <a href="../../index.html"><i class="fas fa-briefcase"></i> Portfolio</a>
+      <a href="../../blog.html"><i class="fas fa-pen-nib"></i> Blog</a>
+      <a href="../books/books.html"><i class="fas fa-book-open"></i> Books</a>
+      <a href="https://github.com/surdebmalya/" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a class="nav-cta" href="https://www.linkedin.com/in/debmalya-sur/">Contact</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="kicker">Engineering Case Study</p>
+      <h1>Building an Algo Trading Bot from Scratch. Algorithm, Hosting and Scaling Mechanism.</h1>
+      <p class="subtitle">
+        A technical deep dive and the psychology behind a Python-based live trading system built around Fyers APIs, dual websockets, deterministic candle scheduling, producer-consumer queues, shared-state locks, CSV persistence, and Telegram-based operational visibility. 
+      </p>
+      <div class="meta" aria-label="Article metadata">
+        <span>Python</span>
+        <span>WebSockets</span>
+        <span>Threaded Runtime</span>
+        <span>Option Selling</span>
+        <span>Dynamic Risk Management</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="layout">
+      <aside>
+        <h2>System Design</h2>
+        <a href="#overview"> • System Overview</a>
+        <a href="#architecture"> • System Micro Design</a>
+        <a href="#hardening"> • Engineering Hardening</a>
+        <a href="#scaling"> • Scale the System</a>
+        <h2 style="padding-top: 16px;">Strategy Building</h2>
+        <a href="#strategy"> • Strategy Psychology</a>
+        <a href="#why-option-selling"> • Why Option Selling</a>
+        <a href="#risk-management"> • Risk Management</a>
+      </aside>
+
+      <article>
+        <section id="overview">
+          <h2>System Overview</h2>
+          <p class="lead">
+            This project is not a notebook experiment or a single script that places an order.
+            It is a live, event-driven trading runtime where market data, signal generation,
+            order execution, live PnL calculation, CSV persistence, and Telegram notifications
+            run as coordinated parts of one system.
+          </p>
+          <p>
+            First we will see the micro-level architectures and then we will check how to scale this system to a <b>algo-trading-as-a-serive</b> business effectively and the cost-optimized way.
+          </p>
+          <p>
+            The bot starts from <code>main.py</code>. It validates the broker session, checks whether
+            the configured market segment is open, builds an initial strategy state from historical
+            candles, initializes CSV files, and then starts two long-running websocket threads:
+            one for market data and one for order events.
+          </p>
+          <p>
+            The architecture is deliberately split into responsibilities. The data websocket owns
+            market ticks and signal generation. The order websocket owns trade execution and trade
+            lifecycle monitoring. Helper threads handle persistence and notifications. The modules
+            communicate through <code>queue.Queue</code> objects and protect shared mutable state with
+            <code>threading.Lock</code>.
+          </p>
+
+          <div class="grid">
+            <div class="card">
+              <h3>Market-data side</h3>
+              <p>
+                Receives live ticks for <code>SYMBOL</code>, synchronizes calculations to the selected
+                timeframe, refreshes candle-derived indicators, and emits decisions through
+                <code>decision_queue</code>.
+              </p>
+            </div>
+            <div class="card">
+              <h3>Order side</h3>
+              <p>
+                Listens for decisions, derives executable strike information, places broker orders,
+                subscribes to the active trade symbols, tracks live PnL, trails stop levels, and exits
+                positions when the runtime exit condition is met.
+              </p>
+            </div>
+          </div>
+
+          <p>
+            In this blog, I have discussed the priciples I have used to build the system, starting from the websocket to the inter-thread communication. How I avoid the race conditions and how this system can be scaled to build a <b>algo-trading-as-a-service</b> business. 
+          </p>
+          <p>
+            After the technical discussion, I will discuss the core concepts of trading which will be focused on option selling and the psychology behind the strategy, along with that I will cover the most important trading concept, i.e. risk management. So, let's begin...
+          </p>
+
+          <h3>How an Idea Became a System</h3>
+          <p>
+            The starting idea was simple: build a personal trading bot that can watch the market
+            continuously and act only when a predefined technical condition appears. The difficult
+            part is that live trading is not a single calculation. It is a coordination problem.
+          </p>
+          <p>
+            A production-like bot has to answer several engineering questions at the same time:
+          </p>
+          <ul>
+            <li>How does the bot authenticate and recover when the access token expires?</li>
+            <li>How does it avoid using an incomplete live candle for strategy calculations?</li>
+            <li>How does the market-data stream tell the order stream that a decision exists?</li>
+            <li>How does the system prevent multiple trades from being opened at the same time under the same strategy and the symbol?</li>
+            <li>How does it monitor PnL after a trade is live without blocking the data websocket?</li>
+            <li>How does it persist market state and trade state without making websocket callbacks slow?</li>
+          </ul>
+          <p>
+            The final design is a threaded, queue-driven runtime. Instead of making every component call every other component directly, each part owns one responsibility and emits messages into queues. This makes the system easier to reason about because every cross-thread interaction has a named channel.
+          </p>
+        </section>
+
+        <section id="architecture">
+          <h2>System Micro Design</h2>
+          <h3>Boot Sequence</h3>
+          <p>
+            The lifecycle begins in <code>main()</code>. The bot reads the latest access token, calls <code>check_market_status()</code>, and either
+            continues into the live runtime or starts the OAuth renewal flow.
+          </p>
+
+          <div class="flow">
+            <div class="step">
+              <b>1</b>
+              <p>
+                <strong>Fetch token.</strong> <code>_fetch_access_token()</code> reads the saved
+                broker access token so the bot can connect without repeating OAuth every run.
+              </p>
+            </div>
+            <div class="step">
+              <b>2</b>
+              <p>
+                <strong>Check market status.</strong> <code>check_market_status()</code> uses the configured
+                exchange and segment to confirm that live trading should start.
+              </p>
+            </div>
+            <div class="step">
+              <b>3</b>
+              <p>
+                <strong>Synchronize to timeframe.</strong> <code>_wait_for_next_minute()</code>
+                waits for a clean boundary so the strategy is initialized around the same cadence as
+                live candle updates.
+              </p>
+            </div>
+            <div class="step">
+              <b>4</b>
+              <p>
+                <strong>Build initial state.</strong> The bot fetches historical candles, calculates strategy information states, writes the initial data CSV, and resets the PnL CSV header.
+              </p>
+            </div>
+            <div class="step">
+              <b>5</b>
+              <p>
+                <strong>Start runtime threads.</strong> Data websocket, order websocket, CSV writers, and Telegram listener are started as separate threads.
+              </p>
+            </div>
+          </div>
+
+          <pre><code>def main(need_last_candle=False):
+    access_token = _fetch_access_token()
+    response = check_market_status(client_id, access_token)
+    if response["processed"]:
+        _OAuth_verified(client_id, access_token, need_last_candle)
+    else:
+        _renew_OAuth()</code></pre>
+
+          <p>
+            The design also separates daemon and non-daemon threads intentionally. The websocket threads
+            are non-daemon because they are the core runtime and should keep the process alive. Helper
+            threads are daemon threads because they exist to serve the live runtime and can stop when
+            the main trading process stops.
+          </p>
+
+          <h3>WebSocket Architecture</h3>
+          <p>
+            The project uses two persistent websocket connections from the Fyers SDK:
+            <code>FyersDataSocket</code> for live symbol ticks and <code>FyersOrderSocket</code> for broker
+            order, trade, position, and general event updates.
+          </p>
+          <p>
+            This split matters. Market ticks can arrive very frequently, while order events are
+            lifecycle events. Combining both into one responsibility would make the code harder to
+            reason about. By keeping them separate, the data stream can focus on signal timing and the
+            order stream can focus on execution correctness.
+          </p>
+
+          <figure>
+
+            <img src="assets/how-web-socket-connects.png" alt="WebSocket connection lifecycle diagram" width="600px"/>
+            <figcaption>
+              A websocket begins with a TCP connection and HTTP upgrade, then remains open for server-pushed events. A keep-alive mechanism (<i>where in an interval client will send ping packet to the server and in response the server will send pong packet to the client, indicating the websocket connection is stable</i>) is used to make the connection alive.
+            </figcaption>
+          </figure>
+
+          There are two websockets are running from the <code>main</code> thread. Data websocket and Order websocket. We are going to discuss each of them one by one with their major tasks in focus.
+
+          <h4>Data WebSocket</h4>
+          
+          <p>
+            This websocket is responsible to handle any data related tasks, like subscribe to a particular symbol, getting continuous data update and unsubscribe to a symbol. Followings are the major tasks of this websocket:
+          </p>
+
+          <h5>Update Latest Messages</h5>
+
+          <p>
+            <code>data_websocket()</code> subscribes to the configured market symbol using
+            <code>DATA_TYPE = "SymbolUpdate"</code>. Incoming messages are handled by
+            <code>_ds_onmessage()</code>. If the tick belongs to the primary symbol, it updates
+            <code>latest_messages</code>; if it belongs to an active trade symbol, it updates
+            <code>latest_traded_message</code>.
+          </p>
+
+          <pre><code>def _ds_onmessage(message):
+    symbol = message.get("symbol")
+    if symbol is not None:
+        if symbol == SYMBOL:
+            with latest_message_lock:
+                latest_messages[symbol] = message
+        else:
+            with latest_traded_message_lock:
+                latest_traded_message[symbol] = message</code></pre>
+
+          <p>
+            The callback does very little work by design. It only updates the latest in-memory tick.
+            This keeps the websocket callback fast and reduces the chance of blocking the SDK event
+            loop during high-frequency tick bursts.
+          </p>
+
+          <h5>Scheduled Candle Processing</h5>
+          <p>
+            The data websocket does not run the strategy on every tick. Instead,
+            <code>_ds_print_latest_message_on_schedule_thread()</code> wakes up at the next whole-minute
+            boundary plus <code>SYNC_DELTA_TIME</code>. This is the bridge between tick-level data and
+            candle-level strategy logic.
+          </p>
+          <p>
+            The project intentionally ignores the most recent incomplete candle when fetching historical
+            candles in <code>get_candles_data()</code>. That avoids a common live-trading bug: generating
+            signals from a candle that is still forming.
+          </p>
+
+          <h5>Dynamic Subscriptions</h5>
+          <p>
+            The system starts by subscribing only to the primary market symbol. After a trade is placed,
+            the order side pushes selected trade symbols into <code>to_be_subscribed_queue</code>. The
+            data websocket consumes that queue and subscribes to those symbols in the same data socket.
+          </p>
+
+          <pre><code>symbols_to_subscribe = [
+    strike_price_info["selected_strikes"]["selling_strike_info"]["symbol"],
+    strike_price_info["selected_strikes"]["buying_strike_info"]["symbol"],
+]
+data_socket.subscribe(symbols=symbols_to_subscribe, data_type=DATA_TYPE)</code></pre>
+
+          <p>
+            This is an important design choice: the order thread decides what needs to be monitored,
+            but the data websocket performs the actual market-data subscription. Ownership remains
+            clean because only the data socket talks to the data stream. Once symbols are subscribed, the broker pushes updates only when subscribed instruments change.
+          </p>
+
+          <h5>Dynamic Unsubscriptions</h5>
+          <p>
+            Similar to the subscription thread, there will be another thread called unsubscription thread will be run by the <code>data_websocket</code>, it will listen to the shared queue <code>to_be_unsubcribed_queue</code>. This queue will maintain those symbols, whose trades are already done, now no need to gather data for those symbols.
+          </p>
+
+          <pre><code>symbols_to_unsubscribe = to_be_unsubcribed_queue.get(timeout=0.1)
+if symbols_to_unsubscribe is not None:
+    data_socket.unsubscribe(symbols=symbols_to_unsubscribe, data_type=DATA_TYPE)
+to_be_unsubcribed_queue.task_done()</code></pre>
+
+          <h4>Order WebSocket</h4>
+          <p>
+            This websocket will be responsible for the order related tasks. Like placing order, trailing the stop-loss, exit the positions, etc. Followings are the major tasks of this websocket:
+          </p>
+
+          <h5>Entering a Trade</h5>
+          <p>
+            The data side never places a broker order directly. It emits a deliberately small
+            decision contract&mdash;a directional intent or <code>NA</code>&mdash;into
+            <code>decision_queue</code>. The order websocket consumes that contract and first takes the
+            <code>is_trade_ongoing_lock</code>. If the single-trade gate is already set, the instruction is
+            ignored; otherwise the runtime reserves the trade slot before doing slower broker work. That
+            reservation is important: it prevents two closely timed data evaluations from creating two
+            overlapping executions.
+          </p>
+
+          <p>
+            For an admitted instruction, the execution side requests the current option chain and builds
+            a paired, defined-risk instrument set. The confidential signal rules, strike-selection rules,
+            and parameters are intentionally not published here. What matters for the system design is the
+            hand-off: selected instrument metadata moves to <code>to_be_executed_strike_price_queue</code>,
+            where a dedicated execution worker submits the orders. The present flow sends the protective
+            buy limit order first and the short-leg limit order second. If both placement calls return an
+            accepted response, it records the quoted entries, a deployed-funds estimate, and the initial
+            stop state; it then asks the data websocket to begin streaming both active-leg symbols.
+          </p>
+
+          <div class="flow" aria-label="Order execution hand-off">
+            <div class="step">
+              <b>1</b>
+              <p><strong>Intent arrives.</strong> The order listener receives a non-secret directional instruction from <code>decision_queue</code>.</p>
+            </div>
+            <div class="step">
+              <b>2</b>
+              <p><strong>Trade slot is reserved.</strong> The shared one-trade gate prevents a second instruction from racing the first one.</p>
+            </div>
+            <div class="step">
+              <b>3</b>
+              <p><strong>Broker instruments are prepared.</strong> Current option-chain information is converted into the paired execution payload without exposing the private selection method.</p>
+            </div>
+            <div class="step">
+              <b>4</b>
+              <p><strong>Orders and monitoring are connected.</strong> After successful placement responses, the active symbols, entries, risk state, data subscriptions, CSV records, and notifications are wired together.</p>
+            </div>
+          </div>
+
+          <p>
+            The order socket also subscribes to broker <code>OnOrders</code>, <code>OnTrades</code>,
+            <code>OnPositions</code>, and <code>OnGeneral</code> events. In the current personal runtime,
+            these callbacks print the broker payloads for visibility. They are valuable telemetry, but they
+            are not yet used as the authoritative transition source for order state; that distinction
+            becomes important in the hardening section.
+          </p>
+
+          <h5>Ongoing Trade Management</h5>
+          <p>
+            Once the active symbols are subscribed, the data websocket keeps their most recent ticks in
+            <code>latest_traded_message</code>. The trade-management path combines the two leg prices with
+            their stored entry quotes and quantity to estimate a live, paired-position PnL. The same path
+            owns the application-side stop level: it can ratchet the stop higher as a trade becomes
+            profitable, and on a stop breach it requests a pair-level broker exit, clears the shared trade
+            state, queues the symbols for unsubscription, writes an audit row, and sends a Telegram alert.
+          </p>
+
+          <p>
+            This separation is deliberate. The data callback only records the latest tick; it does not do
+            broker HTTP calls, file writes, or notification delivery. The order/risk path consumes the
+            resulting state and decides whether a lifecycle action is required. That keeps fast market-data
+            handling independent from comparatively slow and failure-prone external operations.
+          </p>
+
+          <div class="callout warning">
+            <strong>Current-code caveat:</strong> the intended monitoring worker is started when the order
+            socket opens, but its loop only continues when a trade is already marked active at that instant.
+            In a normal startup it can therefore finish before the first trade. The design below explains
+            the intended lifecycle; a production deployment must make this a persistent worker (or start it
+            only after confirmed execution), wait for fresh ticks, and reconcile broker fills before relying
+            on the calculated PnL or stop.
+          </div>
+
+          <h3>Queue Communication</h3>
+          <p>
+            The heart of the project is its producer-consumer model. Instead of having threads call each
+            other directly, they exchange messages through queues defined in <code>scripts/shared_vars.py</code>.
+            This creates a clean boundary between fast event callbacks, slower broker operations, file I/O,
+            and notification delivery.
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Queue</th>
+                <th>Producer</th>
+                <th>Consumer</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>decision_queue</code></td>
+                <td>Data websocket scheduler</td>
+                <td>Order websocket decision listener</td>
+                <td>Transfers a strategy instruction such as <code>LONG</code> or <code>SHORT</code>.</td>
+              </tr>
+              <tr>
+                <td><code>to_be_executed_strike_price_queue</code></td>
+                <td>Order decision listener</td>
+                <td>Order execution listener</td>
+                <td>Transfers selected instrument information to the execution routine.</td>
+              </tr>
+              <tr>
+                <td><code>to_be_subscribed_queue</code></td>
+                <td>Order execution listener</td>
+                <td>Data websocket subscription listener</td>
+                <td>Requests live tick subscriptions for the active trade symbols.</td>
+              </tr>
+              <tr>
+                <td><code>to_be_unsubcribed_queue</code></td>
+                <td>PnL monitor</td>
+                <td>Data websocket unsubscription listener</td>
+                <td>Removes symbols from the data stream after exit.</td>
+              </tr>
+              <tr>
+                <td><code>tick_queue</code></td>
+                <td>Data websocket scheduler</td>
+                <td>CSV writer thread</td>
+                <td>Persists latest strategy rows without blocking websocket logic.</td>
+              </tr>
+              <tr>
+                <td><code>live_pnl_queue</code></td>
+                <td>Order/PnL runtime</td>
+                <td>PnL CSV writer thread</td>
+                <td>Appends live PnL snapshots to the PnL CSV.</td>
+              </tr>
+              <tr>
+                <td><code>telegram_message_sending_queue</code></td>
+                <td>Execution and PnL runtime</td>
+                <td>Telegram listener thread</td>
+                <td>Sends operational messages asynchronously.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            Each queue listener follows the same pattern: call <code>get(timeout=0.1)</code>, process
+            only when a message exists, call <code>task_done()</code>, and continue on
+            <code>queue.Empty</code>. The timeout is important because it lets threads periodically check
+            <code>scheduler_stop</code> instead of blocking forever.
+          </p>
+
+          <pre><code>while not scheduler_stop.is_set():
+    try:
+        message = tick_queue.get(timeout=0.1)
+        if message is not None:
+            _update_data_csv(message)
+        tick_queue.task_done()
+    except queue.Empty:
+        continue</code></pre>
+
+          <h3>Locks and Shared State</h3>
+          <p>
+            Queues are used for message passing, but a live trading bot also needs shared state:
+            latest ticks, whether a trade is already open, current trade metadata, and latest trade-symbol
+            market data. Since multiple threads can read and write these dictionaries, the project wraps
+            each shared object with a dedicated lock.
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>State</th>
+                <th>Lock</th>
+                <th>Why It Exists</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>latest_messages</code></td>
+                <td><code>latest_message_lock</code></td>
+                <td>Stores the latest tick for the primary configured symbol.</td>
+              </tr>
+              <tr>
+                <td><code>latest_traded_message</code></td>
+                <td><code>latest_traded_message_lock</code></td>
+                <td>Stores latest ticks for symbols involved in the active trade.</td>
+              </tr>
+              <tr>
+                <td><code>is_trade_ongoing</code></td>
+                <td><code>is_trade_ongoing_lock</code></td>
+                <td>Prevents the system from opening overlapping trades.</td>
+              </tr>
+              <tr>
+                <td><code>ongoing_trade_info</code></td>
+                <td><code>ongoing_trade_info_lock</code></td>
+                <td>Stores entry prices, active symbols, current stop level, and deployed capital.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            The lock scope is kept short. For example, <code>_ds_onmessage()</code> acquires the lock only
+            long enough to update one dictionary entry. The PnL monitor acquires
+            <code>ongoing_trade_info_lock</code> only long enough to copy the values it needs, then performs
+            calculations outside the critical section.
+          </p>
+
+          <pre><code>with ongoing_trade_info_lock:
+    trading_symbols.append(ongoing_trade_info["SELLING_SYMBOL"])
+    trading_symbols.append(ongoing_trade_info["BUYING_SYMBOL"])
+    entry_price_selling_leg = ongoing_trade_info["SELL_ENTRY_PRICE"]
+    entry_price_buying_leg = ongoing_trade_info["BUY_ENTRY_PRICE"]
+    current_sl = ongoing_trade_info["CURRENT_SL"]</code></pre>
+
+          <p>
+            That pattern reduces lock contention. In a live system, the data callback should not be
+            delayed because another thread is doing HTTP work, CSV writing, or Telegram messaging.
+            The code therefore uses locks for small memory operations and queues for work that may take
+            longer.
+          </p>
+
+          <h3>Execution State and Broker Truth</h3>
+          <p>
+            When the order socket opens, it launches three listener responsibilities: decision intake,
+            order submission, and live-trade monitoring. The first two form the current execution path.
+            The trade gate changes to active before order submission so another decision cannot race into
+            the same account state. After the placement responses, the runtime initializes
+            <code>ongoing_trade_info</code>, which holds the active symbols, entry quotes, current stop,
+            and estimated funds associated with the trade.
+          </p>
+
+          <p>
+            There is an important distinction between <em>an order accepted by a placement endpoint</em>
+            and <em>a filled paired position</em>. The current code checks the immediate response to each
+            REST placement call, but it does not yet turn subsequent order, trade, and position events
+            into a durable state machine. As a result, quoted entry values and balance snapshots are useful
+            operational estimates, not authoritative fill or margin records.
+          </p>
+
+          <div class="callout warning">
+            <strong>Partial-execution boundary:</strong> if the protective buy request is accepted and the
+            second request fails, the present personal runtime alerts and terminates the process. It does
+            not cancel, hedge, or flatten the already accepted leg. A production system needs an explicit,
+            broker-reconciled state machine&mdash;<code>submitted</code>, <code>partial</code>,
+            <code>filled</code>, <code>rejected</code>, <code>hedged</code>, and <code>closed</code>&mdash;with
+            a compensating action for every unsafe state.
+          </div>
+
+          <h3>PnL and Risk Runtime</h3>
+          <p>
+            The intended PnL path marks both legs using their latest subscribed prices, compares that
+            paired mark with stored entry quotes, and multiplies the net change by the configured quantity.
+            It keeps the risk calculation at the combined-position level rather than judging either option
+            leg in isolation. This is the right conceptual boundary for a paired structure: an individual
+            leg can look adverse while the combined trade remains inside its defined loss profile.
+          </p>
+
+          <p>
+            The current stop begins as a configurable fraction of the runtime's estimated deployed funds
+            (the checked-in configuration uses 1.5%). When the estimated PnL clears successive profit
+            steps, the code only moves the stop in the favorable direction. On a stop breach, its intended
+            sequence is exit request, state reset, unsubscribe request, CSV event, and Telegram alert.
+            This is a loss-containment mechanism, not a promise that an exit will occur at the displayed
+            threshold: it depends on fresh quotes, a running process, a healthy broker connection, and a
+            successful exit response.
+          </p>
+
+          <p>
+            Before capital is placed behind this path, it must be made fill-aware and tick-aware. A missing
+            first tick can currently yield an unusable quote, and a balance difference immediately after
+            accepted limit orders may not represent final margin or filled capital. Broker positions, average
+            fill prices, margin data, quote timestamps, and exit acknowledgements should become the inputs
+            to risk state instead of inferred values alone.
+          </p>
+
+          <h3>Persistence and Observability</h3>
+          <p>
+            The bot writes two local CSV files: one for candle-derived strategy-state observations and one
+            for live-trade snapshots. File I/O is intentionally separated into helper threads. The data
+            websocket pushes strategy rows into
+            <code>tick_queue</code>; the helper thread consumes that queue and calls
+            <code>_update_data_csv()</code>. Similarly, live PnL snapshots go through
+            <code>live_pnl_queue</code> before reaching <code>_update_pnl_csv()</code>. The Fyers SDK also
+            receives a local log path, so broker-library diagnostics do not have to share the execution
+            path with the application logs.
+          </p>
+          <p>
+            Telegram notifications follow the same principle. Instead of calling the async Telegram
+            sender directly from execution code, the bot places messages into
+            <code>telegram_message_sending_queue</code>. The listener thread then runs
+            <code>asyncio.run(_send_telegram_message(message))</code>. This keeps broker execution,
+            websocket callbacks, and notification delivery loosely coupled.
+          </p>
+
+          <p>
+            These outputs are useful operational evidence&mdash;they help reconstruct what the process saw,
+            decided, and attempted&mdash;but CSV is not an authoritative broker ledger and it is not a
+            restart-safe open-position store. A restart, missed write, stale tick, or partial fill must be
+            reconciled against broker order and position data before it is treated as fact.
+          </p>
+
+          <div class="grid">
+            <div class="card">
+              <h3>Data CSV</h3>
+              <p>
+                Stores timestamped completed-candle observations and derived strategy state for research and audit, without exposing the proprietary decision rule.
+              </p>
+            </div>
+            <div class="card">
+              <h3>PnL CSV</h3>
+              <p>
+                Stores live trade monitoring rows: timestamp, PnL, active symbols, entries, current stop,
+                and capital deployed.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="hardening">
+          <h2>Engineering Hardening</h2>
+          <p class="lead">
+            A trading runtime is only as safe as its behaviour when the happy path breaks. The existing
+            project has several thoughtful safeguards, but it is still a personal, single-process system.
+            This section separates protections that exist today from the controls required before treating
+            it as an unattended production service.
+          </p>
+
+          <h3>Controls Already Present</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Control</th>
+                <th>What the Current Runtime Does</th>
+                <th>Why It Matters</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Session and market gate</td>
+                <td>It validates the stored broker token, routes an invalid token into a manual OAuth renewal flow, and starts only when the configured market segment reports open.</td>
+                <td>Prevents an obviously invalid session or closed-market start from silently entering the trading loop.</td>
+              </tr>
+              <tr>
+                <td>Completed-candle discipline</td>
+                <td>Startup and scheduled evaluations align to the configured timeframe with a small broker-sync offset, then exclude the still-forming candle from the historical response.</td>
+                <td>Keeps the decision layer from reacting to a value that can change before the bar is complete.</td>
+              </tr>
+              <tr>
+                <td>Short critical sections</td>
+                <td>Dedicated locks guard each shared dictionary, while queues move broker work, disk writes, and Telegram delivery away from fast data callbacks.</td>
+                <td>Reduces race conditions and limits the chance that slow I/O delays tick handling.</td>
+              </tr>
+              <tr>
+                <td>Cooperative stop signal</td>
+                <td>Socket error and close callbacks set <code>scheduler_stop</code>; queue workers use timed <code>get()</code> calls so they can observe it.</td>
+                <td>Provides a common mechanism for long-running loops to stop instead of blocking indefinitely.</td>
+              </tr>
+              <tr>
+                <td>Certificate verification</td>
+                <td>The SSL helper selects a CA bundle, enables certificate verification and hostname checking, and passes those settings to the websocket client.</td>
+                <td>Protects the transport layer from treating an unverified TLS connection as trustworthy.</td>
+              </tr>
+              <tr>
+                <td>Operational separation</td>
+                <td>CSV writes and Telegram messages run through helper workers rather than directly inside the order or data callback.</td>
+                <td>Leaves a trace of activity while avoiding notification or disk latency in the core path.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            These are meaningful foundations, not a claim of fault tolerance. OAuth renewal still requires
+            a person to complete the authorization step; a socket error currently stops work rather than
+            reconnecting; and local CSV files provide useful evidence rather than durable recovery state.
+          </p>
+
+          <h3>What Must Be Closed Before Unattended Trading</h3>
+          <div class="flow">
+            <div class="step">
+              <b>1</b>
+              <p><strong>Make broker events the source of truth.</strong> Persist a lifecycle for every client order and reconcile it against confirmed broker orders, fills, positions, average prices, and margin. A placement response alone must never be treated as a completed trade.</p>
+            </div>
+            <div class="step">
+              <b>2</b>
+              <p><strong>Design a compensating path.</strong> Every partial, rejected, cancelled, or timed-out leg needs an explicit policy: retry, cancel, hedge, flatten, and alert. Terminating a process cannot be the final response to an unpaired position.</p>
+            </div>
+            <div class="step">
+              <b>3</b>
+              <p><strong>Make risk workers durable.</strong> Start mark-to-market monitoring from a confirmed-open state, require fresh price timestamps for both legs, validate exit acknowledgements, and preserve enough state to resume or reconcile after a restart.</p>
+            </div>
+            <div class="step">
+              <b>4</b>
+              <p><strong>Recover deliberately.</strong> Use reconnect with backoff and jitter, bounded queues with backpressure, idempotent order identifiers, retry policies that understand broker rate limits, and a dead-letter path for work that cannot be completed safely.</p>
+            </div>
+            <div class="step">
+              <b>5</b>
+              <p><strong>Operate it like a service.</strong> Add structured logs, correlation IDs, metrics for queue depth and tick freshness, health checks, alerts, a manual kill switch, and an immutable event trail separate from human-readable CSV reports.</p>
+            </div>
+          </div>
+
+          <div class="callout warning">
+            <strong>Two configuration values are not controls until code enforces them.</strong>
+            <code>STRATEGY_STARTING_TIME</code>, <code>STRATEGY_ENDING_TIME</code>, and
+            <code>HARD_EXIT_TIME</code> are declared in the configuration but are not referenced by the
+            current runtime. Likewise, the data socket is configured with <code>reconnect=False</code>.
+            A production runbook must implement and test session admission, forced end-of-session handling,
+            disconnect behaviour, and a safe shutdown/reconciliation sequence.
+          </div>
+
+          <h3>Research Validation Is a Separate Layer</h3>
+          <p>
+            The repository includes a historical research script that walks candle data and records
+            decision outputs to an analytics CSV. It is valuable for inspecting whether a private hypothesis
+            behaves consistently over a sample. It is not a full execution simulation: it does not model
+            confirmed option fills, bid-ask spread, slippage, broker charges, latency, partial execution,
+            position exits, or real PnL. Those inputs need their own test harness and replay data before
+            live risk assumptions can be trusted.
+          </p>
+        </section>
+
+        <section id="scaling">
+          <h2>Scale the System</h2>
+          <p class="lead">
+            The current program is intentionally a single-account, single-process bot. Its queues are not
+            yet a distributed platform, but they are an excellent map of the boundaries that a scalable
+            platform should extract. Scaling here means preserving ordered account state and risk controls,
+            not simply adding more threads.
+          </p>
+
+          <h3>Turn the Existing Queues into Service Boundaries</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Current Boundary</th>
+                <th>Scaled Responsibility</th>
+                <th>Primary Partition</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Data websocket and latest-tick dictionaries</td>
+                <td>Market-data ingestion, normalization, symbol subscription management, deduplication, and a low-latency latest-price cache.</td>
+                <td>Instrument or market-data shard</td>
+              </tr>
+              <tr>
+                <td>Scheduled strategy decision</td>
+                <td>Versioned strategy workers that consume completed-candle events and emit immutable, auditable intent events.</td>
+                <td>Strategy and instrument</td>
+              </tr>
+              <tr>
+                <td>Order websocket execution workers</td>
+                <td>A broker gateway that serializes actions per account, assigns idempotency keys, observes broker limits, and reconciles fills.</td>
+                <td>Broker account</td>
+              </tr>
+              <tr>
+                <td>In-process PnL and stop state</td>
+                <td>An independent risk service that consumes confirmed fills and fresh marks, applies pre-trade and live limits, and can block or flatten execution.</td>
+                <td>Account and portfolio</td>
+              </tr>
+              <tr>
+                <td>CSV files and local logs</td>
+                <td>An immutable order/position/audit store, reporting warehouse, and short-lived cache for current state.</td>
+                <td>Tenant and account</td>
+              </tr>
+              <tr>
+                <td>Telegram queue</td>
+                <td>An outbox-backed notification service with delivery status, deduplication, escalation rules, and operator preferences.</td>
+                <td>Tenant and notification channel</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Reference Event Flow</h3>
+          <div class="flow">
+            <div class="step">
+              <b>1</b>
+              <p><strong>Ingest once, fan out safely.</strong> A market-data service validates and timestamps incoming broker data, then publishes normalized ticks and completed-candle events to a durable event stream.</p>
+            </div>
+            <div class="step">
+              <b>2</b>
+              <p><strong>Evaluate privately and deterministically.</strong> A strategy worker consumes the completed state for its assigned instrument and produces a versioned intent or an abstention event. It cannot place an order itself.</p>
+            </div>
+            <div class="step">
+              <b>3</b>
+              <p><strong>Authorize risk before execution.</strong> The risk service checks account, portfolio, quote-freshness, session, and exposure constraints. Only an approved intent reaches the account-serialized execution gateway.</p>
+            </div>
+            <div class="step">
+              <b>4</b>
+              <p><strong>Reconcile every transition.</strong> Broker acknowledgements and websocket events update the order ledger. The same events drive live risk, reporting, and notifications without asking one shared in-memory dictionary to be the truth.</p>
+            </div>
+          </div>
+
+          <h3>Data Ownership, Isolation, and Operations</h3>
+          <p>
+            A multi-user system needs tenant isolation by design. Credentials should be encrypted and
+            scoped to the account; an account's order stream must be serialized by one logical owner; and
+            no customer should be able to read another customer's events, positions, logs, or reports.
+            Rate limits, broker failures, and a noisy account must be contained so they cannot starve the
+            rest of the platform. This is why the natural scaling key is an account or account-strategy
+            actor, not an arbitrary pool of workers all sharing mutable global state.
+          </p>
+          <p>
+            The migration should be incremental: first make the single-process runtime fill-aware and
+            restart-safe; then put decisions, orders, fills, and risk events into a durable log; next
+            externalize the account executor and risk engine; only then add tenant-facing APIs, reporting,
+            and horizontal shards. Any service offered to other users must also be designed around the
+            broker, exchange, security, and regulatory obligations that apply to its target market.
+          </p>
+        </section>
+
+        <section id="strategy">
+          <h2>Strategy Psychology</h2>
+          <p class="lead">
+            The valuable part of a strategy is not a colourful chart or a single trigger. It is the
+            discipline to state a falsifiable hypothesis, define when the system should do nothing, and
+            preserve the same behaviour when a real position makes the outcome emotionally significant.
+            The proprietary rule and its parameters are intentionally omitted from this article.
+          </p>
+
+          <h3>Make Abstention a First-Class Outcome</h3>
+          <p>
+            The strategy-to-runtime contract is deliberately narrow: a completed observation becomes a
+            directional intent or <code>NA</code>. <code>NA</code> is not a missed opportunity; it is an
+            explicit decision that the private conditions are not sufficiently aligned. Treating no-trade
+            as a valid output removes pressure to manufacture activity simply because the market is open or
+            the bot is running.
+          </p>
+
+          <h3>Separate Four Different Decisions</h3>
+          <div class="grid">
+            <div class="card">
+              <h3>Hypothesis</h3>
+              <p>Define what market behaviour is being tested, what would falsify it, and which observations may be used. This belongs in research, not in an emotional live-session adjustment.</p>
+            </div>
+            <div class="card">
+              <h3>Signal</h3>
+              <p>Convert completed market state into a small, deterministic intent. The production interface should reveal only what execution needs, not private thresholds or rule internals.</p>
+            </div>
+            <div class="card">
+              <h3>Execution</h3>
+              <p>Decide whether an approved intent can actually be expressed with fresh quotes, liquid instruments, valid session state, and a confirmed risk budget.</p>
+            </div>
+            <div class="card">
+              <h3>Risk</h3>
+              <p>Decide the maximum acceptable loss, exposure, and failure response before the order is sent. A good signal never overrides a risk control.</p>
+            </div>
+          </div>
+
+          <h3>Protect the Process from the Operator</h3>
+          <p>
+            Live markets create a predictable set of temptations: entering early because a move looks
+            obvious, changing a rule after a loss, widening a stop to avoid being wrong, or doubling size
+            to recover quickly. The architecture counters some of this by evaluating on a schedule, using
+            completed candles, isolating execution from the strategy, and allowing only one active trade.
+            The operating process must complete the rest: version every strategy change, keep research and
+            production configurations separate, record the reason for any manual intervention, and never
+            silently alter a running rule set.
+          </p>
+          <p>
+            Confidence should come from a broad, realistic sample and from knowing how a rule behaves in
+            adverse regimes&mdash;not from a short run of wins. Historical research needs out-of-sample
+            periods, execution assumptions, and failure scenarios. Forward testing should begin with the
+            smallest meaningful exposure. The goal is not to predict every move; it is to execute a
+            repeatable process whose invalidation and loss limits are known in advance.
+          </p>
+
+          <div class="callout">
+            <strong>Confidentiality boundary:</strong> the source contains the private decision module, but
+            this article intentionally documents only its interface and operating philosophy. No trigger
+            conditions, indicator construction, thresholds, strike-selection method, or source code for the
+            core strategy is published here.
+          </div>
+        </section>
+
+        <section id="why-option-selling">
+          <h2>Why Option Selling</h2>
+          <p class="lead">
+            Option selling can be attractive because option premium is affected by the passage of time and
+            by changes in implied volatility. That attraction should never be confused with easy or
+            guaranteed income: short option exposure is typically short convexity, meaning a rapid adverse
+            move can dominate many small premium gains.
+          </p>
+
+          <h3>Why the System Uses a Paired Structure</h3>
+          <p>
+            This runtime does not frame the trade as an unbounded naked sale. Its execution flow submits a
+            protective long option alongside the short option, creating a paired, defined-risk structure.
+            The protective leg does not remove risk, and it has its own premium and liquidity cost, but it
+            puts an architectural ceiling around the most severe tail exposure that a naked short can
+            create. The exact instrument selection and market thesis remain private.
+          </p>
+
+          <div class="grid">
+            <div class="card">
+              <h3>Potential Structural Benefit</h3>
+              <p>Premium can decay as time passes and uncertainty changes. A system can monitor the paired position consistently without relying on a human to watch every tick.</p>
+            </div>
+            <div class="card">
+              <h3>Structural Cost</h3>
+              <p>Adverse moves, volatility repricing, gaps, widening spreads, poor liquidity, and asymmetric payoffs can cause losses quickly. A protective leg reduces tail exposure; it does not make the trade safe by default.</p>
+            </div>
+          </div>
+
+          <h3>Why Automation Helps&mdash;and Where It Does Not</h3>
+          <p>
+            Automation is useful for coordinated subscriptions, paired-order bookkeeping, fresh PnL
+            marking, predefined exits, and event logging. It is not a substitute for liquidity checks,
+            broker reconciliation, capital limits, or judgment about whether a system has been sufficiently
+            validated. In fact, automation amplifies both discipline and defects: a well-designed risk
+            control acts consistently, while an unhandled partial fill or stale price can act consistently
+            wrong. The engineering quality of the execution and risk layers therefore matters as much as
+            the market idea.
+          </p>
+        </section>
+
+        <section id="risk-management">
+          <h2>Risk Management</h2>
+          <p class="lead">
+            Risk management is the primary strategy. A signal only earns the right to be considered; risk
+            decides whether it may be expressed, how much capital may be exposed, how it is monitored, and
+            how the system behaves when the data, broker, or process is no longer trustworthy.
+          </p>
+
+          <h3>What the Current Runtime Enforces</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Layer</th>
+                <th>Current Behaviour</th>
+                <th>Important Limitation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Trade admission</td>
+                <td>A lock-protected global flag permits one active trade at a time.</td>
+                <td>It is process-local; a restart or another process has no knowledge of that flag.</td>
+              </tr>
+              <tr>
+                <td>Position structure</td>
+                <td>The protective buy leg is sent before the short leg, so the intended position is paired and defined-risk rather than naked.</td>
+                <td>Request acceptance is not fill confirmation, and an incomplete pair requires a compensating workflow that is not yet implemented.</td>
+              </tr>
+              <tr>
+                <td>Size and starting stop</td>
+                <td>Quantity is fixed in configuration. The initial application-side loss threshold is calculated from estimated funds deployed; the checked-in setting uses 1.5%.</td>
+                <td>Funds are inferred from balance snapshots around order requests, not confirmed fills and final margin.</td>
+              </tr>
+              <tr>
+                <td>Trailing protection</td>
+                <td>After the estimated PnL improves through configured steps, the application only ratchets the stop in the favourable direction.</td>
+                <td>The stop is not a broker-native protective order; it needs fresh ticks, a live process, and a successful exit API call.</td>
+              </tr>
+              <tr>
+                <td>Exit and audit</td>
+                <td>The intended breach path requests a pair-level exit, clears local state, removes data subscriptions, and emits CSV/Telegram activity.</td>
+                <td>Exit status, final fills, and position closure are not yet reconciled as an atomic lifecycle.</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>Risk Must Have Independent Layers</h3>
+          <div class="flow">
+            <div class="step">
+              <b>1</b>
+              <p><strong>Pre-trade risk.</strong> Verify market/session state, account authorization, available funds and margin, instrument validity, quote freshness, liquidity, maximum size, and account-level exposure before allowing an intent to reach the broker.</p>
+            </div>
+            <div class="step">
+              <b>2</b>
+              <p><strong>Execution risk.</strong> Track every leg from submission to final fill, enforce a maximum time for an incomplete pair, reject unexpected prices or slippage, and cancel, hedge, or flatten according to a precommitted recovery policy.</p>
+            </div>
+            <div class="step">
+              <b>3</b>
+              <p><strong>Live portfolio risk.</strong> Mark positions only with fresh, validated prices; cap per-trade loss, daily loss, number of trades, correlated exposure, and concentration. A central kill switch must override all new entries.</p>
+            </div>
+            <div class="step">
+              <b>4</b>
+              <p><strong>Operational risk.</strong> Treat stale feeds, broker outages, missing acknowledgements, restarts, and clock drift as risk events. Pause entry or flatten according to policy instead of continuing from uncertain state.</p>
+            </div>
+            <div class="step">
+              <b>5</b>
+              <p><strong>Post-trade risk.</strong> Reconcile internal records with broker statements, retain immutable audit events, inspect slippage and exceptions, and change controls only through a reviewed configuration/versioning process.</p>
+            </div>
+          </div>
+
+          <div class="callout warning">
+            <strong>Never mistake a displayed PnL for guaranteed exitability.</strong> The present runtime
+            uses quotes and local state to estimate combined PnL, then relies on an API call to leave the
+            position. During a fast move, a disconnected feed, an unfilled limit order, or a broker outage,
+            realised loss can differ materially from the estimate. The safe response is to design for that
+            uncertainty before the trade, not to explain it away after it happens.
+          </div>
+
+          <p>
+            This project is an engineering case study, not investment advice or a recommendation to trade
+            options. Anyone adapting the ideas should use appropriate paper testing, broker documentation,
+            independent risk limits, and professional guidance suited to their jurisdiction and financial
+            circumstances.
+          </p>
+        </section>
+
+        <p class="footer-note">
+          This article describes the engineering of a personal algorithmic trading system for educational
+          and portfolio-showcase purposes. It intentionally focuses on software architecture, concurrency,
+          data flow, and operational design.
+        </p>
+      </article>
+    </div>
+  </main>
+  <script>
+    document.addEventListener("click", function (event) {
+      document.querySelectorAll(".site-nav").forEach(function (nav) {
+        var toggle = nav.querySelector(".nav-toggle");
+        if (toggle && toggle.checked && !nav.contains(event.target)) {
+          toggle.checked = false;
+        }
+      });
+    });
+
+    document.querySelectorAll(".site-nav .nav-links a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        var toggle = link.closest(".site-nav").querySelector(".nav-toggle");
+        if (toggle) {
+          toggle.checked = false;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
