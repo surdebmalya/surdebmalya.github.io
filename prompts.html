@@ -1,0 +1,3287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Indian Equity Analysis Prompt Builder</title>
+  <style>
+    :root { color-scheme: dark; --ink: #eaf0ff; --muted: #a9b7d0; --panel: #131c30; --edge: #2b3a59; --accent: #7da2ff; --accent-strong: #5c86f3; --page: #0b1120; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-width: 320px; background: radial-gradient(circle at 15% 0, #192a4c 0, transparent 30rem), var(--page); color: var(--ink); font: 16px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    main { width: min(1120px, calc(100% - 32px)); margin: 52px auto; }
+    h1 { margin: 0 0 8px; font-size: clamp(1.9rem, 4vw, 2.75rem); letter-spacing: -.035em; }
+    .intro { margin: 0 0 28px; color: var(--muted); }
+    .strategy-switch { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 18px; }
+    .strategy-switch button { flex: 1 1 250px; background: transparent; border: 1px solid var(--edge); color: var(--ink); }
+    .strategy-switch button[aria-selected="true"] { border-color: var(--accent); background: var(--accent-strong); color: white; }
+    .card { background: color-mix(in srgb, var(--panel) 92%, transparent); border: 1px solid var(--edge); border-radius: 18px; padding: clamp(20px, 4vw, 32px); box-shadow: 0 20px 50px rgb(0 0 0 / 18%); }
+    form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    label { display: grid; gap: 7px; color: var(--muted); font-size: .9rem; font-weight: 650; }
+    input { width: 100%; border: 1px solid var(--edge); border-radius: 9px; background: #0c1425; color: var(--ink); padding: 11px 12px; font: inherit; }
+    input:focus, textarea:focus { outline: 3px solid rgb(125 162 255 / 28%); border-color: var(--accent); }
+    .actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
+    button { appearance: none; border: 0; border-radius: 9px; padding: 11px 17px; background: var(--accent-strong); color: white; cursor: pointer; font: inherit; font-weight: 750; }
+    button:hover { background: var(--accent); }
+    button.secondary { background: transparent; border: 1px solid var(--edge); color: var(--ink); }
+    button.secondary:hover { background: #1c2943; }
+    .output { margin-top: 28px; }
+    .output-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 10px; }
+    h2 { margin: 0; font-size: 1.18rem; }
+    .output-heading span { color: var(--muted); font-size: .9rem; }
+    textarea { display: block; width: 100%; min-height: 480px; resize: vertical; border: 1px solid var(--edge); border-radius: 10px; padding: 18px; background: #080e1a; color: #dfe8fc; font: 14px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap; }
+    @media (max-width: 620px) { main { width: min(100% - 22px, 1120px); margin: 24px auto; } form { grid-template-columns: 1fr; } .strategy-switch { display: grid; grid-template-columns: 1fr; } .strategy-switch button { width: 100%; } .output-heading { align-items: flex-start; flex-direction: column; } textarea { min-height: 360px; } .card { border-radius: 13px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Indian Equity Analysis Prompt Builder</h1>
+    <p class="intro">Enter the trade details, then generate a ready-to-copy research prompt.</p>
+    <div class="strategy-switch" role="tablist" aria-label="Strategy type">
+      <button type="button" role="tab" id="equity-tab" aria-controls="equity-panel" aria-selected="true">Equity Weekly Timeframe EMA 50</button>
+      <button type="button" role="tab" id="index-tab" aria-controls="index-panel" aria-selected="false">Index Weekly Timeframe EMA 50</button>
+      <button type="button" role="tab" id="monthly-index-tab" aria-controls="monthly-index-panel" aria-selected="false">Index Monthly Timeframe EMA 21</button>
+    </div>
+    <section class="card strategy-panel" id="equity-panel" role="tabpanel" aria-labelledby="equity-tab">
+      <form id="equity-form">
+        <label>Company name<input name="company" type="text" required placeholder="e.g., Reliance Industries"></label>
+        <label>Ticker<input name="ticker" type="text" required placeholder="e.g., RELIANCE"></label>
+        <label>Current stock price (₹)<input name="price" type="text" inputmode="decimal" required placeholder="e.g., 1,420.50"></label>
+        <label>Weekly 50 EMA (₹)<input name="ema" type="text" inputmode="decimal" required placeholder="e.g., 1,405.20"></label>
+        <label>Date<input name="date" type="text" required placeholder="e.g., 8 September 2026"></label>
+        <div class="actions">
+          <button type="submit">Generate prompt</button>
+          <button class="secondary" type="button" id="equity-copy-button" disabled>Copy prompt</button>
+        </div>
+      </form>
+      <div class="output" aria-live="polite">
+        <div class="output-heading"><h2>Your completed prompt</h2><span id="equity-status">Complete all fields to generate it.</span></div>
+        <textarea id="equity-output" readonly spellcheck="false" placeholder="Your completed prompt will appear here."></textarea>
+      </div>
+    </section>
+    <section class="card strategy-panel" id="index-panel" role="tabpanel" aria-labelledby="index-tab" hidden>
+      <form id="index-form">
+        <label>Index name<input name="index" type="text" required placeholder="e.g., NIFTY 50"></label>
+        <label>Index ticker/symbol<input name="symbol" type="text" required placeholder="e.g., NIFTY"></label>
+        <label>Current index level<input name="currentLevel" type="text" inputmode="decimal" required placeholder="e.g., 24,800.50"></label>
+        <label>Weekly 50 EMA<input name="ema" type="text" inputmode="decimal" required placeholder="e.g., 24,650.20"></label>
+        <label>Date<input name="date" type="text" required placeholder="e.g., 8 September 2026"></label>
+        <div class="actions">
+          <button type="submit">Generate prompt</button>
+          <button class="secondary" type="button" id="index-copy-button" disabled>Copy prompt</button>
+        </div>
+      </form>
+      <div class="output" aria-live="polite">
+        <div class="output-heading"><h2>Your completed prompt</h2><span id="index-status">Complete all fields to generate it.</span></div>
+        <textarea id="index-output" readonly spellcheck="false" placeholder="Your completed prompt will appear here."></textarea>
+      </div>
+    </section>
+    <section class="card strategy-panel" id="monthly-index-panel" role="tabpanel" aria-labelledby="monthly-index-tab" hidden>
+      <form id="monthly-index-form">
+        <label>Index name<input name="index" type="text" required placeholder="e.g., NIFTY 50"></label>
+        <label>Index symbol<input name="symbol" type="text" required placeholder="e.g., NIFTY"></label>
+        <label>Current index level (₹)<input name="currentLevel" type="text" inputmode="decimal" required placeholder="e.g., 24,800.50"></label>
+        <label>Monthly 21 EMA (₹)<input name="ema" type="text" inputmode="decimal" required placeholder="e.g., 24,650.20"></label>
+        <label>Date<input name="date" type="text" required placeholder="e.g., 8 September 2026"></label>
+        <div class="actions">
+          <button type="submit">Generate prompt</button>
+          <button class="secondary" type="button" id="monthly-index-copy-button" disabled>Copy prompt</button>
+        </div>
+      </form>
+      <div class="output" aria-live="polite">
+        <div class="output-heading"><h2>Your completed prompt</h2><span id="monthly-index-status">Complete all fields to generate it.</span></div>
+        <textarea id="monthly-index-output" readonly spellcheck="false" placeholder="Your completed prompt will appear here."></textarea>
+      </div>
+    </section>
+  </main>
+
+  <template id="prompt-template">I want you to act as a **professional Indian equity analyst + macroeconomist + risk manager**.
+
+I am considering taking a swing position in:
+
+**Company: [COMPANY NAME]**
+**Ticker: [TICKER]**
+**Current stock price: ₹[PRICE]**
+**Weekly 50 EMA: ₹[EMA VALUE]**
+**Date: [DATE]**
+
+The stock has just **touched the weekly 50 EMA**, which is my technical trigger to investigate a potential position.
+
+My trading strategy is fixed:
+
+* Initial capital allocated to this trade = **₹X**
+* At the first weekly 50 EMA touch → invest **X/3**
+* If the stock falls another **10% from the initial entry price** → invest another **X/3**
+* If it falls another **10%** → invest the final **X/3**
+* After all 3 entries, I will not add further capital.
+* If the stock eventually falls **40% from my initial entry price**, I will exit/book the loss.
+* I am looking for a **swing/medium-term position**, not a permanent buy-and-hold investment.
+* I do NOT want you to tell me to blindly average down.
+
+## MOST IMPORTANT REQUIREMENT
+
+At the very beginning of your conclusion, give me ONLY one of these:
+
+# YES — START BUILDING THE POSITION
+
+or
+
+# NO — DO NOT START THE POSITION
+
+Do not give me "maybe", "it depends", "cautiously yes", "neutral", or any diplomatic answer.
+
+I want your **best probability-weighted decision based on the evidence available today**.
+
+After giving YES/NO, explain the reasoning in detail.
+
+---
+
+# PART 1 — UNDERSTAND THE BUSINESS FIRST
+
+Explain the company's business from first principles, assuming I have no finance background.
+
+Cover:
+
+1. What exactly does the company sell/do?
+2. How does it make money?
+3. Who are its customers?
+4. What are its major business segments?
+5. Which segment contributes most to revenue/profit?
+6. What are its major cost components?
+7. What determines its profit margins?
+8. What determines demand for its products/services?
+9. Is the business cyclical, defensive, secular-growth, or a mixture?
+10. What are the company's major competitive advantages?
+11. Who are its major competitors?
+12. What could structurally damage this business?
+
+Give me a simple causal chain such as:
+
+Economic condition
+↓
+Customer behaviour
+↓
+Company demand
+↓
+Revenue
+↓
+Margins
+↓
+Profit
+↓
+Cash flow
+↓
+Stock price
+
+---
+
+# PART 2 — CURRENT MACROECONOMIC ENVIRONMENT
+
+Research the **current economic environment as of today**, using the latest available information.
+
+Do not simply tell me whether India's GDP is growing.
+
+Analyze the variables that actually matter for THIS COMPANY.
+
+At minimum investigate:
+
+### India
+
+* GDP growth
+* GDP composition
+* Industrial production / IIP
+* Inflation / CPI
+* RBI repo rate
+* Bank lending rates / credit conditions
+* 10-year government bond yield
+* Bank credit growth
+* Government fiscal spending
+* Government CAPEX
+* Private-sector CAPEX
+* Corporate profitability
+* Capacity utilisation
+* Consumer demand
+* Rural demand, where relevant
+* Urban demand, where relevant
+* Employment/income trends, where relevant
+* Commodity prices, where relevant
+* INR/USD, where relevant
+
+### Global
+
+Investigate relevant:
+
+* US economic cycle
+* US interest rates/Fed policy
+* China economic cycle
+* Global growth
+* Commodity cycle
+* Oil prices
+* Metals prices
+* Global trade
+* Geopolitical developments
+* Currency movements
+
+Do NOT discuss variables that have no meaningful connection with this company's earnings.
+
+For every important macro factor, explain:
+
+**Current condition → impact on company → positive/negative → magnitude → whether temporary or structural**
+
+---
+
+# PART 3 — COMPANY-SPECIFIC ECONOMIC CYCLE
+
+This is extremely important.
+
+Determine:
+
+**What economic conditions historically help this company perform well?**
+
+For example:
+
+* Falling interest rates
+* Rising interest rates
+* High GDP growth
+* Weak GDP growth
+* High government CAPEX
+* High private CAPEX
+* Strong consumer spending
+* Weak consumer spending
+* High commodity prices
+* Low commodity prices
+* Strong INR
+* Weak INR
+* High inflation
+* Low inflation
+* High credit growth
+* Tight liquidity
+* Strong housing cycle
+* Strong automobile cycle
+* Strong IT spending
+* Strong infrastructure spending
+
+Create a table:
+
+| Economic factor | Current condition | Effect on company | Positive/Negative | Trend |
+| --------------- | ----------------- | ----------------- | ----------------- | ----- |
+
+Then identify the **3–5 most important economic variables** for this particular company.
+
+---
+
+# PART 4 — COMPANY FUNDAMENTALS
+
+Analyze the latest available financial information.
+
+Look at at least:
+
+* Revenue growth
+* EBITDA growth
+* EBITDA margin
+* EBIT margin where relevant
+* PAT growth
+* EPS growth
+* Operating cash flow
+* Free cash flow
+* ROE
+* ROCE
+* Debt
+* Debt/equity
+* Interest coverage
+* Working capital
+* Receivables
+* Inventory
+* Capex
+* Order book, if relevant
+* Book-to-bill, if relevant
+* Asset quality, if financial company
+* NIM, if bank
+* Credit growth, if bank
+* GNPA/NNPA, if bank
+* Provisioning, if bank
+* AUM, if NBFC
+* Claims/embedded value, if insurer
+* Any other industry-specific metric that materially affects the business
+
+Don't just give numbers.
+
+Explain:
+
+**What changed → why it changed → whether it is temporary or structural → what it means for the next 4–12 quarters.**
+
+---
+
+# PART 5 — EARNINGS QUALITY
+
+I want you to investigate whether reported earnings are actually high quality.
+
+Look for:
+
+* One-time gains
+* Exceptional items
+* Accounting changes
+* Aggressive revenue recognition
+* Rising receivables
+* Inventory buildup
+* Weak operating cash flow despite rising profit
+* Debt-funded growth
+* Subsidiary issues
+* Related-party transactions
+* Promoter pledging
+* Auditor qualifications
+* Governance concerns
+* Large contingent liabilities
+* Regulatory problems
+
+Answer:
+
+**Are the reported profits genuinely sustainable? YES/NO**
+
+Explain why.
+
+---
+
+# PART 6 — MANAGEMENT & CAPITAL ALLOCATION
+
+Analyze:
+
+* Management quality
+* Promoter ownership
+* Promoter buying/selling
+* Institutional ownership trend
+* Dividend policy
+* Buybacks
+* Acquisitions
+* Debt management
+* Capital allocation history
+* Major strategic decisions
+* Governance concerns
+
+Most importantly:
+
+**Is management currently creating value or destroying value?**
+
+---
+
+# PART 7 — VALUATION
+
+I am NOT asking you to simply say:
+
+"PE is high, therefore expensive."
+
+Analyze valuation properly.
+
+Look at:
+
+* P/E
+* Forward P/E
+* EV/EBITDA
+* Price/book where relevant
+* PEG where meaningful
+* Free cash flow yield
+* Dividend yield
+* Historical valuation range
+* Peer valuation
+* Growth expectations embedded in the price
+
+Determine:
+
+1. Is the stock cheap?
+2. Is it fairly valued?
+3. Is it expensive?
+4. Is the valuation justified by expected growth?
+
+Most importantly:
+
+**Could the stock fall further even if the business remains fundamentally healthy simply because valuation is contracting?**
+
+---
+
+# PART 8 — WHY IS THE STOCK FALLING?
+
+This is one of the most important sections.
+
+Investigate the reason for the current decline.
+
+Classify the decline into one or more:
+
+### A. Healthy correction
+
+Business remains strong but valuation/sentiment is cooling.
+
+### B. Cyclical slowdown
+
+Business is entering a normal economic downturn.
+
+### C. Earnings deterioration
+
+Actual earnings/cash flow are weakening.
+
+### D. Structural deterioration
+
+The company's long-term competitive position is worsening.
+
+### E. Temporary event
+
+A short-term issue that may reverse.
+
+### F. Market-wide correction
+
+Stock is falling mainly because the broader market is falling.
+
+### G. Sector-wide correction
+
+Industry is facing temporary pressure.
+
+### H. Company-specific problem
+
+Something uniquely negative is happening to this company.
+
+Tell me which category/categories apply and assign approximate probabilities.
+
+---
+
+# PART 9 — TECHNICAL CONTEXT
+
+I am deliberately NOT asking you to generate a complicated technical analysis.
+
+My technical trigger is already:
+
+**Weekly candle touches 50 EMA.**
+
+But check whether there are obvious technical warning signs that make this a particularly dangerous entry.
+
+Look at:
+
+* Long-term trend
+* Weekly structure
+* Major support levels
+* Previous 50 EMA reactions
+* 200 DMA / major long-term averages
+* Volume
+* Relative strength vs Nifty
+* Relative strength vs sector
+* Major breakdowns
+* Gap-downs
+* Distribution
+* Major resistance above the current price
+
+I do NOT want technical analysis to override strong fundamental evidence.
+
+Use technical analysis primarily to identify whether this is:
+
+**a normal pullback inside an uptrend**
+
+or
+
+**the beginning of a major downtrend.**
+
+---
+
+# PART 10 — HISTORICAL ANALOGUES
+
+Research previous periods when this company experienced similar conditions.
+
+Find at least 2–3 historical examples where:
+
+* The stock approached/touched a major long-term moving average, AND/OR
+* Earnings/economic conditions deteriorated, AND/OR
+* The sector entered a similar cycle.
+
+For each example explain:
+
+**What happened → why it happened → how far the stock fell → what eventually caused recovery.**
+
+I want to understand whether buying near the weekly 50 EMA has historically been a reasonable strategy for this company.
+
+---
+
+# PART 11 — MY SPECIFIC AVERAGING STRATEGY
+
+Now evaluate my exact strategy mathematically.
+
+Initial entry = P
+
+Entry 1 = P → X/3
+
+Entry 2 = 0.90P → X/3
+
+Entry 3 = 0.80P → X/3
+
+Hard exit = 0.60P
+
+Calculate:
+
+* Weighted average purchase price
+* Maximum capital deployed
+* Loss percentage at the 40% stop
+* Loss percentage after each entry
+* Required recovery percentage after the stop
+* Risk/reward implications
+
+Then answer:
+
+**Does this averaging structure make sense for THIS COMPANY?**
+
+More importantly, identify whether there is a realistic scenario in which:
+
+**the company looks fundamentally good at the first EMA50 touch but then enters a structural decline and my averaging strategy causes a much larger loss.**
+
+---
+
+# PART 12 — BEAR CASE
+
+Construct the strongest realistic bear case.
+
+Assume I am WRONG and the trade becomes a disaster.
+
+Explain:
+
+1. What could go wrong?
+2. What economic conditions could cause it?
+3. What company-specific events could cause it?
+4. Which financial metrics would deteriorate first?
+5. What warning signs should I monitor?
+6. What would invalidate the original thesis?
+
+Give me **5–10 early warning indicators**.
+
+---
+
+# PART 13 — BULL CASE
+
+Construct the strongest realistic bull case.
+
+Explain:
+
+1. What could cause the stock to recover?
+2. Which economic variables would improve?
+3. Which company metrics would improve first?
+4. What catalysts could trigger re-rating?
+5. What could cause the stock to outperform the Nifty?
+
+---
+
+# PART 14 — 3-SCENARIO MODEL
+
+Create:
+
+### Bear case
+
+Probability:
+Expected business condition:
+Expected earnings direction:
+Expected stock behaviour:
+What would invalidate the bear case:
+
+### Base case
+
+Probability:
+Expected business condition:
+Expected earnings direction:
+Expected stock behaviour:
+What would invalidate the base case:
+
+### Bull case
+
+Probability:
+Expected business condition:
+Expected earnings direction:
+Expected stock behaviour:
+What would invalidate the bull case:
+
+The probabilities must add up to 100%.
+
+Do not make the probabilities artificially balanced.
+
+---
+
+# PART 15 — FINAL DECISION SCORECARD
+
+Score the company from 0–10 on:
+
+| Factor                       | Score |
+| ---------------------------- | ----: |
+| Business quality             |   /10 |
+| Current economic environment |   /10 |
+| Industry cycle               |   /10 |
+| Earnings momentum            |   /10 |
+| Cash-flow quality            |   /10 |
+| Balance sheet                |   /10 |
+| Management                   |   /10 |
+| Valuation                    |   /10 |
+| Current stock decline        |   /10 |
+| Risk/reward                  |   /10 |
+| Probability of recovery      |   /10 |
+
+Then calculate an overall assessment.
+
+But remember:
+
+**The score is NOT allowed to mechanically determine the final answer.**
+
+Your final decision should come from your actual analysis.
+
+---
+
+# PART 16 — CRITICAL DISTINCTION
+
+Before giving the final decision, explicitly answer:
+
+### Is this a falling stock that is temporarily out of favour?
+
+OR
+
+### Is this a fundamentally deteriorating business whose stock is correctly falling?
+
+This distinction is the core of my strategy.
+
+I am willing to tolerate volatility.
+
+I am NOT willing to keep averaging into a structurally deteriorating business.
+
+---
+
+# PART 17 — FINAL VERDICT
+
+Start with exactly one:
+
+# YES — START BUILDING THE POSITION
+
+OR
+
+# NO — DO NOT START THE POSITION
+
+Then give me:
+
+### Why?
+
+Maximum 5 most important reasons.
+
+### What would make you change your YES → NO decision?
+
+Give me specific measurable warning signs.
+
+### What would make you more confident in the YES?
+
+Give me specific measurable positive developments.
+
+### What should I monitor after entering?
+
+Give me the **5 most important indicators**, ranked by importance.
+
+---
+
+# VERY IMPORTANT RESEARCH RULES
+
+1. Use the **latest available data** as of today.
+2. Search the internet extensively.
+3. Prefer primary sources:
+
+   * RBI
+   * SEBI
+   * NSE
+   * BSE
+   * Government of India
+   * MoSPI
+   * Ministry/Regulator websites
+   * Company annual reports
+   * Company investor presentations
+   * Company earnings calls
+4. Use high-quality financial/news sources for supplementary information.
+5. Clearly distinguish **facts from your interpretation**.
+6. Do not blindly trust management commentary.
+7. Cross-check important numbers.
+8. Do not use stale information when newer information is available.
+9. Mention the date of important data points.
+10. If information is unavailable, explicitly say so rather than guessing.
+11. Do not give me generic statements such as "the market is uncertain."
+12. Quantify things wherever reasonably possible.
+13. Focus on the next **4–12 quarters**, because this is a swing/medium-term strategy.
+14. Remember that the stock market is forward-looking. Do not wait for reported earnings to deteriorate if leading indicators are already warning of deterioration.
+15. Do not recommend buying simply because the stock has fallen.
+16. Do not recommend avoiding it simply because the stock has risen.
+17. The fact that the stock touched the weekly 50 EMA is ONLY the trigger for this analysis — it is NOT evidence that the stock should be bought.
+18. Treat my 40% hard exit as a risk-management rule, not as evidence that the position is safe.
+19. If the evidence strongly suggests that the business cycle is deteriorating, say NO even if the valuation looks attractive.
+20. If the evidence strongly suggests that this is a temporary correction in a healthy business, say YES even if short-term sentiment is negative.
+
+## FINAL PRINCIPLE
+
+I am trying to answer one question:
+
+**"At this particular weekly 50 EMA touch, is the probability-weighted expected outcome good enough to justify starting my X/3 position?"**
+
+Give me the answer **YES or NO**.
+
+Do not protect me from making a decision.
+
+I want your **best analytical judgment**, not diplomacy.
+</template>
+<template id="index-prompt-template">I want you to act as a **professional Indian equity strategist + macroeconomist + index analyst + risk manager**.
+
+I am considering taking a **cash position in an Indian stock-market index**.
+
+## INDEX DETAILS
+
+**Index:** [NIFTY 50 / BANK NIFTY / NIFTY HEALTHCARE / NIFTY IT / NIFTY AUTO / NIFTY PHARMA / NIFTY FINANCIAL SERVICES / etc.]
+
+**Index ticker/symbol:** [SYMBOL]
+
+**Current index level:** [VALUE]
+
+**Weekly 50 EMA:** [VALUE]
+
+**Date:** [DATE]
+
+The weekly candle has just **touched the weekly 50 EMA**, which is my technical trigger to investigate whether I should start building a position.
+
+---
+
+# MY FIXED TRADING STRATEGY
+
+My strategy is:
+
+### Initial entry
+
+When the weekly candle touches the 50 EMA:
+
+**Invest X/3 of my total planned capital.**
+
+### Second entry
+
+If the index falls another **10% from the initial entry price/level**:
+
+**Invest another X/3.**
+
+### Third entry
+
+If the index falls another **10% from the initial entry price/level**:
+
+**Invest the final X/3.**
+
+After the third tranche, I will **not deploy additional capital**.
+
+### Maximum-loss condition
+
+If the index eventually falls **40% from the initial entry level**, I will book the loss and exit.
+
+I am buying the index in the **cash market**, not futures/options.
+
+I am looking for a **swing/medium-term position**, not necessarily a permanent long-term investment.
+
+---
+
+# MOST IMPORTANT REQUIREMENT
+
+At the very beginning of your answer, give me exactly ONE of:
+
+# YES — START BUILDING THE POSITION
+
+or
+
+# NO — DO NOT START THE POSITION
+
+There must be **no "maybe", "neutral", "cautiously yes", "wait and see", or diplomatic answer.**
+
+I want your **best probability-weighted decision based on the latest available evidence**.
+
+Do NOT say YES merely because the index touched the weekly 50 EMA.
+
+The 50 EMA touch is only my **investigation trigger**.
+
+Your job is to determine whether the **underlying economic, earnings, liquidity, valuation and market regime** justify starting the position.
+
+---
+
+# PART 1 — UNDERSTAND THE INDEX
+
+First explain what this index actually represents.
+
+Cover:
+
+1. What does the index measure?
+2. How many companies are included?
+3. How are companies selected?
+4. How is the index weighted?
+5. Is it free-float market-cap weighted or something else?
+6. Which sectors currently have the largest weights?
+7. Which individual companies have the largest weights?
+8. How concentrated is the index?
+9. Which sectors/companies are currently driving its performance?
+10. Which sectors/companies are currently dragging it down?
+11. How representative is this index of the Indian economy?
+
+For example:
+
+Nifty 50 ≠ Indian economy.
+
+Explain why.
+
+---
+
+# PART 2 — INDEX COMPOSITION ANALYSIS
+
+This is extremely important.
+
+Analyze the **current sector composition** of the index.
+
+Create a table:
+
+| Sector | Approx. Index Weight | Recent Performance | Earnings Trend | Economic Sensitivity | Outlook |
+| ------ | -------------------: | ------------------ | -------------- | -------------------- | ------- |
+
+Then identify:
+
+### Top 3 sectors driving the index
+
+### Top 3 sectors creating weakness
+
+### Top 5 individual companies contributing most to the index's recent movement
+
+Explain whether the current index correction is:
+
+**broad-based**
+
+or
+
+**concentrated in a few sectors/stocks.**
+
+This distinction is very important.
+
+---
+
+# PART 3 — CURRENT INDIAN MACROECONOMIC ENVIRONMENT
+
+Research the latest available Indian economic data as of **[DATE]**.
+
+Analyze:
+
+### Economic growth
+
+* Real GDP growth
+* Nominal GDP growth
+* GVA growth
+* GDP composition
+* Private consumption
+* Government expenditure
+* Gross fixed capital formation
+* Investment growth
+
+Explain whether the economy is:
+
+**accelerating / stable / slowing / contracting.**
+
+---
+
+# PART 4 — INFLATION
+
+Analyze:
+
+* CPI inflation
+* Core inflation
+* Food inflation
+* Fuel inflation
+* WPI where relevant
+* Inflation expectations
+* Commodity inflation
+
+Explain:
+
+**Is inflation currently helping or hurting Indian equities?**
+
+Also explain whether inflation creates a risk of:
+
+**higher-for-longer interest rates**
+
+or whether it gives RBI room to ease monetary policy.
+
+---
+
+# PART 5 — RBI & INTEREST-RATE CYCLE
+
+Analyze:
+
+* RBI repo rate
+* RBI stance
+* Liquidity conditions
+* CRR/other relevant policy changes
+* Bank lending rates
+* Deposit rates
+* Credit growth
+* Financial-system liquidity
+
+Determine where India is in the monetary cycle:
+
+### Tightening
+
+### Peak
+
+### Easing
+
+### Neutral
+
+Then explain:
+
+**What does this mean for THIS INDEX?**
+
+For example:
+
+* Bank Nifty → credit growth, NIMs, asset quality, liquidity
+* IT → global growth, USD/INR, US rates, technology spending
+* Auto → consumer credit, interest rates, demand
+* Pharma/Healthcare → defensive demand, US healthcare cycle, regulation
+* Infrastructure → government CAPEX, private CAPEX, rates
+* Nifty 50 → combination of all major sectors
+
+---
+
+# PART 6 — GOVERNMENT CAPEX & FISCAL POLICY
+
+Analyze:
+
+* Government CAPEX
+* Union Budget CAPEX
+* Actual government expenditure
+* Infrastructure spending
+* Defence spending
+* Railways
+* Roads
+* Power
+* Public-sector investment
+
+Determine whether fiscal policy is:
+
+**supportive / neutral / restrictive**
+
+for this index.
+
+Explain the transmission mechanism:
+
+Government spending
+↓
+economic activity
+↓
+sector demand
+↓
+corporate revenue
+↓
+earnings
+↓
+index earnings
+↓
+index valuation
+↓
+index price
+
+---
+
+# PART 7 — PRIVATE CAPEX & INVESTMENT CYCLE
+
+Analyze:
+
+* Private-sector CAPEX
+* Corporate investment intentions
+* Capacity utilisation
+* Bank credit growth
+* New project announcements
+* Manufacturing investment
+* Infrastructure investment
+
+Determine:
+
+**Is India's investment cycle strengthening or weakening?**
+
+Explain how that specifically affects this index.
+
+---
+
+# PART 8 — CORPORATE EARNINGS CYCLE
+
+This is one of the most important sections.
+
+Analyze the latest earnings trend for the companies/sectors that dominate this index.
+
+Look at:
+
+* Revenue growth
+* EBITDA growth
+* PAT growth
+* EPS growth
+* Margins
+* Operating cash flow
+* Earnings revisions
+* Profit expectations
+* Guidance
+* Upgrade/downgrade trends
+
+Determine whether the overall earnings cycle is:
+
+### Accelerating
+
+### Stable
+
+### Decelerating
+
+### Contracting
+
+Then answer:
+
+**Are analysts currently revising earnings estimates upward or downward?**
+
+This is extremely important because the stock market is forward-looking.
+
+---
+
+# PART 9 — EARNINGS REVISION CYCLE
+
+Investigate whether consensus earnings expectations are changing.
+
+I want you to distinguish:
+
+### Price falling + earnings estimates rising
+
+from
+
+### Price falling + earnings estimates falling
+
+These have very different implications.
+
+Explain which one is currently happening.
+
+If possible, analyze:
+
+* FY27 earnings expectations
+* FY28 earnings expectations
+* EPS growth expectations
+* Sector earnings revisions
+* Major index constituents' revisions
+
+---
+
+# PART 10 — LIQUIDITY & MONEY FLOW
+
+Analyze the current liquidity environment.
+
+Look at:
+
+* RBI liquidity
+* FII flows
+* DII flows
+* Mutual fund flows
+* SIP flows
+* Foreign portfolio investment
+* Domestic institutional buying
+* Credit conditions
+* Global liquidity
+* US dollar
+* US Treasury yields
+
+Explain:
+
+**Is liquidity currently a tailwind or headwind for Indian equities?**
+
+Important:
+
+Do not assume FII selling automatically means the market will fall.
+
+Explain whether domestic liquidity is offsetting foreign selling.
+
+---
+
+# PART 11 — GLOBAL MACRO ENVIRONMENT
+
+Analyze the major global factors relevant to Indian equities.
+
+At minimum examine:
+
+### United States
+
+* GDP
+* Inflation
+* Federal Reserve policy
+* Interest rates
+* Employment
+* Consumer spending
+* Corporate earnings
+* Treasury yields
+
+### China
+
+* GDP
+* Manufacturing
+* Property sector
+* Stimulus
+* Commodity demand
+
+### Europe
+
+* Growth
+* Inflation
+* ECB policy
+
+### Global
+
+* Oil
+* Metals
+* USD
+* Global trade
+* Geopolitical risks
+* Global equity market trend
+
+Then explain:
+
+**Which global factors are currently positive/negative for THIS index?**
+
+Do not waste time discussing global variables that have little connection to the index.
+
+---
+
+# PART 12 — SECTOR-SPECIFIC ECONOMIC DRIVERS
+
+Now identify the **5–10 variables that actually matter most for this particular index**.
+
+For example:
+
+## If NIFTY 50
+
+Potential variables:
+
+* GDP growth
+* Corporate earnings
+* Banking credit growth
+* Private CAPEX
+* Government CAPEX
+* IT spending
+* Consumption
+* Oil prices
+* INR/USD
+* Interest rates
+
+## If BANK NIFTY
+
+Potential variables:
+
+* Credit growth
+* Deposit growth
+* RBI policy
+* Liquidity
+* NIM
+* Asset quality
+* GNPA/NNPA
+* Provisioning
+* Bond yields
+* Corporate credit demand
+
+## If NIFTY IT
+
+Potential variables:
+
+* US GDP
+* US corporate IT spending
+* Global technology spending
+* USD/INR
+* US interest rates
+* Hiring
+* Deal wins
+* Client budgets
+
+## If NIFTY AUTO
+
+Potential variables:
+
+* Consumer demand
+* Rural income
+* Urban income
+* Interest rates
+* Auto financing
+* Fuel prices
+* Commodity prices
+* EV adoption
+* Monsoon
+
+## If NIFTY PHARMA / HEALTHCARE
+
+Potential variables:
+
+* US healthcare spending
+* USFDA/regulatory environment
+* Drug pricing
+* INR/USD
+* API/input costs
+* Domestic healthcare demand
+* Generic-drug cycle
+
+But do NOT blindly use these examples.
+
+Determine the relevant variables yourself based on the actual index composition.
+
+---
+
+# PART 13 — CURRENT MARKET REGIME
+
+Determine what type of market environment we are currently in.
+
+Classify it as one of:
+
+### 1. Bull market / healthy correction
+
+Strong underlying fundamentals; temporary price weakness.
+
+### 2. Late-cycle correction
+
+Fundamentals still positive but momentum is slowing.
+
+### 3. Earnings slowdown
+
+Economic activity or corporate earnings are deteriorating.
+
+### 4. Liquidity-driven correction
+
+Fundamentals are relatively healthy but liquidity/flows are causing weakness.
+
+### 5. Valuation correction
+
+Earnings are okay but valuation is compressing.
+
+### 6. Broad bear market
+
+Economic, earnings and liquidity conditions are deteriorating together.
+
+### 7. Sector-specific bear market
+
+The index/sector has structural problems.
+
+Tell me which regime we are currently experiencing.
+
+---
+
+# PART 14 — WHY IS THE INDEX FALLING?
+
+Investigate the CURRENT correction.
+
+Determine whether the fall is primarily due to:
+
+* Profit booking
+* Valuation compression
+* FII selling
+* Global risk-off
+* Interest-rate concerns
+* Inflation
+* Earnings disappointment
+* Sector rotation
+* Economic slowdown
+* Geopolitical risk
+* Political/fiscal concerns
+* Currency movement
+* Commodity shock
+* Structural earnings deterioration
+
+Rank the reasons by importance.
+
+Do not simply repeat news headlines.
+
+Explain the **causal mechanism**.
+
+For example:
+
+US yields ↑
+→ global capital becomes more attractive in US assets
+→ FII selling pressure ↑
+→ Indian equity liquidity weakens
+→ index valuation compresses
+→ index falls
+
+---
+
+# PART 15 — VALUATION
+
+Analyze the current valuation of the index.
+
+At minimum examine:
+
+* P/E
+* Forward P/E
+* Price/book where relevant
+* Earnings yield
+* Historical valuation range
+* 5-year/10-year valuation context where meaningful
+* Sector-relative valuation
+* Global-relative valuation
+
+Determine:
+
+### Cheap
+
+### Fairly valued
+
+### Expensive
+
+### Extremely expensive
+
+Then answer:
+
+**Is the current correction sufficient to make the index attractive?**
+
+Also determine:
+
+**Could the index fall further even if earnings remain healthy because valuation is still contracting?**
+
+---
+
+# PART 16 — TECHNICAL CONTEXT
+
+My technical trigger is:
+
+**Weekly candle touching 50 EMA.**
+
+Do not replace my strategy with another technical strategy.
+
+However, investigate whether the 50 EMA touch is occurring in:
+
+### A. Healthy uptrend
+
+or
+
+### B. Weakening trend
+
+or
+
+### C. Major downtrend
+
+Analyze:
+
+* Weekly trend
+* Monthly trend
+* 50 EMA
+* 200 DMA / major long-term averages
+* Previous EMA50 reactions
+* Major support zones
+* Major resistance zones
+* Volume
+* Market breadth
+* Advance/decline
+* Relative strength
+* Sector breadth
+* New highs/new lows
+* Volatility
+* India VIX where relevant
+
+Most importantly:
+
+**Is this a normal pullback or a potential regime change?**
+
+---
+
+# PART 17 — MARKET BREADTH
+
+Analyze whether the index's movement is broad-based.
+
+Look at:
+
+* Advance/decline ratio
+* Percentage of constituents above 50 DMA
+* Percentage above 200 DMA
+* New highs vs new lows
+* Sector participation
+* Concentration of index returns
+
+Determine:
+
+**Is the index being supported by broad participation or only a handful of heavyweight stocks?**
+
+This is especially important for Nifty 50.
+
+---
+
+# PART 18 — HISTORICAL ANALOGUES
+
+Find previous periods when this index:
+
+1. Touched the weekly 50 EMA during a healthy uptrend.
+2. Touched the weekly 50 EMA before a larger correction.
+3. Touched the weekly 50 EMA during a bear market.
+
+For each relevant historical example, explain:
+
+* Economic environment
+* Earnings environment
+* Interest-rate environment
+* Valuation
+* What happened after the 50 EMA touch
+* Maximum drawdown
+* Recovery time
+* What eventually caused the recovery
+
+Do not cherry-pick only successful examples.
+
+---
+
+# PART 19 — MY AVERAGING STRATEGY
+
+Analyze my exact position-building strategy.
+
+Let:
+
+Initial entry = **P**
+
+Investment:
+
+* P → X/3
+* 0.90P → X/3
+* 0.80P → X/3
+* Exit threshold = 0.60P
+
+Calculate the effective average entry price after all three purchases.
+
+Then calculate:
+
+* Loss after first entry if price falls 10%
+* Loss after second entry
+* Loss after third entry
+* Maximum loss at 40% decline
+* Required recovery from 40% down to break even
+* Maximum capital deployed
+* Risk/reward characteristics
+
+Then explain the key mathematical risk:
+
+**Does averaging down reduce my average price but increase my exposure to a falling market regime?**
+
+---
+
+# PART 20 — INDEX-SPECIFIC RISK OF AVERAGING
+
+This is extremely important.
+
+Determine whether this index has historically experienced drawdowns large enough to make my strategy dangerous.
+
+Analyze historical:
+
+* 10% drawdowns
+* 20% drawdowns
+* 30% drawdowns
+* 40% drawdowns
+
+Tell me:
+
+**How frequently has this index experienced each level of drawdown?**
+
+Also distinguish:
+
+### Temporary crash
+
+from
+
+### Multi-year structural decline
+
+because my averaging strategy behaves very differently in those two environments.
+
+---
+
+# PART 21 — BULL CASE
+
+Build the strongest realistic bullish scenario.
+
+Explain:
+
+* What improves?
+* Which macro indicators improve?
+* Which sectors lead?
+* Which earnings improve?
+* What happens to liquidity?
+* What happens to valuation?
+* What could trigger the next major upward move?
+
+Estimate the probability of this scenario.
+
+---
+
+# PART 22 — BASE CASE
+
+Build the most likely scenario.
+
+Explain:
+
+* Economic growth
+* Earnings
+* Interest rates
+* Liquidity
+* Valuation
+* Sector leadership
+* Expected index behaviour
+
+Estimate the probability.
+
+---
+
+# PART 23 — BEAR CASE
+
+Build the strongest realistic bearish scenario.
+
+Assume I start the position and the index continues falling.
+
+Explain:
+
+* What could cause it?
+* Which macro variables would deteriorate?
+* Which sectors would be hit first?
+* What happens to earnings?
+* What happens to valuation?
+* What happens to liquidity?
+* What could turn a correction into a bear market?
+
+Estimate the probability.
+
+---
+
+# PART 24 — THREE-SCENARIO MODEL
+
+Create:
+
+| Scenario | Probability | Economic Condition | Earnings | Liquidity | Valuation | Expected Index Behaviour |
+| -------- | ----------: | ------------------ | -------- | --------- | --------- | ------------------------ |
+| Bull     |           % |                    |          |           |           |                          |
+| Base     |           % |                    |          |           |           |                          |
+| Bear     |           % |                    |          |           |           |                          |
+
+Probabilities MUST add up to 100%.
+
+Do not artificially make them 33/33/34.
+
+---
+
+# PART 25 — WHAT WOULD INVALIDATE THE TRADE?
+
+Give me the **5–10 most important warning indicators** I should monitor after entering.
+
+For each:
+
+| Indicator | Current Status | Warning Level | Why It Matters |
+| --------- | -------------- | ------------- | -------------- |
+
+Examples could include:
+
+* Earnings revisions
+* GDP
+* Credit growth
+* RBI policy
+* Inflation
+* FII/DII flows
+* VIX
+* Market breadth
+* Sector earnings
+* Capacity utilisation
+* Oil
+* USD/INR
+* US yields
+
+But choose the indicators that actually matter for THIS INDEX.
+
+---
+
+# PART 26 — LEADING VS LAGGING INDICATORS
+
+Separate the indicators into:
+
+### Leading indicators
+
+Things that can warn me BEFORE index earnings deteriorate.
+
+### Coincident indicators
+
+Things showing what is happening now.
+
+### Lagging indicators
+
+Things that confirm deterioration after it has already happened.
+
+I care most about **leading indicators** because I want to avoid averaging into a deteriorating regime.
+
+---
+
+# PART 27 — FINAL DECISION SCORECARD
+
+Score the current setup from 0–10:
+
+| Factor                    | Score |
+| ------------------------- | ----: |
+| Indian macro environment  |   /10 |
+| Global macro environment  |   /10 |
+| Earnings cycle            |   /10 |
+| Earnings revisions        |   /10 |
+| Liquidity                 |   /10 |
+| Interest-rate environment |   /10 |
+| Sector outlook            |   /10 |
+| Market breadth            |   /10 |
+| Valuation                 |   /10 |
+| Technical structure       |   /10 |
+| Risk/reward               |   /10 |
+| Probability of recovery   |   /10 |
+
+Then give an overall assessment.
+
+But:
+
+**DO NOT mechanically calculate the final decision from this score.**
+
+Use analytical judgment.
+
+---
+
+# PART 28 — CRITICAL QUESTION
+
+Answer this explicitly:
+
+## Is this:
+
+### "A healthy index experiencing a normal correction"
+
+OR
+
+### "An index entering a broader deterioration/bear phase"?
+
+Explain why.
+
+This is the most important question for my strategy.
+
+---
+
+# PART 29 — FINAL YES/NO DECISION
+
+At the very end, again clearly state:
+
+# YES — START BUILDING THE POSITION
+
+OR
+
+# NO — DO NOT START THE POSITION
+
+Then give me:
+
+### 1. Why?
+
+Give the **5 strongest reasons**.
+
+### 2. What would make you change YES → NO?
+
+Give specific measurable warning signs.
+
+### 3. What would make you more confident in YES?
+
+Give specific measurable positive developments.
+
+### 4. What should I monitor?
+
+Give me the **5 most important indicators**, ranked 1–5.
+
+### 5. What is the biggest risk?
+
+Give me the single biggest risk to this trade.
+
+---
+
+# RESEARCH RULES
+
+Follow these rules strictly.
+
+## 1. USE THE LATEST INFORMATION
+
+Research information available as of:
+
+**[DATE]**
+
+Do not rely on old information when newer information exists.
+
+For fast-moving variables, prioritize the most recent available data.
+
+---
+
+## 2. PRIORITIZE PRIMARY SOURCES
+
+Prefer:
+
+* RBI
+* SEBI
+* NSE
+* BSE
+* MoSPI
+* Ministry of Finance
+* Government of India
+* Department of Economic Affairs
+* Controller General of Accounts
+* NSO
+* Official sector regulators
+* Official index methodology documents
+* Company annual reports
+* Company investor presentations
+* Earnings calls
+
+Then use high-quality financial/news sources for supplementary information.
+
+---
+
+## 3. CROSS-CHECK IMPORTANT INFORMATION
+
+Do not rely on one article for an important conclusion.
+
+Cross-check major claims wherever possible.
+
+---
+
+## 4. DEFINE FINANCIAL/ECONOMIC TERMS
+
+Assume I am NOT from a finance/economics background.
+
+Whenever you introduce a technical term, first explain:
+
+**What it means → simple example → why it matters → relationship with the index.**
+
+Do not throw jargon at me without explanation.
+
+---
+
+## 5. FACT VS INTERPRETATION
+
+Clearly distinguish:
+
+**FACT:** What the data says.
+
+**INTERPRETATION:** What you think the data means.
+
+---
+
+## 6. DO NOT CONFUSE GDP WITH INDEX EARNINGS
+
+A country can have strong GDP growth while certain sectors perform poorly.
+
+Explain the actual transmission mechanism between the economy and THIS index.
+
+---
+
+## 7. DO NOT CONFUSE INDEX PRICE WITH FUNDAMENTAL VALUE
+
+The index can fall because:
+
+* earnings fall
+* valuation falls
+* liquidity falls
+* risk premium rises
+* sentiment changes
+* global markets fall
+
+Identify which mechanism is dominant.
+
+---
+
+## 8. DO NOT BLINDLY FOLLOW NEWS
+
+Do not simply summarize headlines.
+
+For every major event ask:
+
+**How does this affect earnings, valuation or liquidity?**
+
+---
+
+## 9. FORWARD-LOOKING ANALYSIS
+
+The market prices expectations.
+
+Therefore, analyze:
+
+**What is expected to happen over the next 4–12 quarters?**
+
+not merely what happened last quarter.
+
+---
+
+## 10. DO NOT ASSUME "INDEX = SAFE"
+
+An index is generally more diversified than an individual stock, but it can still experience large drawdowns.
+
+Do not treat a 40% fall as impossible merely because this is an index.
+
+---
+
+# FINAL PRINCIPLE
+
+My weekly 50 EMA touch is simply the **trigger that tells me to perform this research**.
+
+I am NOT asking:
+
+> "Has the index reached a good technical buying level?"
+
+I am asking:
+
+> **"Given that the index has reached my weekly 50 EMA trigger today, is the probability-weighted expected outcome attractive enough that I should deploy the first X/3 of my capital?"**
+
+The decision must therefore integrate:
+
+**Technical setup**
++
+**Macro regime**
++
+**Earnings cycle**
++
+**Liquidity**
++
+**Valuation**
++
+**Sector leadership**
++
+**Market breadth**
++
+**Historical drawdowns**
++
+**Risk management**
+
+Then give me an unequivocal:
+
+# YES
+
+or
+
+# NO
+
+No diplomacy.
+
+No "it depends."
+
+No generic disclaimer.
+
+Give me your **best professional judgment based on the evidence available today.**
+</template>
+
+<template id="monthly-index-prompt-template">I want you to act as a **professional Indian equity strategist + macroeconomist + index analyst + market-cycle analyst + risk manager**.
+
+I am considering taking a **cash-market position in an Indian stock-market index**.
+
+## INDEX DETAILS
+
+**Index:** [NIFTY 50 / BANK NIFTY / NIFTY HEALTHCARE / NIFTY IT / NIFTY AUTO / NIFTY PHARMA / NIFTY FINANCIAL SERVICES / etc.]
+
+**Index symbol:** [SYMBOL]
+
+**Current index level:** ₹[VALUE]
+
+**Monthly 21 EMA:** ₹[VALUE]
+
+**Date:** [DATE]
+
+The **monthly candle has just touched the Monthly 21 EMA**.
+
+This is my predetermined technical trigger to perform a deep fundamental, macroeconomic, earnings, valuation and market-cycle analysis.
+
+The Monthly 21 EMA touch itself is **NOT sufficient evidence to buy**.
+
+Your job is to determine whether this is an attractive point to begin accumulating the index.
+
+---
+
+# MY TRADING / POSITION-BUILDING STRATEGY
+
+My total planned capital for this index position is:
+
+**₹X**
+
+I will divide it into three equal parts.
+
+### Entry 1
+
+When the monthly candle touches the **21 EMA**:
+
+**Deploy X/3 capital.**
+
+### Entry 2
+
+If the index subsequently falls another **10% from the initial entry level**:
+
+**Deploy another X/3.**
+
+### Entry 3
+
+If the index subsequently falls another **10% from the initial entry level**:
+
+**Deploy the final X/3.**
+
+After all three entries:
+
+**I will NOT deploy additional capital.**
+
+### Maximum-loss rule
+
+If the index eventually falls **40% from the initial entry level**, I will exit the position and book the loss.
+
+I am buying the index in the **CASH MARKET**.
+
+I am NOT using futures or options for this strategy.
+
+I am looking for a **medium-term to long-term swing/accumulation position**, rather than a short-term trade.
+
+---
+
+# 🚨 MOST IMPORTANT REQUIREMENT
+
+I want an **unambiguous binary decision**.
+
+At the very beginning of your answer, write exactly ONE of:
+
+# YES — START BUILDING THE POSITION
+
+OR
+
+# NO — DO NOT START THE POSITION
+
+Do NOT answer:
+
+* Maybe
+* Neutral
+* Cautiously yes
+* Cautiously no
+* Wait and see
+* It depends
+* Could be
+* Buy gradually only if...
+* The outlook is mixed
+
+I understand that markets are uncertain.
+
+I still want you to make the **best probability-weighted decision possible using the evidence available TODAY**.
+
+Do not give me a diplomatic answer.
+
+---
+
+# IMPORTANT PHILOSOPHY
+
+My technical system works like this:
+
+**Monthly 21 EMA touch**
+↓
+**Trigger deep research**
+↓
+**Determine economic/earnings/valuation regime**
+↓
+**YES or NO**
+↓
+If YES → deploy X/3
+↓
+Average only according to my predetermined rules
+
+The Monthly 21 EMA is therefore a **research trigger**, NOT a buy signal by itself.
+
+I want you to determine whether the underlying environment makes this a sensible accumulation opportunity.
+
+---
+
+# PART 1 — UNDERSTAND THE INDEX
+
+First explain exactly what this index represents.
+
+Assume I have limited knowledge of finance.
+
+Explain:
+
+1. What does the index represent?
+2. How many stocks are included?
+3. How are stocks selected?
+4. How frequently is the index rebalanced?
+5. How are stocks weighted?
+6. Is it free-float market-cap weighted?
+7. What are the current sector weights?
+8. What are the largest individual constituents?
+9. How concentrated is the index?
+10. Which sectors dominate its earnings?
+11. Which sectors dominate its valuation?
+12. Which sectors are currently driving the index?
+13. Which sectors are currently weakening the index?
+
+Then answer:
+
+**How representative is this index of the Indian economy?**
+
+For example:
+
+NIFTY 50 is NOT the same thing as India's GDP.
+
+Explain the difference.
+
+---
+
+# PART 2 — INDEX COMPOSITION ANALYSIS
+
+Analyze the current composition of the index.
+
+Create:
+
+| Sector | Index Weight | Earnings Contribution | Recent Performance | Current Trend | Economic Sensitivity |
+| ------ | -----------: | --------------------: | ------------------ | ------------- | -------------------- |
+
+Then identify:
+
+### Top 5 sectors
+
+that matter most for the index.
+
+### Top 10 stocks
+
+that matter most for the index.
+
+Explain whether the current index movement is:
+
+### Broad-based
+
+or
+
+### Concentrated in a few heavyweight stocks.
+
+This matters because an index can appear strong while most constituents are weak, or appear weak because a few large stocks are falling.
+
+---
+
+# PART 3 — LONG-TERM ECONOMIC CYCLE
+
+Because my signal is based on the **MONTHLY 21 EMA**, analyze the broader economic cycle rather than focusing only on the latest monthly data.
+
+Determine where India currently is in the economic cycle:
+
+### Early expansion
+
+### Mid-cycle expansion
+
+### Late-cycle expansion
+
+### Slowdown
+
+### Recession / contraction
+
+### Recovery
+
+Explain WHY you classify the economy this way.
+
+Analyze:
+
+* GDP growth
+* GVA
+* Private consumption
+* Government spending
+* Investment
+* Industrial production
+* Manufacturing
+* Services
+* Employment
+* Credit growth
+* Capacity utilisation
+* Corporate profitability
+* Private CAPEX
+* Government CAPEX
+
+---
+
+# PART 4 — GDP & ECONOMIC GROWTH
+
+Analyze the latest:
+
+* Real GDP growth
+* Nominal GDP growth
+* GVA growth
+* Private consumption
+* Government consumption
+* Gross fixed capital formation
+* Investment growth
+* Industrial growth
+* Services growth
+
+Do not simply tell me:
+
+"India GDP is growing at X%."
+
+Explain:
+
+**Is economic growth accelerating or decelerating?**
+
+Then explain:
+
+**Does the composition of GDP growth benefit THIS INDEX?**
+
+For example:
+
+A consumption-led recovery may be excellent for:
+
+* Auto
+* Consumer
+* Financials
+
+but less directly beneficial to some other sectors.
+
+Similarly:
+
+An investment-led cycle may strongly benefit:
+
+* Banks
+* Infrastructure
+* Industrials
+* Capital goods
+
+Explain the specific transmission mechanism.
+
+---
+
+# PART 5 — INFLATION CYCLE
+
+Analyze:
+
+* CPI
+* Core CPI
+* Food inflation
+* Fuel inflation
+* WPI
+* Commodity inflation
+* Inflation expectations
+
+Determine:
+
+### Is inflation:
+
+* Falling?
+* Stable?
+* Rising?
+
+Then explain:
+
+**What does this mean for RBI policy, corporate margins, consumer demand and valuations?**
+
+Also determine whether inflation creates the risk of:
+
+### Higher-for-longer rates
+
+or
+
+### Monetary easing
+
+or
+
+### Neutral monetary policy.
+
+---
+
+# PART 6 — RBI & INTEREST-RATE CYCLE
+
+Analyze:
+
+* RBI repo rate
+* RBI monetary policy stance
+* Liquidity
+* CRR changes
+* System liquidity
+* Bank lending rates
+* Deposit rates
+* Credit growth
+* Financial conditions
+
+Determine whether India is currently in:
+
+### Monetary tightening
+
+### Peak rates
+
+### Monetary easing
+
+### Neutral conditions
+
+Then explain how this affects the particular index.
+
+Do NOT simply say:
+
+"Lower rates are good for stocks."
+
+Explain the mechanism.
+
+For example:
+
+RBI cuts rates
+↓
+Funding costs fall
+↓
+Credit demand rises
+↓
+Economic activity increases
+↓
+Corporate earnings improve
+↓
+Equity valuations may expand
+↓
+Index benefits
+
+But also explain the opposite scenario.
+
+---
+
+# PART 7 — GOVERNMENT CAPEX & FISCAL CYCLE
+
+Analyze:
+
+* Union Budget CAPEX
+* Actual government CAPEX
+* Fiscal deficit
+* Infrastructure spending
+* Defence
+* Railways
+* Roads
+* Power
+* Public-sector investment
+
+Determine:
+
+**Is fiscal policy currently supportive or restrictive?**
+
+Then determine which sectors within THIS index benefit most.
+
+---
+
+# PART 8 — PRIVATE CAPEX & INVESTMENT CYCLE
+
+Analyze:
+
+* Private-sector CAPEX
+* Corporate investment intentions
+* New project announcements
+* Capacity utilisation
+* Bank credit
+* Manufacturing investment
+* Infrastructure investment
+
+Answer:
+
+## Is India's private investment cycle:
+
+### Accelerating
+
+### Stable
+
+### Weakening
+
+### Contracting
+
+Then explain the implications for this index.
+
+---
+
+# PART 9 — CORPORATE EARNINGS CYCLE
+
+This is one of the MOST IMPORTANT sections.
+
+Analyze the earnings cycle of the major sectors and companies inside this index.
+
+Look at:
+
+* Revenue growth
+* EBITDA growth
+* PAT growth
+* EPS growth
+* Margins
+* Operating cash flow
+* Free cash flow
+* Earnings expectations
+* Management guidance
+* Earnings revisions
+
+Determine whether earnings are:
+
+### Accelerating
+
+### Stable
+
+### Decelerating
+
+### Contracting
+
+Then answer:
+
+**Are earnings estimates being revised UP or DOWN?**
+
+This is more important than simply looking at historical earnings.
+
+---
+
+# PART 10 — FORWARD EARNINGS
+
+Analyze expectations for:
+
+**FY27**
+
+**FY28**
+
+and where meaningful:
+
+**FY29**
+
+Look at:
+
+* EPS growth
+* Earnings growth
+* Revenue growth
+* Margin expectations
+* Sector contribution
+
+Determine:
+
+**What expectations are already priced into the index?**
+
+Then answer:
+
+### What happens if earnings merely meet expectations?
+
+### What happens if earnings beat expectations?
+
+### What happens if earnings disappoint?
+
+---
+
+# PART 11 — EARNINGS REVISION + PRICE DIVERGENCE
+
+This is a critical section.
+
+Determine which of these situations currently applies:
+
+### Situation A
+
+**Index price falling + earnings estimates rising**
+
+Potentially constructive.
+
+### Situation B
+
+**Index price falling + earnings estimates stable**
+
+Potentially valuation/liquidity driven.
+
+### Situation C
+
+**Index price falling + earnings estimates falling**
+
+Potentially dangerous.
+
+### Situation D
+
+**Index price rising + earnings estimates falling**
+
+Potentially dangerous.
+
+Tell me which situation we are currently in.
+
+---
+
+# PART 12 — LIQUIDITY CYCLE
+
+Analyze:
+
+* RBI liquidity
+* Bank-system liquidity
+* FII flows
+* DII flows
+* Mutual-fund flows
+* SIP flows
+* Foreign portfolio flows
+* Domestic institutional flows
+* Global liquidity
+* US dollar
+* US Treasury yields
+
+Determine whether liquidity is:
+
+### Strong tailwind
+
+### Mild tailwind
+
+### Neutral
+
+### Mild headwind
+
+### Strong headwind
+
+Explain why.
+
+---
+
+# PART 13 — GLOBAL MARKET REGIME
+
+Analyze the global market environment.
+
+## United States
+
+Analyze:
+
+* GDP
+* Inflation
+* Fed policy
+* Interest rates
+* Treasury yields
+* Employment
+* Corporate earnings
+* Consumer spending
+* Recession risk
+
+## China
+
+Analyze:
+
+* Growth
+* Manufacturing
+* Property market
+* Stimulus
+* Commodity demand
+
+## Europe
+
+Analyze:
+
+* Growth
+* Inflation
+* ECB policy
+
+## Global
+
+Analyze relevant:
+
+* Oil
+* Metals
+* USD
+* Global trade
+* Geopolitics
+* Global equity valuations
+* Global recession risk
+
+Then explain:
+
+**Is the global environment a tailwind or headwind for THIS INDEX?**
+
+---
+
+# PART 14 — SECTOR CYCLE
+
+For each major sector in the index, determine its current cycle.
+
+Example:
+
+| Sector      | Current Cycle | Earnings Trend | Valuation | Economic Sensitivity | Outlook |
+| ----------- | ------------- | -------------- | --------- | -------------------- | ------- |
+| Banking     |               |                |           |                      |         |
+| IT          |               |                |           |                      |         |
+| Energy      |               |                |           |                      |         |
+| Consumer    |               |                |           |                      |         |
+| Pharma      |               |                |           |                      |         |
+| Industrials |               |                |           |                      |         |
+
+Adjust the sectors according to the actual index.
+
+Then determine:
+
+**Are the majority of important sectors improving or deteriorating?**
+
+---
+
+# PART 15 — VALUATION REGIME
+
+Analyze the index valuation.
+
+Look at:
+
+* Trailing P/E
+* Forward P/E
+* Price/book
+* Earnings yield
+* Historical valuation
+* 5-year range
+* 10-year range where meaningful
+* Sector-relative valuation
+* Global-relative valuation
+
+Determine whether the index is:
+
+### Deeply undervalued
+
+### Moderately undervalued
+
+### Fairly valued
+
+### Moderately expensive
+
+### Extremely expensive
+
+Then answer:
+
+**Is the current Monthly 21 EMA touch occurring at an attractive valuation?**
+
+Also determine:
+
+**Can the index fall substantially even if the economy and earnings remain healthy because valuation is contracting?**
+
+---
+
+# PART 16 — MARKET BREADTH
+
+Analyze:
+
+* Advance/decline ratio
+* Percentage of constituents above 50 DMA
+* Percentage above 200 DMA
+* New highs
+* New lows
+* Sector participation
+* Breadth thrusts
+* Breadth deterioration
+
+Determine whether:
+
+### Index strength/weakness is broad-based
+
+or
+
+### The index is being distorted by a small number of heavyweight constituents.
+
+---
+
+# PART 17 — MARKET VOLATILITY & RISK APPETITE
+
+Analyze:
+
+* India VIX
+* Put/call indicators where meaningful
+* Credit conditions
+* Global volatility
+* Risk-on/risk-off environment
+
+Do not use these as standalone buy/sell signals.
+
+Use them to determine:
+
+**Is the market currently experiencing panic, complacency, normal volatility, or a genuine regime change?**
+
+---
+
+# PART 18 — WHY HAS THE INDEX REACHED THE MONTHLY 21 EMA?
+
+This is extremely important.
+
+Investigate the current correction.
+
+Determine whether it is primarily caused by:
+
+* Profit booking
+* Valuation compression
+* FII selling
+* Global correction
+* Earnings disappointment
+* Sector rotation
+* Interest-rate expectations
+* Inflation
+* Economic slowdown
+* Geopolitical risk
+* Currency movement
+* Commodity shock
+* Structural earnings deterioration
+
+Rank the causes by importance.
+
+Do NOT merely summarize news.
+
+Explain the causal chain.
+
+---
+
+# PART 19 — MONTHLY 21 EMA TECHNICAL CONTEXT
+
+My technical trigger is:
+
+**Monthly 21 EMA touch.**
+
+Analyze the long-term structure around it.
+
+Look at:
+
+* Monthly trend
+* Weekly trend
+* Monthly 21 EMA
+* Monthly 50 EMA
+* Major long-term support
+* Previous Monthly 21 EMA reactions
+* Historical drawdowns
+* Volume
+* Market breadth
+* Relative strength
+* Major breakdowns
+* Long-term resistance
+
+Determine whether the current situation resembles:
+
+### A. Normal long-term pullback
+
+### B. Deep cyclical correction
+
+### C. Early bear-market phase
+
+### D. Structural long-term deterioration
+
+### E. Panic/crash environment
+
+Do not replace my strategy with another technical strategy.
+
+I only want technical analysis to determine the **context of the Monthly 21 EMA touch**.
+
+---
+
+# PART 20 — HISTORICAL MONTHLY 21 EMA ANALYSIS
+
+This is one of the most important parts.
+
+Study historical occasions when this index touched or approached the **Monthly 21 EMA**.
+
+Analyze both successful and unsuccessful cases.
+
+For each major historical example:
+
+* Date
+* Economic environment
+* Interest-rate environment
+* Earnings environment
+* Valuation
+* Market breadth
+* FII/DII environment
+* Distance from major highs
+* What happened afterward
+* Maximum drawdown
+* Recovery time
+
+Determine:
+
+**When the Monthly 21 EMA was touched, what percentage of the time did the index subsequently recover rather than enter a deeper decline?**
+
+If precise historical statistics cannot be reliably calculated, explicitly say so rather than inventing them.
+
+---
+
+# PART 21 — HISTORICAL DRAWNDOWN ANALYSIS
+
+Study historical drawdowns for this index.
+
+Analyze:
+
+### 10% drawdowns
+
+### 20% drawdowns
+
+### 30% drawdowns
+
+### 40% drawdowns
+
+For each, determine:
+
+* Frequency
+* Typical duration
+* Worst historical examples
+* Recovery time
+* Economic conditions
+
+This is particularly important because my strategy assumes:
+
+**Monthly 21 EMA → 10% fall → another tranche → another 10% fall → final tranche → maximum 40% decline.**
+
+I want to know whether this capital deployment structure is compatible with the historical risk profile of the index.
+
+---
+
+# PART 22 — MY POSITION-BUILDING STRATEGY: MATHEMATICAL ANALYSIS
+
+Assume:
+
+Initial entry = **P**
+
+Capital allocation:
+
+**P → X/3**
+
+**0.90P → X/3**
+
+**0.80P → X/3**
+
+Maximum exit:
+
+**0.60P**
+
+Calculate:
+
+1. Effective average entry price.
+2. Number of units purchased at each level assuming equal rupee investment.
+3. Total capital deployed.
+4. Portfolio loss after each stage.
+5. Loss at the 40% decline.
+6. Percentage recovery required from the exit price to reach break-even.
+7. Maximum capital at risk.
+8. Worst-case outcome.
+
+Explain the mathematics in simple language.
+
+---
+
+# PART 23 — IMPORTANT RISK QUESTION
+
+Answer this directly:
+
+## Does averaging down improve my expected outcome, or does it mainly increase my exposure to a prolonged bear market?
+
+Analyze this specifically for THIS INDEX.
+
+I want you to distinguish between:
+
+### Temporary market correction
+
+and
+
+### Multi-year structural bear market.
+
+Explain why my strategy behaves differently in each case.
+
+---
+
+# PART 24 — STRUCTURAL VS CYCLICAL RISK
+
+Determine whether the current risk is:
+
+### Cyclical
+
+Meaning the economy/earnings are temporarily weak but the underlying long-term structure remains healthy.
+
+OR
+
+### Structural
+
+Meaning something fundamental has changed and recovery may take years.
+
+Examples of structural problems:
+
+* Permanent regulatory changes
+* Structural earnings decline
+* Technological disruption
+* Major competitive changes
+* Demographic changes
+* Long-term loss of global competitiveness
+* Debt crisis
+* Banking-system problems
+* Commodity structural shock
+
+Determine which category applies to the current situation.
+
+---
+
+# PART 25 — BULL CASE
+
+Construct the strongest realistic bullish scenario.
+
+Explain:
+
+* Macro improvement
+* Earnings improvement
+* Liquidity improvement
+* Sector leadership
+* Valuation expansion
+* Potential catalysts
+* What could cause the index to recover strongly
+
+Give a probability.
+
+---
+
+# PART 26 — BASE CASE
+
+Construct the most probable scenario.
+
+Explain:
+
+* GDP
+* Earnings
+* Interest rates
+* Liquidity
+* Sector cycle
+* Valuation
+* Market breadth
+* Expected index behaviour
+
+Give a probability.
+
+---
+
+# PART 27 — BEAR CASE
+
+Construct the strongest realistic bearish scenario.
+
+Assume I start buying at the Monthly 21 EMA and the index continues falling.
+
+Explain:
+
+* What could cause the decline?
+* What macro indicators would deteriorate?
+* Which sectors would be hit?
+* What happens to earnings?
+* What happens to valuations?
+* What happens to liquidity?
+* How could a correction become a bear market?
+* Could the index realistically reach -20%, -30%, or -40%?
+
+Give a probability.
+
+---
+
+# PART 28 — THREE-SCENARIO MODEL
+
+Create:
+
+| Scenario | Probability | Macro | Earnings | Liquidity | Valuation | Expected Index Behaviour |
+| -------- | ----------: | ----- | -------- | --------- | --------- | ------------------------ |
+| Bull     |           % |       |          |           |           |                          |
+| Base     |           % |       |          |           |           |                          |
+| Bear     |           % |       |          |           |           |                          |
+
+Probabilities MUST total 100%.
+
+Do not artificially make them equal.
+
+Use your actual judgment.
+
+---
+
+# PART 29 — LEADING INDICATORS
+
+This is extremely important for my strategy.
+
+Give me the **10 most important leading indicators** for this index.
+
+For each:
+
+| Indicator | Current Condition | Direction | Why It Matters | Warning Signal |
+| --------- | ----------------- | --------- | -------------- | -------------- |
+
+I care particularly about indicators that deteriorate **before** index earnings collapse.
+
+Examples may include:
+
+* Earnings revisions
+* Credit growth
+* Capacity utilisation
+* PMI
+* Interest rates
+* Liquidity
+* Yield curve
+* Corporate CAPEX
+* Consumer demand
+* Market breadth
+* Commodity prices
+
+But determine the correct indicators for THIS index.
+
+---
+
+# PART 30 — TRADE INVALIDATION CONDITIONS
+
+Tell me exactly what would make you conclude:
+
+> "The original YES thesis is no longer valid."
+
+Give me **5–10 measurable conditions**.
+
+For example:
+
+* Earnings estimates fall by X%
+* Credit growth falls below X%
+* GDP growth falls below X%
+* Market breadth deteriorates to X
+* Liquidity turns materially negative
+* Sector earnings decline
+* Major regulatory event
+* Valuation remains excessive despite falling earnings
+
+Use specific numbers where statistically/economically meaningful.
+
+Do NOT invent precise thresholds merely to appear quantitative.
+
+---
+
+# PART 31 — WHAT WOULD MAKE THIS AN EXCELLENT BUY?
+
+Identify the developments that would increase the probability that this Monthly 21 EMA touch becomes a successful accumulation point.
+
+Rank them:
+
+1.
+2.
+3.
+4.
+5.
+
+---
+
+# PART 32 — FINAL SCORECARD
+
+Score the current setup from 0–10:
+
+| Factor                              | Score |
+| ----------------------------------- | ----: |
+| Indian economic cycle               |   /10 |
+| Global economic cycle               |   /10 |
+| Earnings cycle                      |   /10 |
+| Earnings revisions                  |   /10 |
+| Liquidity                           |   /10 |
+| Interest-rate environment           |   /10 |
+| Sector cycle                        |   /10 |
+| Market breadth                      |   /10 |
+| Valuation                           |   /10 |
+| Long-term technical structure       |   /10 |
+| Historical Monthly 21 EMA behaviour |   /10 |
+| Risk/reward                         |   /10 |
+| Probability of recovery             |   /10 |
+
+Then provide an overall assessment.
+
+IMPORTANT:
+
+**Do NOT mechanically convert the score into YES/NO.**
+
+The final decision must come from your overall analytical judgment.
+
+---
+
+# PART 33 — THE CRITICAL QUESTION
+
+Before the final verdict, answer this question explicitly:
+
+# "Is this a long-term buying opportunity created by a temporary correction?"
+
+OR
+
+# "Is the Monthly 21 EMA touch occurring because the underlying market/economic/earnings regime is deteriorating?"
+
+Explain the evidence.
+
+This is the CORE question of my strategy.
+
+---
+
+# PART 34 — FINAL DECISION
+
+At the very beginning AND at the end, clearly state one:
+
+# YES — START BUILDING THE POSITION
+
+OR
+
+# NO — DO NOT START THE POSITION
+
+Then give me:
+
+## 1. The 5 strongest reasons for your decision
+
+Keep them specific.
+
+## 2. Biggest risk
+
+What is the single biggest risk to starting the position now?
+
+## 3. What would invalidate the thesis?
+
+List the most important measurable warning signs.
+
+## 4. What should I monitor after entering?
+
+Give me the **5 most important indicators**, ranked 1–5.
+
+## 5. What would make you more bullish?
+
+Give me the specific developments that would increase your confidence.
+
+---
+
+# RESEARCH REQUIREMENTS
+
+Follow these rules strictly.
+
+## 1. USE THE LATEST AVAILABLE INFORMATION
+
+Research information available as of:
+
+**[DATE]**
+
+Use the newest data available.
+
+For fast-changing variables, prioritize the most recent releases.
+
+---
+
+## 2. PRIMARY SOURCES FIRST
+
+Prioritize:
+
+* RBI
+* SEBI
+* NSE
+* BSE
+* MoSPI
+* NSO
+* Ministry of Finance
+* Government of India
+* Department of Economic Affairs
+* Controller General of Accounts
+* Official sector regulators
+* Official index methodology documents
+* Official company filings
+* Annual reports
+* Investor presentations
+* Earnings calls
+
+Use high-quality financial/news sources for supplementary information.
+
+---
+
+## 3. DO REAL RESEARCH
+
+Do not answer from general knowledge.
+
+Search for the latest data and current conditions.
+
+Cross-check important information.
+
+---
+
+## 4. DEFINE EVERY IMPORTANT FINANCIAL TERM
+
+Assume I am not from a finance/economics background.
+
+Whenever you use terms such as:
+
+* Earnings yield
+* P/E
+* Liquidity
+* Yield curve
+* Credit growth
+* Capacity utilisation
+* Fiscal deficit
+* Monetary policy
+* Earnings revision
+* Risk premium
+* Market breadth
+* Valuation compression
+* Multiple expansion
+* Cyclical
+* Structural
+
+first explain:
+
+**What it means → simple example → why it matters → how it affects THIS index.**
+
+---
+
+## 5. FACT VS INTERPRETATION
+
+Clearly distinguish:
+
+### FACT
+
+What the actual data says.
+
+### INTERPRETATION
+
+What you think the data means.
+
+---
+
+## 6. DO NOT CONFUSE ECONOMIC GROWTH WITH STOCK RETURNS
+
+Strong GDP does NOT automatically mean the index will rise.
+
+Explain the relationship between:
+
+**Economic growth**
+
+→ corporate revenue
+
+→ corporate profit
+
+→ EPS
+
+→ valuation
+
+→ liquidity
+
+→ index price.
+
+---
+
+## 7. DO NOT CONFUSE A FALLING PRICE WITH A BUYING OPPORTUNITY
+
+A stock/index being down 20% does NOT automatically mean it is cheap.
+
+Determine:
+
+**Why is it falling?**
+
+and
+
+**What is the probability of recovery?**
+
+---
+
+## 8. DO NOT ASSUME THAT INDEXES CANNOT FALL 40%
+
+Indexes can experience severe drawdowns.
+
+Do not dismiss the 40% risk simply because this is a diversified index.
+
+---
+
+## 9. DO NOT CHERRY-PICK HISTORY
+
+When analyzing historical Monthly 21 EMA touches, include both:
+
+### Successful accumulation periods
+
+and
+
+### Failed accumulation periods.
+
+---
+
+## 10. FORWARD-LOOKING ANALYSIS
+
+The market is forward-looking.
+
+Therefore, focus heavily on:
+
+**The next 4–12 quarters**
+
+and, because this is a Monthly 21 EMA strategy, also consider the **next 1–3 years** where structural-cycle analysis is relevant.
+
+---
+
+## 11. DO NOT USE TECHNICAL ANALYSIS AS THE ENTIRE THESIS
+
+The Monthly 21 EMA is my trigger.
+
+The decision must be based primarily on:
+
+**Macro + earnings + liquidity + valuation + sector cycle + market breadth + historical regime.**
+
+---
+
+# FINAL PRINCIPLE
+
+I am NOT asking:
+
+> "Is the Monthly 21 EMA a good technical buying level?"
+
+I am asking:
+
+> **"The index has touched its Monthly 21 EMA today. Given the current economic cycle, earnings cycle, liquidity, valuation, sector conditions and historical behaviour, is the probability-weighted expected return attractive enough to deploy the first X/3 of my capital TODAY?"**
+
+The answer must be:
+
+# YES
+
+or
+
+# NO
+
+No diplomacy.
+
+No "it depends."
+
+No generic answer.
+
+No automatic buy because the index touched the EMA.
+
+Give me your **best professional judgment based on the evidence available today.**
+</template>
+
+  <script>
+    const tabs = document.querySelectorAll('[role="tab"]');
+    const panels = document.querySelectorAll('[role="tabpanel"]');
+
+    tabs.forEach((tab) => tab.addEventListener('click', () => {
+      tabs.forEach((button) => button.setAttribute('aria-selected', button === tab));
+      panels.forEach((panel) => { panel.hidden = panel.id !== tab.getAttribute('aria-controls'); });
+    }));
+
+    function completePrompt(templateId, replacements) {
+      return replacements.reduce((prompt, [placeholder, value]) => prompt.split(placeholder).join(value), document.querySelector(templateId).content.textContent);
+    }
+
+    function setUpPromptForm({ formId, templateId, outputId, copyButtonId, statusId, replacements }) {
+      const form = document.querySelector(formId);
+      const output = document.querySelector(outputId);
+      const copyButton = document.querySelector(copyButtonId);
+      const status = document.querySelector(statusId);
+      let isGenerated = false;
+
+      form.addEventListener('input', () => {
+        if (!isGenerated) return;
+        isGenerated = false;
+        output.value = '';
+        copyButton.disabled = true;
+        status.textContent = 'Details changed — generate the prompt again before copying.';
+      });
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (!form.reportValidity()) return;
+        const values = new FormData(form);
+        output.value = completePrompt(templateId, replacements(values));
+        isGenerated = true;
+        copyButton.disabled = false;
+        status.textContent = 'Prompt generated — ready to copy.';
+        output.focus();
+        output.setSelectionRange(0, 0);
+      });
+
+      copyButton.addEventListener('click', async () => {
+        if (!isGenerated || !output.value.trim()) {
+          copyButton.disabled = true;
+          status.textContent = 'Generate the prompt before copying.';
+          return;
+        }
+        try {
+          await navigator.clipboard.writeText(output.value);
+          status.textContent = 'Copied to your clipboard.';
+        } catch {
+          output.focus();
+          output.select();
+          document.execCommand('copy');
+          status.textContent = 'Prompt selected and copied.';
+        }
+      });
+    }
+
+    setUpPromptForm({
+      formId: '#equity-form', templateId: '#prompt-template', outputId: '#equity-output', copyButtonId: '#equity-copy-button', statusId: '#equity-status',
+      replacements: (values) => [
+        ['[COMPANY NAME]', values.get('company').trim()], ['[TICKER]', values.get('ticker').trim()], ['[PRICE]', values.get('price').trim()],
+        ['[EMA VALUE]', values.get('ema').trim()], ['[DATE]', values.get('date').trim()]
+      ]
+    });
+
+    setUpPromptForm({
+      formId: '#index-form', templateId: '#index-prompt-template', outputId: '#index-output', copyButtonId: '#index-copy-button', statusId: '#index-status',
+      replacements: (values) => [
+        ['[NIFTY 50 / BANK NIFTY / NIFTY HEALTHCARE / NIFTY IT / NIFTY AUTO / NIFTY PHARMA / NIFTY FINANCIAL SERVICES / etc.]', values.get('index').trim()],
+        ['[SYMBOL]', values.get('symbol').trim()], ['[VALUE]', values.get('currentLevel').trim()], ['[VALUE]', values.get('ema').trim()], ['[DATE]', values.get('date').trim()]
+      ]
+    });
+
+    setUpPromptForm({
+      formId: '#monthly-index-form', templateId: '#monthly-index-prompt-template', outputId: '#monthly-index-output', copyButtonId: '#monthly-index-copy-button', statusId: '#monthly-index-status',
+      replacements: (values) => [
+        ['[NIFTY 50 / BANK NIFTY / NIFTY HEALTHCARE / NIFTY IT / NIFTY AUTO / NIFTY PHARMA / NIFTY FINANCIAL SERVICES / etc.]', values.get('index').trim()],
+        ['[SYMBOL]', values.get('symbol').trim()], ['[VALUE]', values.get('currentLevel').trim()], ['[VALUE]', values.get('ema').trim()], ['[DATE]', values.get('date').trim()]
+      ]
+    });
+  </script>
+</body>
+</html>
